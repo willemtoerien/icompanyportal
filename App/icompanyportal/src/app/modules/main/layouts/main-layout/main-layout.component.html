@@ -1,0 +1,67 @@
+<ng-template #brandTemplate>
+  <a class="brand" routerLink="/">iCompanyPortal.com</a>
+</ng-template>
+<ng-template #sidebarContentTemplate>
+  <app-sidebar>
+    <span class="header">Home</span>
+    <a routerLink="/notifications" class="sub-item" routerLinkActive="active">Notifications</a>
+    <hr>
+    <div class="header d-flex justify-content-between">
+      <span>Companies</span>
+      <a routerLink="/companies">All Companies</a>
+    </div>
+    <a *ngFor="let company of companies" class="sub-item" [routerLink]="['/companies', company.companyId]"
+      routerLinkActive="active">{{ company.name }}</a>
+    <div class="text-center">
+      <span *ngIf="!isLoading && companies.length === 0" class="small">You do not belong to any companies</span>
+      <div *ngIf="isLoading" class="text-center">
+        <div *appTimeout="500" class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <a routerLink="/companies/create" class="btn btn-success text-center mt-3">Create Company</a>
+    </div>
+  </app-sidebar>
+</ng-template>
+
+<app-navbar [brandTemplate]="brandTemplate" [sidebarContentTemplate]="sidebarContentTemplate">
+  <nav class="nav">
+    <div class="nav-item nav-link dropdown pr-0">
+      <a class="dropdown-toggle dropdown-menu-right text-white p-0" href="#" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <img [src]="src" class="avatar-32 mt-n1 d-inline rounded-circle" />
+        <span class="pl-2 mr-2 d-none d-md-inline">{{ userName }}</span>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right p-0">
+        <div style="min-width: 270px">
+          <div class="media m-3">
+            <img [src]="src" [alt]="userName" class="avatar-64 mr-3 rounded-circle" />
+            <div class="media-body">
+              <h6 class="mt-0 text-break">{{ userName }}</h6>
+              <p class="text-muted text-break small">
+                {{ usersStore.signedInUser.value.email }}
+              </p>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a class="card-btn-link" routerLink="/account">Account</a>
+            <button class="card-btn-link" (click)="signOut()">Sign Out</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</app-navbar>
+
+<div class="main-content">
+  <div class="d-flex flex-row">
+    <div class="sidebar-static">
+      <ng-container *ngTemplateOutlet="sidebarContentTemplate"></ng-container>
+    </div>
+    <div class="w-100 outlet">
+      <div class="container py-3">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

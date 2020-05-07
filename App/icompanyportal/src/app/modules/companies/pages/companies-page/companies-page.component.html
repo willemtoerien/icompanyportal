@@ -1,0 +1,14 @@
+<app-collection appTitle="Companies" [context]="context" [itemTemplate]="itemTemplate" (loadMore)="loadItems()">
+  <ng-template #itemTemplate let-item="item">
+    <div class="card">
+      <div class="card-body">
+        <app-card-menu>
+          <a class="dropdown-item" [routerLink]="[item.companyId, 'settings', 'edit']">Edit</a>
+          <a class="dropdown-item" [routerLink]="[item.companyId, 'settings']">Settings</a>
+        </app-card-menu>
+        <h4 class="card-title"><a [routerLink]="[item.companyId]">{{ item.name }}</a></h4>
+        <p class="card-subtitle">@{{ item.uniqueName }}</p>
+      </div>
+    </div>
+  </ng-template>
+</app-collection>

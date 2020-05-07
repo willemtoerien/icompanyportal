@@ -1,0 +1,101 @@
+.project-navbar {
+  padding: $navbar-padding-y $navbar-padding-x;
+
+ .brand {
+   display: inline-block;
+   padding-top: $navbar-brand-padding-y;
+   padding-bottom: $navbar-brand-padding-y;
+   line-height: inherit;
+   white-space: nowrap;
+
+   @include hover-focus() {
+     text-decoration: none;
+   }
+ }
+
+ .navbar-text {
+   display: inline-block;
+   padding-top: $nav-link-padding-y;
+   padding-bottom: $nav-link-padding-y;
+ }
+}
+
+.project-navbar-light {
+ .brand {
+   color: $navbar-light-brand-color;
+
+   @include hover-focus() {
+     color: $navbar-light-brand-hover-color;
+   }
+ }
+
+ .nav-link {
+   color: $navbar-light-color;
+
+   @include hover-focus() {
+     color: $navbar-light-hover-color;
+   }
+
+   &.disabled {
+     color: $navbar-light-disabled-color;
+   }
+ }
+
+ .show > .nav-link,
+ .active > .nav-link,
+ .nav-link.show,
+ .nav-link.active {
+   color: $navbar-light-active-color;
+ }
+
+ .navbar-text {
+   color: $navbar-light-color;
+   a {
+     color: $navbar-light-active-color;
+
+     @include hover-focus() {
+       color: $navbar-light-active-color;
+     }
+   }
+ }
+}
+
+.project-navbar-dark {
+ .brand {
+   color: $navbar-dark-brand-color;
+
+   @include hover-focus() {
+     color: $navbar-dark-brand-hover-color;
+   }
+ }
+
+ .nav-link {
+   color: $navbar-dark-color;
+
+   @include hover-focus() {
+     color: $navbar-dark-hover-color;
+   }
+
+   &.disabled {
+     color: $navbar-dark-disabled-color;
+   }
+ }
+
+ .show > .nav-link,
+ .active > .nav-link,
+ .nav-link.show,
+ .nav-link.active {
+   color: $navbar-dark-active-color;
+ }
+
+ .navbar-text {
+   color: $navbar-dark-color;
+   a {
+     color: $navbar-dark-active-color;
+
+     @include hover-focus() {
+       color: $navbar-dark-active-color;
+     }
+   }
+ }
+}

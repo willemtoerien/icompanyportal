@@ -1,0 +1,17 @@
+<app-collection appTitle="Company Users" [context]="context" [itemTemplate]="itemTemplate" (loadMore)="loadItems()">
+  <ng-template #itemTemplate let-item="item">
+    <div class="card">
+      <div *ngIf="users[item.userId]" class="card-body">
+        <app-card-menu>
+          <button class="dropdown-item text-danger"
+            [appModalToggler]="'remove-company-user-' + item.userId">Remove</button>
+        </app-card-menu>
+        <h4 class="card-title">{{ users[item.userId].firstName }} {{ users[item.userId].lastName }}</h4>
+      </div>
+    </div>
+    <app-modal modalTitle="Remove?" [identity]="'remove-company-user-' + item.userId" colorContext="danger"
+      submitText="Remove" (answered)="onRemove(item)">
+      Are you sure you want to remove {{ users[item.userId].firstName }} {{ users[item.userId].lastName }}?
+    </app-modal>
+  </ng-template>
+</app-collection>

@@ -1,0 +1,24 @@
+@import "../../../../../styles/variables";
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+.main-content {
+  padding-top: 60px;
+
+  .outlet {
+    margin-left: unset;
+
+    @include media-breakpoint-up(xl) {
+      margin-left: $sidebar-width;
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .container {
+    width: 100%;
+    max-width: none;
+  }
+}
+ 

@@ -1,0 +1,13 @@
+<p appTitle="Sign Up" class="card-text text-center">Please sign up using your email address</p>
+<app-form [formGroup]="form" (submitted)="onSubmit()">
+  <app-text-box name="firstName" label="First Name" [labelAsPlaceholder]="true"></app-text-box>
+  <app-text-box name="lastName" label="Last Name" [labelAsPlaceholder]="true"></app-text-box>
+  <app-text-box name="email" type="email" label="Email" [labelAsPlaceholder]="true"></app-text-box>
+  <app-text-box name="password" type="password" label="Password" [labelAsPlaceholder]="true"></app-text-box>
+  <app-submit-button [isBlock]="true">Sign Up</app-submit-button>
+</app-form>
+<div class="mt-3">
+  <p class="card-text" routerLink="../reset-password">By signing up with us, you also agree with our <a href="#">terms
+      of
+      service</a> and our <a href="#">privacy policy</a>?</p>
+</div>

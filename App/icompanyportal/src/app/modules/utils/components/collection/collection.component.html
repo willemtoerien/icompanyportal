@@ -1,0 +1,26 @@
+<div *ngIf="context">
+  <div *ngIf="!context.isLoading && context.items && context.items.length === 0 && !context.error"
+    class="text-center mt-5">
+    <h4 class="text-info">No {{ context.title }}</h4>
+    <p>There were no {{ context.title.toLowerCase() }} found.</p>
+  </div>
+  <div *ngIf="context.error" class="text-center mt-5">
+    <h4 class="text-danger">Server Error</h4>
+    <p>{{ context.error.message }}</p>
+  </div>
+  <div *ngIf="context.items && context.items.length > 0">
+    <div *ngFor="let item of context.items" class="mb-3">
+      <ng-container *ngTemplateOutlet="itemTemplate; context: { item: item }"></ng-container>
+    </div>
+  </div>
+  <div *ngIf="context.items && context.items.length > 0 && context.hasMore && !context.isLoading && !context.error">
+    <button class="btn btn-outline-primary" (click)="loadMore.emit()">Load more</button>
+  </div>
+  <div>
+    <div *ngIf="context.isLoading" class="text-center">
+      <div *appTimeout="500" class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </div>
+</div>

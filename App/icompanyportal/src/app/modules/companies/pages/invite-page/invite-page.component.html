@@ -1,0 +1,15 @@
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Invite</h4>
+    <div class="card-subtitle">Enter the email of the person you want to invite.</div>
+    <hr>
+    <app-form [formGroup]="form" (submitted)="onSubmit()">
+      <app-text-box name="email" label="Email" type="email"></app-text-box>
+      <hr>
+      <app-submit-button>Send Invite</app-submit-button>
+    </app-form>
+    <div id="sent" *ngIf="isSent" class="alert alert-success mt-3">
+      <h4 class="alert-heading">Invitation Sent</h4>
+    </div>
+  </div>
+</div>

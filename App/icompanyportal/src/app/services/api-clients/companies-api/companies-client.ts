@@ -1,0 +1,47 @@
+import { Injectable, Inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Company } from './company';
+import { SaveCompanyRequest } from './save-company-request';
+import { COMPANIES_API_ENDPOINT } from './companies-api-endpoint';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class CompaniesClient {
+  constructor(
+    private http: HttpClient,
+    @Inject(COMPANIES_API_ENDPOINT) private endpoint: string
+  ) {}
+
+  isUniqueNameUnique(uniqueName: string) {
+    return this.http.get<boolean>(`${this.endpoint}/${uniqueName}/is-unique`);
+  }
+
+  getCompanies(pageSize: number, page: number, search = '') {
+    return this.http.get<Company[]>(
+      `${this.endpoint}/${pageSize}/${page}?search=${encodeURIComponent(
+        search
+      )}`
+    );
+  }
+
+  getFavorites() {
+    return this.http.get<Company[]>(`${this.endpoint}/favorites`);
+  }
+
+  get(companyId: number) {
+    return this.http.get<Company>(`${this.endpoint}/${companyId}`);
+  }
+
+  create(request: SaveCompanyRequest) {
+    return this.http.post<number>(this.endpoint, request);
+  }
+
+  save(companyId: number, request: SaveCompanyRequest) {
+    return this.http.put<void>(`${this.endpoint}/${companyId}`, request);
+  }
+
+  delete(companyId: number) {
+    return this.http.delete<void>(`${this.endpoint}/${companyId}`);
+  }
+}

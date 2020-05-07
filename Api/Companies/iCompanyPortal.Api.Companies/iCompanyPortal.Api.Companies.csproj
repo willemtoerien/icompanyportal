@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>7d2ec0ac-3d2d-407a-8508-f44dcb2b2eae</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Emailing\iCompanyPortal.Api.Emailing.Client\iCompanyPortal.Api.Emailing.Client.csproj" />
+    <ProjectReference Include="..\..\Shared\iCompanyPortal.Api.Shared\iCompanyPortal.Api.Shared.csproj" />
+    <ProjectReference Include="..\..\Users\iCompanyPortal.Api.Users.Client\iCompanyPortal.Api.Users.Client.csproj" />
+    <ProjectReference Include="..\..\Users\iCompanyPortal.Api.Users.Shared\iCompanyPortal.Api.Users.Shared.csproj" />
+    <ProjectReference Include="..\iCompanyPortal.Api.Companies.Client\iCompanyPortal.Api.Companies.Client.csproj" />
+  </ItemGroup>
+
+
+</Project>

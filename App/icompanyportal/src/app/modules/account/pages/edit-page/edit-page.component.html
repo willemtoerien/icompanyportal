@@ -1,0 +1,30 @@
+<div appTitle="Edit Account" class="card">
+  <div class="card-body">
+    <h4 class="card-title">Edit Account</h4>
+    <p class="card-subtitle">Enter your account details.</p>
+    <hr>
+    <app-form [formGroup]="form" (submitted)="onSubmit()">
+      <app-text-box name="email" type="email" label="Email">
+        <p id="unconfirmed" *ngIf="authStore.signedInUser.value.status === 0" class="card-text">Your email has not yet
+          been confirmed.
+          Please
+          click <a href="#" (click)="onResend($event)">here</a>
+          to resend an email confirmation.</p>
+        <p id="confirmed" *ngIf="authStore.signedInUser.value.status !== 0" class="card-text">Your email was confirmed.
+        </p>
+      </app-text-box>
+      <hr />
+      <app-text-box name="firstName" label="First Name"></app-text-box>
+      <app-text-box name="lastName" label="Last Name"></app-text-box>
+      <hr />
+      <app-text-box name="password" type="password" label="Password"></app-text-box>
+      <app-text-box name="confirmPassword" type="password" label="Confirm"></app-text-box>
+      <hr />
+      <app-submit-button>Save</app-submit-button>
+    </app-form>
+    <div id="saved" *ngIf="isSaved" class="alert alert-success mt-3">
+      <h4 class="alert-heading">Saved</h4>
+      <span>Your changes was saved.</span>
+    </div>
+  </div>
+</div>

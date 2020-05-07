@@ -1,0 +1,35 @@
+<div class="project-navbar bg-primary shadow-lg fixed-top"
+  [ngClass]="isLight ? 'project-navbar-light' : 'project-navbar-dark'">
+  <div class="d-flex">
+    <div class="mr-auto align-self-center">
+      <button class="btn btn-outline-light border-0 mr-2 d-inline-block d-xl-none" data-toggle="modal"
+        data-target="#sidebar-modal"><span class="mdi mdi-menu"></span></button>
+      <a class="brand" routerLink="/">
+        <ng-container *ngTemplateOutlet="brandTemplate"></ng-container>
+      </a>
+    </div>
+    <ng-content></ng-content>
+  </div>
+</div>
+<div class="sidebar-modal">
+  <div id="sidebar-modal" class="modal fade left" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="project-navbar bg-primary shadow-lg"
+          [ngClass]="isLight ? 'project-navbar-light' : 'project-navbar-dark'" style="height: 65px; z-index: 10">
+          <div class="d-flex">
+            <div class="mr-auto align-self-center">
+              <button class="btn btn-light border-0 mr-2" data-dismiss="modal" aria-label="Close"><span
+                  class="mdi mdi-menu"></span></button>
+              <a class="brand" routerLink="/">
+                <ng-container *ngTemplateOutlet="brandTemplate"></ng-container>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex flex-column" style="height: 100%">
+          <ng-container *ngTemplateOutlet="sidebarContentTemplate"></ng-container>
+        </div>
+      </div>
+    </div>
+  </div>

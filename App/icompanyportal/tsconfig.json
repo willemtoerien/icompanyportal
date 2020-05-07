@@ -1,0 +1,30 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "lib": ["es2018", "dom"],
+    "paths": {
+      "users-api": ["src/app/services/api-clients/users-api"],
+      "notifications-api": ["src/app/services/api-clients/notifications-api"],
+      "companies-api": ["src/app/services/api-clients/companies-api"],
+      "utils": ["src/app/modules/utils"],
+      "auth-utils": ["src/app/modules/auth-utils"],
+      "company-utils": ["src/app/modules/company-utils"],
+      "notification-ex": ["src/app/modules/notification-ex"],
+      "forms-ex": ["src/app/modules/forms-ex"]
+    }
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  }
+}

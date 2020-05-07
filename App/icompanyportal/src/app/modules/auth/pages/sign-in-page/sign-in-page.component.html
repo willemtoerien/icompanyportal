@@ -1,0 +1,9 @@
+<p appTitle="Sign In" class="card-text text-center">Please sign in using your email address</p>
+<app-form [formGroup]="form" (submitted)="onSubmit()">
+  <app-text-box name="email" type="email" label="Email" [labelAsPlaceholder]="true"></app-text-box>
+  <app-text-box name="password" type="password" label="Password" [labelAsPlaceholder]="true"></app-text-box>
+  <app-submit-button [isBlock]="true">Sign In</app-submit-button>
+</app-form>
+<div class="mt-3">
+  <a class="card-text" routerLink="../reset-password">Did you forget your password?</a>
+</div>
