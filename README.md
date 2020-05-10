@@ -2,12 +2,12 @@
 
 ## Contents
 
-1. [Introduction](#Introduction)
-1. [Requirements](#Requirements)
-1. [Prepare](#Prepare)
-1. [Build](#Build)
-   1. [API](#API)
-   1. [App](#App)
+1. Introduction
+1. Requirements
+1. Prepare
+1. Build
+   1. API
+   1. App
 
 ## 1. Introduction
 
