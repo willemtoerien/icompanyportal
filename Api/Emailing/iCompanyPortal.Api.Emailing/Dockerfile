@@ -8,6 +8,9 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["Api/Emailing/iCompanyPortal.Api.Emailing/iCompanyPortal.Api.Emailing.csproj", "Api/Emailing/iCompanyPortal.Api.Emailing/"]
+COPY ["Api/Shared/iCompanyPortal.Api.Shared/iCompanyPortal.Api.Shared.csproj", "Api/Shared/iCompanyPortal.Api.Shared/"]
+COPY ["Api/Emailing/iCompanyPortal.Api.Emailing.Client/iCompanyPortal.Api.Emailing.Client.csproj", "Api/Emailing/iCompanyPortal.Api.Emailing.Client/"]
+COPY ["Api/Shared/iCompanyPortal.Api.HttpHelpers/iCompanyPortal.Api.HttpHelpers.csproj", "Api/Shared/iCompanyPortal.Api.HttpHelpers/"]
 RUN dotnet restore "Api/Emailing/iCompanyPortal.Api.Emailing/iCompanyPortal.Api.Emailing.csproj"
 COPY . .
 WORKDIR "/src/Api/Emailing/iCompanyPortal.Api.Emailing"

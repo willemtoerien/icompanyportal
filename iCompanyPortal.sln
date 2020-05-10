@@ -47,7 +47,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iCompanyPortal.Api.Companie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iCompanyPortal.Api.Companies.Client", "Api\Companies\iCompanyPortal.Api.Companies.Client\iCompanyPortal.Api.Companies.Client.csproj", "{C792B4B1-20C0-430B-B6A7-599CCD6789F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iCompanyPortal.Api.Companies.UnitTests", "Api\Companies\iCompanyPortal.Api.Companies.UnitTests\iCompanyPortal.Api.Companies.UnitTests.csproj", "{4C796C26-206A-4487-B9B8-6F0CE1FFCABC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iCompanyPortal.Api.Companies.UnitTests", "Api\Companies\iCompanyPortal.Api.Companies.UnitTests\iCompanyPortal.Api.Companies.UnitTests.csproj", "{4C796C26-206A-4487-B9B8-6F0CE1FFCABC}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{EA69CA25-5B55-458E-8EC3-FCD9AAB3E896}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -119,6 +121,10 @@ Global
 		{4C796C26-206A-4487-B9B8-6F0CE1FFCABC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C796C26-206A-4487-B9B8-6F0CE1FFCABC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C796C26-206A-4487-B9B8-6F0CE1FFCABC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA69CA25-5B55-458E-8EC3-FCD9AAB3E896}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA69CA25-5B55-458E-8EC3-FCD9AAB3E896}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA69CA25-5B55-458E-8EC3-FCD9AAB3E896}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA69CA25-5B55-458E-8EC3-FCD9AAB3E896}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
