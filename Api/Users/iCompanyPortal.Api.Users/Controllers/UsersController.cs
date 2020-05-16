@@ -2,6 +2,7 @@
 using iCompanyPortal.Api.Shared.Filters;
 using iCompanyPortal.Api.Users.Client;
 using iCompanyPortal.Api.Users.Data;
+using iCompanyPortal.Api.Users.Services;
 using iCompanyPortal.Api.Users.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,12 +27,14 @@ namespace iCompanyPortal.Api.Users.Controllers
         private readonly IAuthenticator authenticator;
         private readonly UsersDbContext db;
         private readonly IEmailingClient emailingClient;
+        private readonly PasswordHasher passwordHasher;
 
-        public UsersController(IAuthenticator authenticator, UsersDbContext db, IEmailingClient emailingClient)
+        public UsersController(IAuthenticator authenticator, UsersDbContext db, IEmailingClient emailingClient, PasswordHasher passwordHasher)
         {
             this.authenticator = authenticator;
             this.db = db;
             this.emailingClient = emailingClient;
+            this.passwordHasher = passwordHasher;
         }
 
         [HttpGet("{userId}/exists")]
@@ -164,7 +167,7 @@ namespace iCompanyPortal.Api.Users.Controllers
             }
             db.Attach(user);
 
-            if (!string.Equals(user.Password, request.Password))
+            if (!passwordHasher.Verify(user.Password, request.Password))
             {
                 return this.BadRequest(nameof(SignInRequest.Password), IncorrectPassword);
             }
@@ -205,7 +208,7 @@ namespace iCompanyPortal.Api.Users.Controllers
 
             if (!string.IsNullOrWhiteSpace(request.Password) && !string.Equals(user.Password, request.Password))
             {
-                user.Password = request.Password;
+                user.Password = passwordHasher.Hash(request.Password);
             }
 
             user.FirstName = request.FirstName;
@@ -295,7 +298,7 @@ namespace iCompanyPortal.Api.Users.Controllers
                 Email = request.Email,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
-                Password = request.Password,
+                Password = passwordHasher.Hash(request.Password),
                 Status = UserStatus.PendingEmailConfirmation
             };
             db.Add(user);

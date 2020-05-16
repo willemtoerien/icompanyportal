@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using iCompanyPortal.Api.Shared.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace Microsoft.AspNetCore.Builder
 {
@@ -38,7 +42,8 @@ namespace Microsoft.AspNetCore.Builder
 
         public static IApplicationBuilder UseProjectCors(this IApplicationBuilder app)
         {
-            return app.UseCors();
+            app.UseCors();
+            return app;
         }
     }
 }

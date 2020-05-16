@@ -7,6 +7,7 @@ using iCompanyPortal.Api.Emailing.Client;
 using iCompanyPortal.Api.HttpHelpers;
 using iCompanyPortal.Api.Shared.Data;
 using iCompanyPortal.Api.Users.Data;
+using iCompanyPortal.Api.Users.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,6 +37,8 @@ namespace iCompanyPortal.Api.Users
                 .AddProjectDbContext<UsersDbContext>(Configuration)
                 .AddUsers(Configuration)
                 .AddEmailingClient(Configuration)
+                .AddTransient<PasswordHasher>()
+                .Configure<UsersSettings>(Configuration.GetSection("Users"))
                 .AddControllers();
         }
 

@@ -30,15 +30,16 @@ namespace iCompanyPortal.Api.Notifications.Controllers
             this.usersClient = usersClient;
         }
 
-        [HttpGet("{pageSize}/{page}")]
-        public async Task<IActionResult> Get(int pageSize, int page, [FromQuery] string search = "")
+
+        [HttpGet("is-alive")]
+        public bool IsAlive() => true;
+
+        [HttpGet]
+        public async Task<IActionResult> GetNotifications()
         {
             var userId = this.GetUserId();
             var notifications = await db.Notifications
-                .Where(x => x.UserId == userId && (x.Subject.Contains(search) || x.Message.Contains(search)))
                 .OrderByDescending(x => x.CreatedAt)
-                .Skip(pageSize * page)
-                .Take(pageSize)
                 .ToArrayAsync();
             return Ok(notifications);
         }

@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Microsoft.Extensions.DependencyInjection;
+using iCompanyPortal.Api.Users.Services;
 
 namespace iCompanyPortal.Api.Users.UnitTests.Controllers
 {
@@ -40,7 +42,8 @@ namespace iCompanyPortal.Api.Users.UnitTests.Controllers
         {
             AddDbContext();
             var db = Db;
-            db.Add(new User { UserId = 1, Email = "Email", Password = "Password", DeleteAt = DateTime.Now, Status = UserStatus.PendingDeletion });
+            var hasher = Provider.GetService<PasswordHasher>();
+            db.Add(new User { UserId = 1, Email = "Email", Password = hasher.Hash("Password"), DeleteAt = DateTime.Now, Status = UserStatus.PendingDeletion });
             db.Add(new ConfirmationToken { UserId = 1, Type = ConfirmationTokenType.Email });
             db.SaveChanges();
             var controller = GetController();

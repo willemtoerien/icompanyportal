@@ -11,9 +11,11 @@ import { USERS_API_ENDPOINT } from 'users-api';
 import { COMPANIES_API_ENDPOINT } from 'companies-api';
 import { APP_TITLE } from './modules/utils/services';
 import { COMPANY_NOT_FOUND_ROUTE } from './modules/company-utils/services/company-not-found-route';
+import { InitialLoadingComponent } from './components/initial-loading/initial-loading.component';
+import { PageLoadingIndicatorComponent } from './components/page-loading-indicator/page-loading-indicator.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, InitialLoadingComponent, PageLoadingIndicatorComponent],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule],
   providers: [
     {

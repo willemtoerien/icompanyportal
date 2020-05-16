@@ -27,6 +27,11 @@ namespace iCompanyPortal.Api.Companies.Controllers
             this.usersClient = usersClient;
         }
 
+
+        [HttpGet("is-alive")]
+        public bool IsAlive() => true;
+
+
         [HttpGet("{uniqueName}/is-unique")]
         public async Task<IActionResult> IsUniqueNameUnique(string uniqueName)
         {

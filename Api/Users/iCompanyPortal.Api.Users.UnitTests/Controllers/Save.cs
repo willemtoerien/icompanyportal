@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Microsoft.Extensions.DependencyInjection;
+using iCompanyPortal.Api.Users.Services;
 
 namespace iCompanyPortal.Api.Users.UnitTests.Controllers
 {
@@ -39,12 +41,13 @@ namespace iCompanyPortal.Api.Users.UnitTests.Controllers
             
             Assert.IsType<NoContentResult>(result);
             db = Db;
+            var hasher = Provider.GetService<PasswordHasher>();
             var token = db.ConfirmationTokens.Single();
             var user = db.Users.Single();
             Assert.Equal(request.Email, user.Email);
             Assert.Equal(request.FirstName, user.FirstName);
             Assert.Equal(request.LastName, user.LastName);
-            Assert.Equal(request.Password, user.Password);
+            Assert.True(hasher.Verify(user.Password, request.Password));
             Assert.Equal(UserStatus.PendingEmailConfirmation, user.Status);
             Assert.Equal(ConfirmationTokenType.Email, token.Type);
         }

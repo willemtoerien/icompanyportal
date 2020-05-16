@@ -1,15 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { NotificationsClient, Notification } from 'notifications-api';
+import { CollectionContext } from 'utils';
+import { catchError, finalize, tap, takeUntil } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { useCollectionContext } from 'src/app/modules/utils/operators/use-collection-context';
 
 @Component({
-  templateUrl: './notifications-page.component.html',
-  styles: [
-  ]
+  templateUrl: './notifications-page.component.html'
 })
-export class NotificationsPageComponent implements OnInit {
+export class NotificationsPageComponent implements OnInit, OnDestroy {
+  context = new CollectionContext<Notification>('Notifications');
 
-  constructor() { }
+  constructor(private client: NotificationsClient) {}
 
   ngOnInit(): void {
+    this.loadItems();
   }
 
+  ngOnDestroy() {
+    this.context.stop();
+  }
+
+  loadItems() {
+    this.context.isLoading = true;
+    this.client.getNotifications().pipe(useCollectionContext(this.context)).subscribe();
+  }
 }

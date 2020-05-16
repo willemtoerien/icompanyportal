@@ -1,11 +1,11 @@
 import { Subject } from 'rxjs';
 
-export class CollectionContext {
+export class CollectionContext<T = any> {
   cease = new Subject<void>();
   isLoading = false;
   currentPage = 0;
   error: Error;
-  items: any[] = [];
+  items: T[] = [];
   hasMore = false;
 
   constructor(public title: string, public pageSize = 20) {}

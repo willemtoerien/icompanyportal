@@ -7,6 +7,7 @@ import { catchError, finalize, flatMap, map, takeUntil } from 'rxjs/operators';
 import { throwError, of } from 'rxjs';
 import { AuthStore } from 'src/app/modules/auth-utils/services';
 import { CompanyStore } from 'src/app/modules/company-utils/services';
+import { useCollectionContext } from 'src/app/modules/utils/operators/use-collection-context';
 
 @Component({
   templateUrl: './users-page.component.html',
@@ -38,11 +39,7 @@ export class UsersPageComponent implements OnInit, OnDestroy {
     this.companyUsersClient
       .getAll(this.companyStore.company.value.companyId)
       .pipe(
-        catchError((error) => {
-          this.context.error = error;
-          return throwError(error);
-        }),
-        finalize(() => (this.context.isLoading = false)),
+        useCollectionContext(this.context),
         flatMap((items) => {
           if (items.length > 0) {
             const userIds = items.map((x) => x.userId).join(',');
@@ -57,14 +54,9 @@ export class UsersPageComponent implements OnInit, OnDestroy {
           } else {
             return of(items);
           }
-        }),
-        takeUntil(this.context.cease)
+        })
       )
-      .subscribe((items) => {
-        for (const item of items) {
-          this.context.items.push(item);
-        }
-      });
+      .subscribe();
   }
 
   onRemove(companyUser: CompanyUser) {

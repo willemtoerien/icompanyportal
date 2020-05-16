@@ -15,9 +15,9 @@ namespace iCompanyPortal.Api.Notifications.Client
             this.http = http;
         }
 
-        public async Task<Notification[]> Get(int pageSize, int page)
+        public async Task<Notification[]> GetNotifications()
         {
-            return await http.GetAsync<Notification[]>($"/notifications/{pageSize}/{page}");
+            return await http.GetAsync<Notification[]>($"/notifications");
         }
 
         public async Task<int> GetCount(int userId)

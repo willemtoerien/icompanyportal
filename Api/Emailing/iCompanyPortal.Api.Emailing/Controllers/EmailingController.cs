@@ -19,6 +19,10 @@ namespace iCompanyPortal.Api.Emailing.Controllers
             this.sender = sender;
         }
 
+
+        [HttpGet("is-alive")]
+        public bool IsAlive() => true;
+
         [HttpPost]
         [ValidateModel]
         public async Task Send([FromBody] EmailRequest request)

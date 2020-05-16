@@ -24,8 +24,8 @@ export class NotificationsClient {
     private authToken: NotificationsApiAuthToken
   ) {}
 
-  get(pageSize: number, page: number) {
-    return this.http.get<Notification[]>(`${this.endpoint}/${pageSize}/${page}`);
+  getNotifications() {
+    return this.http.get<Notification[]>(`${this.endpoint}`);
   }
 
   getUnreadCount() {

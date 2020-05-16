@@ -1,6 +1,7 @@
 ﻿using iCompanyPortal.Api.Users.Client;
 using iCompanyPortal.Api.Users.Controllers;
 using iCompanyPortal.Api.Users.Data;
+using iCompanyPortal.Api.Users.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace iCompanyPortal.Api.Users.UnitTests.Controllers
 {
@@ -34,11 +36,12 @@ namespace iCompanyPortal.Api.Users.UnitTests.Controllers
             var result = await controller.SignUp("", request);
             Assert.IsType<NoContentResult>(result);
             var db = Db;
+            var hasher = Provider.GetService<PasswordHasher>();
             var user = db.Users.Single();
             Assert.Equal(request.Email, user.Email);
             Assert.Equal(request.FirstName, user.FirstName);
             Assert.Equal(request.LastName, user.LastName);
-            Assert.Equal(request.Password, user.Password);
+            Assert.True(hasher.Verify(user.Password, request.Password));
             Assert.Equal(UserStatus.PendingEmailConfirmation, user.Status);
             var token = db.ConfirmationTokens.Single();
             Assert.Equal(ConfirmationTokenType.Email, token.Type);
