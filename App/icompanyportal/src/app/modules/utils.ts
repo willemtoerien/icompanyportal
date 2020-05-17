@@ -5,3 +5,4 @@ export * from './utils/services';
 export * from './utils/directives';
 export * from './utils/components';
 export * from './utils/models';
+export * from './utils/pipes';

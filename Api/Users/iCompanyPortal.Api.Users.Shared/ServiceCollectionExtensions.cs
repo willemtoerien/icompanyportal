@@ -41,8 +41,12 @@ namespace Microsoft.Extensions.DependencyInjection
                     {
                         OnMessageReceived = context =>
                         {
-                            var accessToken = context.Request.Query["access_token"];
                             var path = context.HttpContext.Request.Path;
+                            if (!path.ToString().StartsWith("/hub"))
+                            {
+                                return Task.CompletedTask;
+                            }
+                            var accessToken = context.Request.Query["access_token"];
                             if (string.IsNullOrEmpty(accessToken))
                             {
                                 return Task.CompletedTask;

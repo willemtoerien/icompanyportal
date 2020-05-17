@@ -15,29 +15,7 @@ namespace Microsoft.AspNetCore.Mvc
 
         public static int GetUserId(this ControllerBase controller)
         {
-            if (controller.User == null)
-            {
-                throw new ArgumentNullException(nameof(controller.User));
-            }
-
-            if (!controller.User.Identity.IsAuthenticated)
-            {
-                throw new AuthenticationException(NotAuthenticated);
-            }
-
-            var identity = (ClaimsIdentity)controller.User.Identity;
-            var claim = identity.Claims.SingleOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
-            if (claim == null)
-            {
-                throw new AuthenticationException(NoClaims);
-            }
-
-            if (!int.TryParse(claim.Value, out var userId))
-            {
-                throw new AuthenticationException(InvalidClaimValue);
-            }
-
-            return userId;
+            return controller.User.GetUserId();
         }
     }
 }

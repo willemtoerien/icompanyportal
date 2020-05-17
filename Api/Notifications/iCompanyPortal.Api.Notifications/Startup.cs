@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using iCompanyPortal.Api.Notifications.Data;
 using iCompanyPortal.Api.Notifications.Hubs;
+using iCompanyPortal.Api.Notifications.Services;
 using iCompanyPortal.Api.Shared.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -32,6 +34,7 @@ namespace iCompanyPortal.Api.Notifications
                 .AddProjectCors(Configuration)
                 .AddProjectDbContext<NotificationsDbContext>(Configuration)
                 .AddTransient<EntityBuilder, NotificationEntityBuilder>()
+                .AddSingleton<IUserIdProvider, NameUserIdProvider>()
                 .AddUsersClient(Configuration)
                 .AddControllers();
             services

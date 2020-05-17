@@ -69,4 +69,12 @@ export class UsersPageComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  getName(companyUser: CompanyUser) {
+    const user = this.users[companyUser.userId];
+    if (!user) {
+      return '';
+    }
+    return user.firstName + ' ' + user.lastName;
+  }
 }

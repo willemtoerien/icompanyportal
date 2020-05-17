@@ -6,6 +6,7 @@ import { CompanyResolver } from './company.resolver';
 import { CompanyStore } from '../services';
 import { CompaniesClient, CompanyUsersClient, COMPANIES_API_ENDPOINT } from 'companies-api';
 import { HttpResponse } from '@angular/common/http';
+import { formatString } from 'utils';
 
 describe('CompanyResolver', () => {
   let store: CompanyStore;
@@ -59,7 +60,7 @@ describe('CompanyResolver', () => {
       await resolver.resolve(route).toPromise();
     } catch (error) {
       expect(error).toBeDefined();
-      expect(error.message).toBe(CompanyResolver.invalidCompanyId);
+      expect(error.message).toBe(formatString(CompanyResolver.invalidCompanyId, { companyId: route.params.companyId }));
     }
   });
 

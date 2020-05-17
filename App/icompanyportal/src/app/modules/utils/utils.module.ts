@@ -9,6 +9,8 @@ import { ModalComponent } from './components/modal/modal.component';
 import { ModalTogglerDirective } from './directives/modal-toggler.directive';
 import { TimeoutDirective } from './directives/timeout.directive';
 import { CommonModule } from '@angular/common';
+import { TimeSpanPipe } from './pipes/time-span.pipe';
+import { TimeAgoPipe } from './pipes/time-ago.pipe';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { CommonModule } from '@angular/common';
     CollectionComponent,
     ModalComponent,
     ModalTogglerDirective,
-    TimeoutDirective
+    TimeoutDirective,
+    TimeAgoPipe,
+    TimeSpanPipe
   ],
   imports: [CommonModule],
   providers: [Title],
@@ -31,7 +35,9 @@ import { CommonModule } from '@angular/common';
     CollectionComponent,
     ModalComponent,
     ModalTogglerDirective,
-    TimeoutDirective
+    TimeoutDirective,
+    TimeAgoPipe,
+    TimeSpanPipe
   ]
 })
 export class UtilsModule {}

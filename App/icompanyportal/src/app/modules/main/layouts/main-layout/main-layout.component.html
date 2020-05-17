@@ -4,7 +4,9 @@
 <ng-template #sidebarContentTemplate>
   <app-sidebar>
     <span class="header">Home</span>
-    <a routerLink="/notifications" class="sub-item" routerLinkActive="active">Notifications</a>
+    <a routerLink="/notifications" class="sub-item d-flex justify-content-between"
+      routerLinkActive="active"><span>Notifications</span><span class="badge badge-danger align-self-center"
+        appUnreadCount></span></a>
     <hr>
     <div class="header d-flex justify-content-between">
       <span>Companies</span>

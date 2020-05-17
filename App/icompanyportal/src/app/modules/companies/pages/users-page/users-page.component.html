@@ -6,12 +6,12 @@
           <button class="dropdown-item text-danger"
             [appModalToggler]="'remove-company-user-' + item.userId">Remove</button>
         </app-card-menu>
-        <h4 class="card-title">{{ users[item.userId].firstName }} {{ users[item.userId].lastName }}</h4>
+        <h4 class="card-title">{{ getName(item) }}</h4>
       </div>
     </div>
     <app-modal modalTitle="Remove?" [identity]="'remove-company-user-' + item.userId" colorContext="danger"
       submitText="Remove" (answered)="onRemove(item)">
-      Are you sure you want to remove {{ users[item.userId].firstName }} {{ users[item.userId].lastName }}?
+      Are you sure you want to remove {{ getName(item) }}?
     </app-modal>
   </ng-template>
 </app-collection>

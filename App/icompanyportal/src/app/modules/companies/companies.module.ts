@@ -15,6 +15,7 @@ import { DeletePageComponent } from './pages/delete-page/delete-page.component';
 import { UtilsModule } from '../utils/utils.module';
 import { FormsExModule } from '../forms-ex/forms-ex.module';
 import { UsersLayoutComponent } from './layouts/users-layout/users-layout.component';
+import { CompanyUtilsModule } from '../company-utils/company-utils.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,6 @@ import { UsersLayoutComponent } from './layouts/users-layout/users-layout.compon
     DeletePageComponent,
     UsersLayoutComponent
   ],
-  imports: [CommonModule, CompaniesRoutingModule, UtilsModule, FormsExModule]
+  imports: [CommonModule, CompaniesRoutingModule, UtilsModule, FormsExModule, CompanyUtilsModule]
 })
 export class CompaniesModule {}

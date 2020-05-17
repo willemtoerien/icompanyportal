@@ -11,7 +11,14 @@ export class UnreadCountDirective implements OnInit, OnDestroy {
   constructor(private store: NotificationStore, private elementRef: ElementRef<HTMLElement>) {}
 
   ngOnInit() {
-    this.subscription = this.store.unreadCount.subscribe((count) => (this.elementRef.nativeElement.innerText = count + ''));
+    this.subscription = this.store.unreadCount.subscribe((count) => {
+      this.elementRef.nativeElement.innerText = count + '';
+      if (count === 0) {
+        this.elementRef.nativeElement.classList.add('d-none');
+      } else {
+        this.elementRef.nativeElement.classList.remove('d-none');
+      }
+    });
   }
 
   ngOnDestroy() {

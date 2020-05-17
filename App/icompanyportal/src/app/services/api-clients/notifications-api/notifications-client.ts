@@ -1,11 +1,12 @@
 import { Injectable, Inject, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { HubConnectionBuilder, HubConnection } from '@aspnet/signalr';
+import { HubConnectionBuilder, HubConnection, LogLevel, HttpTransportType } from '@aspnet/signalr';
 import { NotifyRequest } from './notify-request';
 import { Notification } from './notification';
 import { NOTIFICATIONS_API_ENDPOINT } from './notifications-api-endpoint';
 import { NOTIFICATIONS_API_AUTH_TOKEN, NotificationsApiAuthToken } from './notifications-api-auth-token';
+import { NotificationStore } from 'src/app/modules/notification-utils/services/notification-store';
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +15,14 @@ export class NotificationsClient {
   private hub: HubConnection;
 
   notified = new EventEmitter<Notification>();
-  unreadCountUpdated = new EventEmitter<number>();
 
   constructor(
     private http: HttpClient,
     @Inject(NOTIFICATIONS_API_ENDPOINT)
     private endpoint: string,
     @Inject(NOTIFICATIONS_API_AUTH_TOKEN)
-    private authToken: NotificationsApiAuthToken
+    private authToken: NotificationsApiAuthToken,
+    private store: NotificationStore
   ) {}
 
   getNotifications() {
@@ -41,15 +42,17 @@ export class NotificationsClient {
   }
 
   listen() {
-    return new Observable((x) => {
+    const ob = new Observable<void>((x) => {
       try {
-        const builder = new HubConnectionBuilder().withUrl(this.endpoint + '/hub', {
-          accessTokenFactory: () => this.authToken()
-        });
-        this.hub = builder.build();
+        this.hub = new HubConnectionBuilder()
+          .withUrl(this.endpoint + '/hub', {
+            accessTokenFactory: () => this.authToken()
+          })
+          .configureLogging(LogLevel.Debug)
+          .build();
         this.hub.on('notification', (item) => {
           this.notified.emit(item);
-          this.getUnreadCount().subscribe((count) => this.unreadCountUpdated.emit(count));
+          this.getUnreadCount().subscribe((count) => this.store.unreadCount.next(count));
         });
         this.hub
           .start()
@@ -57,10 +60,12 @@ export class NotificationsClient {
           .catch((e) => x.error(e));
       } catch (error) {
         x.error(error);
-      } finally {
-        x.complete();
       }
-      return () => this.hub.stop();
+      return () => {
+        this.hub.stop();
+      };
     });
+
+    return ob;
   }
 }

@@ -12,10 +12,9 @@ namespace System.Net.Http
         private static async Task<HttpResponseMessage> SendAsync(this HttpClient http, HttpMethod method, string requestUri, object model = null)
         {
             var request = new HttpRequestMessage();
-            requestUri = requestUri.Substring(1);
             if (requestUri.Length > 0)
             {
-                request.RequestUri = new Uri(requestUri);
+                request.RequestUri = new Uri(http.BaseAddress.OriginalString + requestUri);
             }
             request.Method = method;
             if (model != null)

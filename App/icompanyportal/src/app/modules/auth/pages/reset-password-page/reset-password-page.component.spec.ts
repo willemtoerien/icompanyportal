@@ -35,7 +35,7 @@ describe('ResetPasswordPageComponent', () => {
   });
 
   it('password is required', () => {
-    const email = component.form.get('password');
+    const email = component.form.get('email');
     email.markAsDirty();
     expect(email.errors.required).toBe(true);
   });

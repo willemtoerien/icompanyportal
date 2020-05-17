@@ -40,7 +40,7 @@ namespace iCompanyPortal.Api.Users.Controllers
         [HttpGet("{userId}/exists")]
         public async Task<IActionResult> DoesUserExist(int userId)
         {
-            return Ok(!await db.Users.AnyAsync(x => x.UserId == userId));
+            return Ok(await db.Users.AnyAsync(x => x.UserId == userId));
         }
 
         [HttpGet("{email}/is-unique")]

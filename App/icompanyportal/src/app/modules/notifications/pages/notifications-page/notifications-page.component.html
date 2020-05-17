@@ -1,8 +1,16 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">Notifications</li>
+  </ol>
+</nav>
 <app-collection appTitle="Notifications" [context]="context" [itemTemplate]="itemTemplate" (loadMore)="loadItems()">
   <ng-template #itemTemplate let-item="item">
-    <div class="card">
-      <h4 class="card-title">{{ item.subject }}</h4>
-      <p class="card-text">{{ item.message }}
+    <div class="card" [class.border-info]="!item.readAt">
+      <div class="card-body">
+        <h4 class="card-title">{{ item.subject }}</h4>
+        <p class="card-text">{{ item.message }}
+      </div>
+      <div class="card-footer small text-muted">{{ item.createdAt | timeAgo }}</div>
     </div>
   </ng-template>
 </app-collection>
