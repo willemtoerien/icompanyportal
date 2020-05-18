@@ -1,4 +1,5 @@
-﻿using iCompanyPortal.Api.Emailing.Client;
+﻿using iCompanyPortal.Api.Companies.Client;
+using iCompanyPortal.Api.Emailing.Client;
 using iCompanyPortal.Api.Shared.Filters;
 using iCompanyPortal.Api.Users.Client;
 using iCompanyPortal.Api.Users.Data;
@@ -10,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace iCompanyPortal.Api.Users.Controllers
@@ -28,13 +30,15 @@ namespace iCompanyPortal.Api.Users.Controllers
         private readonly UsersDbContext db;
         private readonly IEmailingClient emailingClient;
         private readonly PasswordHasher passwordHasher;
+        private readonly ICompanyInvitationsClient companyInvitationsClient;
 
-        public UsersController(IAuthenticator authenticator, UsersDbContext db, IEmailingClient emailingClient, PasswordHasher passwordHasher)
+        public UsersController(IAuthenticator authenticator, UsersDbContext db, IEmailingClient emailingClient, PasswordHasher passwordHasher, ICompanyInvitationsClient companyInvitationsClient)
         {
             this.authenticator = authenticator;
             this.db = db;
             this.emailingClient = emailingClient;
             this.passwordHasher = passwordHasher;
+            this.companyInvitationsClient = companyInvitationsClient;
         }
 
         [HttpGet("{userId}/exists")]
@@ -56,6 +60,10 @@ namespace iCompanyPortal.Api.Users.Controllers
             {
                 var userId = this.GetUserId();
                 var user = await db.Users.SingleOrDefaultAsync(x => x.UserId == userId);
+                if (user == null)
+                {
+                    return NoContent();
+                }
                 var info = ToUserInfo(user);
                 return Ok(info);
             }
@@ -94,7 +102,7 @@ namespace iCompanyPortal.Api.Users.Controllers
             var user = await db.Users.SingleOrDefaultAsync(x => x.Email == email);
             if (user == null)
             {
-                return NotFound(UserNotFound);
+                return NoContent();
             }
             var info = ToUserInfo(user);
             return Ok(info);
@@ -305,9 +313,15 @@ namespace iCompanyPortal.Api.Users.Controllers
 
             await db.SaveChangesAsync();
 
-            await SendEmailConfirmationToken(responseUrl, user.UserId, user.Email);
 
             await db.SaveChangesAsync();
+
+            var madeAnActivation = await companyInvitationsClient.ActivateAsync(WebUtility.UrlEncode(user.Email), user.UserId);
+
+            if (!madeAnActivation)
+            {
+                await SendEmailConfirmationToken(responseUrl, user.UserId, user.Email);
+            }
 
             authenticator.Authenticate(HttpContext.Response, user.UserId);
 
@@ -350,7 +364,7 @@ namespace iCompanyPortal.Api.Users.Controllers
             {
                 Data = new Dictionary<string, string>
                 {
-                    ["ResponseUrl"] = string.Format(responseUrl, token.Value)
+                    ["ResponseUrl"] = string.Format(WebUtility.UrlDecode(responseUrl), token.Value)
                 },
                 Subject = "Email Confirmation",
                 TemplateKey = "EmailConfirmation",

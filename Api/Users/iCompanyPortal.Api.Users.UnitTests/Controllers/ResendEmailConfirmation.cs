@@ -14,8 +14,7 @@ namespace iCompanyPortal.Api.Users.UnitTests.Controllers
         [Fact]
         public async Task NoContent()
         {
-            AddDbContext();
-            var db = Db;
+            var db = AddDbContext();
             db.Add(new User { UserId = 1 });
             var tokenValue = Guid.NewGuid();
             db.Add(new ConfirmationToken { Type = ConfirmationTokenType.Email, UserId = 1, Value = tokenValue });

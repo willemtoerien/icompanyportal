@@ -13,8 +13,7 @@ namespace iCompanyPortal.Api.Notifications.UnitTests.Controllers
         [Fact]
         public async Task Ok()
         {
-            AddDbContext();
-            var db = Db;
+            var db = AddDbContext();
             db.AddRange(
                 new Notification { NotificationId = 1, UserId = 1, CreatedAt = DateTime.Today - TimeSpan.FromDays(1) }.SetStringProperties(),
                 new Notification { NotificationId = 2, UserId = 1, CreatedAt = DateTime.Today - TimeSpan.FromDays(2) }.SetStringProperties(),

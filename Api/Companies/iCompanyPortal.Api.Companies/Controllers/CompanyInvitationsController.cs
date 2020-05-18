@@ -3,12 +3,14 @@ using iCompanyPortal.Api.Companies.Data;
 using iCompanyPortal.Api.Companies.Filters;
 using iCompanyPortal.Api.Emailing.Client;
 using iCompanyPortal.Api.Users.Client;
+using iCompanyPortal.Api.Users.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace iCompanyPortal.Api.Companies.Controllers
@@ -22,12 +24,14 @@ namespace iCompanyPortal.Api.Companies.Controllers
         private readonly CompaniesDbContext db;
         private readonly IEmailingClient emailingClient;
         private readonly IUsersClient usersClient;
+        private readonly IAuthenticator authenticator;
 
-        public CompanyInvitationsController(CompaniesDbContext db, IEmailingClient emailingClient, IUsersClient usersClient)
+        public CompanyInvitationsController(CompaniesDbContext db, IEmailingClient emailingClient, IUsersClient usersClient, IAuthenticator authenticator)
         {
             this.db = db;
             this.emailingClient = emailingClient;
             this.usersClient = usersClient;
+            this.authenticator = authenticator;
         }
 
         [HttpGet("{companyId}/all")]
@@ -42,6 +46,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
         }
 
         [HttpGet("{token}")]
+        [AllowAnonymous]
         public async Task<IActionResult> Get(Guid token)
         {
             var invitation = await db.CompanyInvitations
@@ -80,7 +85,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
                 Data = new Dictionary<string, string>
                 {
                     ["CompanyName"] = companyName,
-                    ["ResponseUrl"] = string.Format(responseUrl, invitation.Token)
+                    ["ResponseUrl"] = string.Format(WebUtility.UrlDecode(responseUrl), invitation.Token)
                 },
                 Subject = "Company Invitation",
                 TemplateKey = "CompanyInvitation",
@@ -88,6 +93,32 @@ namespace iCompanyPortal.Api.Companies.Controllers
             });
 
             return NoContent();
+        }
+
+        [HttpPut("{email}/{userId}/activate")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Activate(string email, int userId)
+        {
+            var invitations = await db.CompanyInvitations
+                .Where(x => x.Email == email && x.Status == InvitationStatus.Accepted)
+                .ToArrayAsync();
+            var madeAnActivation = false;
+            foreach (var invitation in invitations)
+            {
+                var companyUser = new CompanyUser
+                {
+                    CompanyId = invitation.CompanyId,
+                    UserId = userId,
+                    IsFavorite = true
+                };
+                db.Add(companyUser);
+                db.Remove(invitation);
+
+                await db.SaveChangesAsync();
+                madeAnActivation = true;
+            }
+
+            return Ok(madeAnActivation);
         }
 
         [AllowAnonymous]
@@ -107,9 +138,16 @@ namespace iCompanyPortal.Api.Companies.Controllers
             }
             else
             {
-                invitation.Status = !await usersClient.IsEmailUniqueAsync(invitation.Email)
-                    ? InvitationStatus.Active
-                    : InvitationStatus.Accepted;
+                var user = await usersClient.GetUserByEmailAsync(invitation.Email);
+                if (user == null)
+                {
+                    invitation.Status = InvitationStatus.Accepted;
+                }
+                else
+                {
+                    db.Remove(invitation);
+                    authenticator.Authenticate(HttpContext.Response, user.UserId);
+                }
             }
 
             await db.SaveChangesAsync();

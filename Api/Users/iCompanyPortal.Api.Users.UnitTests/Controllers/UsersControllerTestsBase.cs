@@ -1,4 +1,5 @@
-﻿using iCompanyPortal.Api.Emailing.Client;
+﻿using iCompanyPortal.Api.Companies.Client;
+using iCompanyPortal.Api.Emailing.Client;
 using iCompanyPortal.Api.Shared.Data;
 using iCompanyPortal.Api.UnitTestHelpers;
 using iCompanyPortal.Api.Users.Controllers;
@@ -27,7 +28,8 @@ namespace iCompanyPortal.Api.Users.UnitTests.Controllers
                 .AddTransient<EntityBuilder, UserEntityBuilder>()
                 .AddTransient<EntityBuilder, ConfirmationTokenEntityBuilder>()
                 .AddSingleton(new Mock<IAuthenticator>().Object)
-                .AddSingleton(new Mock<IEmailingClient>().Object);
+                .AddSingleton(new Mock<IEmailingClient>().Object)
+                .AddSingleton(new Mock<ICompanyInvitationsClient>().Object);
         }
     }
 }

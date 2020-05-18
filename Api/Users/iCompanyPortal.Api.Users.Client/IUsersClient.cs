@@ -11,7 +11,7 @@ namespace iCompanyPortal.Api.Users.Client
         Task<UserInfo> GetSignedInUserAsync();
         Task<UserInfo> GetUserAsync(int userId);
         Task<UserInfo[]> GetUsersAsync(string userIds);
-         Task<UserInfo> GetUserByEmailAsync(string email);
+        Task<UserInfo> GetUserByEmailAsync(string email);
         Task<bool> IsEmailUniqueAsync(string email);
         Task ResendEmailConfirmationTokenAsync(string responseUrl);
         Task ResetPasswordAsync(string responseUrl, ResetPasswordRequest request);

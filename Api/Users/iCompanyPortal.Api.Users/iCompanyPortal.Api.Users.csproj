@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Companies\iCompanyPortal.Api.Companies.Client\iCompanyPortal.Api.Companies.Client.csproj" />
     <ProjectReference Include="..\..\Emailing\iCompanyPortal.Api.Emailing.Client\iCompanyPortal.Api.Emailing.Client.csproj" />
     <ProjectReference Include="..\iCompanyPortal.Api.Users.Client\iCompanyPortal.Api.Users.Client.csproj" />
     <ProjectReference Include="..\iCompanyPortal.Api.Users.Shared\iCompanyPortal.Api.Users.Shared.csproj" />

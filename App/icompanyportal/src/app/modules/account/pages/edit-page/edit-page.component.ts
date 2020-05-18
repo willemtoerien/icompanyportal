@@ -36,20 +36,22 @@ export class EditPageComponent implements OnInit {
   onSubmit() {
     const originalEmail = this.authStore.signedInUser.value.email;
     this.users
-      .save(location.host + '/confirm/0/{0}', this.form.value)
+      .save(location.origin + '/token/account/confirm/email/{0}', this.form.value)
       .pipe(invokeForm(this.form))
       .subscribe(() => {
-        if (originalEmail.toLowerCase() !== this.authStore.signedInUser.value.email.toLowerCase()) {
-          this.authStore.signedInUser.value.status = UserStatus.pendingEmailConfirmation;
+        const user = this.authStore.signedInUser.value;
+        if (originalEmail.toLowerCase() !== this.form.value.email.toLowerCase()) {
+          user.status = UserStatus.pendingEmailConfirmation;
         }
-        this.authStore.signedInUser.value.email = this.form.value.email;
-        this.authStore.signedInUser.value.firstName = this.form.value.firstName;
-        this.authStore.signedInUser.value.lastName = this.form.value.lastName;
+        user.email = this.form.value.email;
+        user.firstName = this.form.value.firstName;
+        user.lastName = this.form.value.lastName;
+        this.authStore.signedInUser.next(user);
       });
   }
 
   onResend(event: Event) {
     event.preventDefault();
-    this.users.resendEmailConfirmationToken('/confirm/0/{0}').subscribe();
+    this.users.resendEmailConfirmationToken(location.origin + '/token/account/confirm/email/{0}').subscribe();
   }
 }

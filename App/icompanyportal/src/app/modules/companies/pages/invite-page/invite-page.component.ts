@@ -24,7 +24,7 @@ export class InvitePageComponent implements OnInit {
   onSubmit() {
     this.isSent = false;
     this.invitationsClient
-      .invite(this.companiesStore.company.value.companyId, location.host + '/companies/token/value/{0}', this.form.value)
+      .invite(this.companiesStore.company.value.companyId, location.origin + '/token/companies/value/{0}', this.form.value)
       .pipe(invokeForm(this.form))
       .subscribe(() => (this.isSent = true));
   }

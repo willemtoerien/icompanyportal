@@ -21,7 +21,7 @@ namespace iCompanyPortal.Api.Companies.Client
             return await http.GetAsync<CompanyInvitation[]>($"/{companyId}/all");
         }
 
-        public async Task<CompanyInvitation> Get(Guid token)
+        public async Task<CompanyInvitation> GetAsync(Guid token)
         {
             return await http.GetAsync<CompanyInvitation>($"/{token}");
         }
@@ -31,12 +31,17 @@ namespace iCompanyPortal.Api.Companies.Client
             await http.PostAsync($"/{companyId}/{WebUtility.UrlEncode(responseUrl)}", request);
         }
 
-        public async Task Respond(Guid token, bool accepted)
+        public async Task RespondAsync(Guid token, bool accepted)
         {
             await http.PutAsync($"/{token}/{accepted}");
         }
 
-        public async Task Delete(Guid token)
+        public async Task<bool> ActivateAsync(string email, int userId)
+        {
+            return await http.PutAsync<bool>($"/{email}/{userId}/activate");
+        }
+
+        public async Task DeleteAsync(Guid token)
         {
             await http.DeleteAsync($"/{token}");
         }

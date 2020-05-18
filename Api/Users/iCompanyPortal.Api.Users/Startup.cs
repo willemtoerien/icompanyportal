@@ -37,6 +37,7 @@ namespace iCompanyPortal.Api.Users
                 .AddProjectDbContext<UsersDbContext>(Configuration)
                 .AddUsers(Configuration)
                 .AddEmailingClient(Configuration)
+                .AddCompaniesClients(Configuration)
                 .AddTransient<PasswordHasher>()
                 .Configure<UsersSettings>(Configuration.GetSection("Users"))
                 .AddControllers();

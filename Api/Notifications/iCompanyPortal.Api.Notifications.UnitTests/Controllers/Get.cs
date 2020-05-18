@@ -12,56 +12,18 @@ namespace iCompanyPortal.Api.Notifications.UnitTests.Controllers
     public class Get : NotificationsControllerTestsBase
     {
         [Fact]
-        public async Task Ok_FirstPage()
+        public async Task Ok()
         {
-            AddDbContext();
-            var db = Db;
+            var db = AddDbContext();
             Notification notification1, notification2, notification3;
             AddNotifications(db, out notification1, out notification2, out notification3);
             var controller = GetController(1);
-            var result = await controller.Get(2, 0);
+            var result = await controller.GetNotifications();
             var okResult = Assert.IsType<OkObjectResult>(result);
             var notifications = (Notification[])okResult.Value;
-            Assert.Equal(2, notifications.Length);
             Assert.Equal(notification1.NotificationId, notifications[0].NotificationId);
             Assert.Equal(notification2.NotificationId, notifications[1].NotificationId);
-        }
-
-        [Fact]
-        public async Task Ok_SecondPage()
-        {
-            AddDbContext();
-            var db = Db;
-            Notification notification1, notification2, notification3;
-            AddNotifications(db, out notification1, out notification2, out notification3);
-            var controller = GetController(1);
-            var result = await controller.Get(2, 1);
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var notifications = (Notification[])okResult.Value;
-            Assert.Single(notifications);
-            Assert.Equal(notification3.NotificationId, notifications[0].NotificationId);
-            result = await controller.Get(3, 0, "Subject");
-            okResult = Assert.IsType<OkObjectResult>(result);
-            notifications = (Notification[])okResult.Value;
-            Assert.Equal(2, notifications.Length);
-            Assert.Equal(notification1.NotificationId, notifications[0].NotificationId);
-            Assert.Equal(notification2.NotificationId, notifications[1].NotificationId);
-        }
-
-        [Fact]
-        public async Task Ok_Search()
-        {
-            AddDbContext();
-            var db = Db;
-            Notification notification1, notification2, notification3;
-            AddNotifications(db, out notification1, out notification2, out notification3);
-            var controller = GetController(1);
-            var result = await controller.Get(3, 0, "Subject");
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var notifications = (Notification[])okResult.Value;
-            Assert.Equal(2, notifications.Length);
-            Assert.Equal(notification1.NotificationId, notifications[0].NotificationId);
-            Assert.Equal(notification2.NotificationId, notifications[1].NotificationId);
+            Assert.Equal(notification3.NotificationId, notifications[2].NotificationId);
         }
 
         private static void AddNotifications(NotificationsDbContext db, out Notification notification1, out Notification notification2, out Notification notification3)

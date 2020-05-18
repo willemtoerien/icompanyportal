@@ -15,8 +15,7 @@ namespace iCompanyPortal.Api.Users.UnitTests.Controllers
         [Fact]
         public async Task NoContent()
         {
-            AddDbContext();
-            var db = Db;
+            var db = AddDbContext();
             db.Add(new User { UserId = 1 });
             db.SaveChanges();
             var controller = GetController(1);

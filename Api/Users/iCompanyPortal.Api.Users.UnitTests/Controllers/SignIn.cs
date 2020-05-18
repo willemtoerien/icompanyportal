@@ -27,8 +27,7 @@ namespace iCompanyPortal.Api.Users.UnitTests.Controllers
         [Fact]
         public async Task BadRequest_IncorrectPassword()
         {
-            AddDbContext();
-            var db = Db;
+            var db = AddDbContext();
             db.Add(new User { UserId = 1, Email = "Email", Password = "Test" });
             db.SaveChanges();
             var controller = GetController();
@@ -40,8 +39,7 @@ namespace iCompanyPortal.Api.Users.UnitTests.Controllers
         [Fact]
         public async Task NoContent()
         {
-            AddDbContext();
-            var db = Db;
+            var db = AddDbContext();
             var hasher = Provider.GetService<PasswordHasher>();
             db.Add(new User { UserId = 1, Email = "Email", Password = hasher.Hash("Password"), DeleteAt = DateTime.Now, Status = UserStatus.PendingDeletion });
             db.Add(new ConfirmationToken { UserId = 1, Type = ConfirmationTokenType.Email });

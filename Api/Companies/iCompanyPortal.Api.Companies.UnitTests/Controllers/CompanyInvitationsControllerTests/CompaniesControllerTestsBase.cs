@@ -3,6 +3,7 @@ using iCompanyPortal.Api.Companies.Data;
 using iCompanyPortal.Api.Emailing.Client;
 using iCompanyPortal.Api.UnitTestHelpers;
 using iCompanyPortal.Api.Users.Client;
+using iCompanyPortal.Api.Users.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using System;
@@ -20,7 +21,8 @@ namespace iCompanyPortal.Api.Companies.UnitTests.Controllers.CompanyInvitationsC
                 .AddSingleton(new Mock<IEmailingClient>().Object)
                 .AddEntityBuilder<CompanyEntityBuilder>()
                 .AddEntityBuilder<CompanyUserEntityBuilder>()
-                .AddEntityBuilder<CompanyInvitationEntityBuilder>();
+                .AddEntityBuilder<CompanyInvitationEntityBuilder>()
+                .AddSingleton(new Mock<IAuthenticator>().Object);
         }
     }
 }

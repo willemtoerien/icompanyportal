@@ -11,6 +11,7 @@ import { InvitationsPageComponent } from './pages/invitations-page/invitations-p
 import { InvitePageComponent } from './pages/invite-page/invite-page.component';
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 import { UsersLayoutComponent } from './layouts/users-layout/users-layout.component';
+import { ConfirmPageComponent } from './pages/confirm-page/confirm-page.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,7 @@ const routes: Routes = [
   },
   {
     path: 'value/:token',
+    component: ConfirmPageComponent,
     resolve: {
       invitation: CompanyInvitationResolver
     }

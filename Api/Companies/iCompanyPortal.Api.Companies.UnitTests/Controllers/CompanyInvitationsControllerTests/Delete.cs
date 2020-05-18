@@ -24,8 +24,7 @@ namespace iCompanyPortal.Api.Companies.UnitTests.Controllers.CompanyInvitationsC
         [Fact]
         public async Task Forbid()
         {
-            AddDbContext();
-            var db = Db;
+            var db = AddDbContext();
             db.Add(new CompanyUser { CompanyId = 1, UserId = 1 });
             var originalInvitation = new CompanyInvitation { Status = InvitationStatus.Pending }.SetStringProperties();
             db.Add(originalInvitation);

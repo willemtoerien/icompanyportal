@@ -35,13 +35,5 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             return services.AddTransient<EntityBuilder, TEntityBuilder>();
         }
-
-        public static IServiceCollection AddVersioning(this IServiceCollection services, IConfiguration configuration)
-        {
-            return services.Configure<VersionSettings>(v =>
-            {
-                v.Version = configuration["Version"];
-            });
-        }
     }
 }

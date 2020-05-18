@@ -25,8 +25,7 @@ namespace iCompanyPortal.Api.Users.UnitTests.Controllers
         [Fact]
         public async Task NoContent()
         {
-            AddDbContext();
-            var db = Db;
+            var db = AddDbContext();
             db.Add(new User { UserId = 1, Status = UserStatus.PendingEmailConfirmation });
             db.Add(new ConfirmationToken { UserId = 1, Type = ConfirmationTokenType.Email, Value = Guid.Empty });
             db.SaveChanges();

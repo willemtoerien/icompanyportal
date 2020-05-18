@@ -28,8 +28,7 @@ namespace iCompanyPortal.Api.Companies.UnitTests.Controllers.CompanyInvitationsC
         [Fact]
         public async Task NoContent_Rejected()
         {
-            AddDbContext();
-            var db = Db;
+            var db = AddDbContext();
             var originalInvitation = new CompanyInvitation { Status = InvitationStatus.Pending }.SetStringProperties();
             db.Add(originalInvitation);
             db.SaveChanges();
@@ -47,8 +46,7 @@ namespace iCompanyPortal.Api.Companies.UnitTests.Controllers.CompanyInvitationsC
             var usersClientMock = new Mock<IUsersClient>();
             usersClientMock.Setup(x => x.IsEmailUniqueAsync(It.IsAny<string>())).ReturnsAsync(true);
             Services.AddSingleton(usersClientMock.Object);
-            AddDbContext();
-            var db = Db;
+            var db = AddDbContext();
             var originalInvitation = new CompanyInvitation { Status = InvitationStatus.Pending }.SetStringProperties();
             db.Add(originalInvitation);
             db.SaveChanges();
@@ -64,10 +62,12 @@ namespace iCompanyPortal.Api.Companies.UnitTests.Controllers.CompanyInvitationsC
         public async Task NoContent_Active()
         {
             var usersClientMock = new Mock<IUsersClient>();
-            usersClientMock.Setup(x => x.IsEmailUniqueAsync(It.IsAny<string>())).ReturnsAsync(false);
+            usersClientMock.Setup(x => x.GetUserByEmailAsync(It.IsAny<string>())).ReturnsAsync(new UserInfo
+            {
+                UserId = 1
+            });
             Services.AddSingleton(usersClientMock.Object);
-            AddDbContext();
-            var db = Db;
+            var db = AddDbContext();
             var originalInvitation = new CompanyInvitation { Status = InvitationStatus.Pending }.SetStringProperties();
             db.Add(originalInvitation);
             db.SaveChanges();
@@ -75,8 +75,7 @@ namespace iCompanyPortal.Api.Companies.UnitTests.Controllers.CompanyInvitationsC
             var result = await controller.Respond(originalInvitation.Token, true);
             Assert.IsType<NoContentResult>(result);
             db = Db;
-            var invitation = db.CompanyInvitations.Single();
-            Assert.Equal(InvitationStatus.Active, invitation.Status);
+            Assert.False(db.CompanyInvitations.Any());
         }
     }
 }

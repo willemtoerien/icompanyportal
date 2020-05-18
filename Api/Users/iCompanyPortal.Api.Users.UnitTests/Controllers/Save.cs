@@ -18,8 +18,7 @@ namespace iCompanyPortal.Api.Users.UnitTests.Controllers
         [Fact]
         public async Task BadRequest_EmailAlreadyInUse()
         {
-            AddDbContext();
-            var db = Db;
+            var db = AddDbContext();
             db.Add(new User { UserId = 1, Email = "test1" });
             db.Add(new User { UserId = 2, Email = "test2" });
             db.SaveChanges();
@@ -31,8 +30,7 @@ namespace iCompanyPortal.Api.Users.UnitTests.Controllers
         [Fact]
         public async Task NoContent()
         {
-            AddDbContext();
-            var db = Db;
+            var db = AddDbContext();
             db.Add(new User { UserId = 1 });
             db.SaveChanges();
             var request = new SaveUserRequest().SetStringProperties();

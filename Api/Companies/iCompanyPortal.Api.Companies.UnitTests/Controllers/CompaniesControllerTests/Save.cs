@@ -15,8 +15,7 @@ namespace iCompanyPortal.Api.Companies.UnitTests.Controllers.CompaniesController
         [Fact]
         public async Task BadRequest_UniqueNameNotUnique()
         {
-            AddDbContext();
-            var db = Db;
+            var db = AddDbContext();
             db.Add(new Company { CompanyId = 1, Status = CompanyStatus.Active }.SetStringProperties());
             db.SaveChanges();
             var controller = GetController(1);
@@ -27,8 +26,7 @@ namespace iCompanyPortal.Api.Companies.UnitTests.Controllers.CompaniesController
         [Fact]
         public async Task NoContent()
         {
-            AddDbContext();
-            var db = Db;
+            var db = AddDbContext();
             db.Add(new Company { CompanyId = 1, Status = CompanyStatus.Active });
             db.SaveChanges();
             var controller = GetController(1);

@@ -18,8 +18,7 @@ namespace iCompanyPortal.Api.Users.UnitTests.Controllers
         [Fact]
         public async Task BadRequest_EmailAlreadyInUse()
         {
-            AddDbContext();
-            var db = Db;
+            var db = AddDbContext();
             db.Add(new User { Email = "test" });
             db.SaveChanges();
             var controller = GetController();
@@ -43,8 +42,6 @@ namespace iCompanyPortal.Api.Users.UnitTests.Controllers
             Assert.Equal(request.LastName, user.LastName);
             Assert.True(hasher.Verify(user.Password, request.Password));
             Assert.Equal(UserStatus.PendingEmailConfirmation, user.Status);
-            var token = db.ConfirmationTokens.Single();
-            Assert.Equal(ConfirmationTokenType.Email, token.Type);
         }
     }
 }

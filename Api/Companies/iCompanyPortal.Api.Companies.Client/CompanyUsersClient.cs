@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace iCompanyPortal.Api.Companies.Client
 {
-    public class CompanyUsersClient
+    public class CompanyUsersClient : ICompanyUsersClient
     {
         private readonly HttpClient http;
 
@@ -27,12 +27,12 @@ namespace iCompanyPortal.Api.Companies.Client
             return await http.GetAsync<CompanyUser[]>($"/{companyId}/all");
         }
 
-        public async Task Notify(int companyId, NotifyRequest request)
+        public async Task NotifyAsync(int companyId, NotifyRequest request)
         {
             await http.PostAsync($"/{companyId}/notify", request);
         }
 
-        public async Task Delete(int companyId, int userId)
+        public async Task DeleteAsync(int companyId, int userId)
         {
             await http.DeleteAsync($"/{companyId}/{userId}");
         }

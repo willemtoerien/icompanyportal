@@ -31,9 +31,10 @@ namespace iCompanyPortal.Api.UnitTestHelpers
     {
         protected TDbContext Db => Provider.GetService<TDbContext>();
 
-        public IServiceCollection AddDbContext([CallerMemberName] string testName = null)
+        public TDbContext AddDbContext([CallerMemberName] string testName = null)
         {
-            return Services.AddDbContext<TDbContext>(x => x.UseInMemoryDatabase($"{GetType().Name}_{testName}"));
+            Services.AddDbContext<TDbContext>(x => x.UseInMemoryDatabase($"{GetType().Name}_{testName}"));
+            return Db;
         }
     }
 }

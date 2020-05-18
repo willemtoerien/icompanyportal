@@ -16,8 +16,7 @@ namespace iCompanyPortal.Api.Companies.UnitTests.Controllers.CompanyInvitationsC
         [Fact]
         public async Task NoContent()
         {
-            AddDbContext();
-            var db = Db;
+            var db = AddDbContext();
             db.Companies.Add(new Company { CompanyId = 1 });
             db.SaveChanges();
             var controller = GetController();

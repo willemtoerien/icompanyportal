@@ -24,7 +24,7 @@ export class ResetPasswordPageComponent implements OnInit {
 
   onSubmit() {
     this.users
-      .resetPassword(location.host + '/account/confirm/{0}/reset-password', this.form.value)
+      .resetPassword(location.origin + '/token/account/confirm/reset-password/{0}', this.form.value)
       .pipe(
         invokeForm(this.form),
         flatMap(() => {

@@ -13,7 +13,11 @@ export function invokeForm<T, O extends ObservableInput<T>>(formGroup: FormGroup
     finalize(() => (formGroup['__isBusy'] = false)),
     catchError<T, O>((error) => {
       if (error.status !== 400 && error.status !== 404) {
-        formGroup['__error'] = error;
+        formGroup['__error'] = {
+          status: error.status,
+          result: error.result,
+          message: 'An unexpected server error has occurred.'
+        };
         return throwError(error) as any;
       }
       const modelState = extractModelState(error);

@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace iCompanyPortal.Api.Companies.Client
 {
     public interface ICompanyInvitationsClient
     {
-        Task Delete(Guid token);
+        Task DeleteAsync(Guid token);
         Task<CompanyInvitation[]> GetInvitationsAsync(int companyId);
-        Task<CompanyInvitation> Get(Guid token);
+        Task<CompanyInvitation> GetAsync(Guid token);
         Task InviteAsync(int companyId, string responseUrl, CompanyInvitationRequest request);
-        Task Respond(Guid token, bool accepted);
+        Task RespondAsync(Guid token, bool accepted);
+        Task<bool> ActivateAsync(string email, int userId);
     }
 }
