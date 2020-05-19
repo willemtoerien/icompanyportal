@@ -26,6 +26,10 @@ export class CompaniesClient {
     return this.http.get<Company>(`${this.endpoint}/${companyId}`);
   }
 
+  export(companyId: number) {
+    return this.http.get<Blob>(`${this.endpoint}/${companyId}/export`, { responseType: 'blob' as 'json' });
+  }
+
   create(request: SaveCompanyRequest) {
     return this.http.post<number>(this.endpoint, request);
   }

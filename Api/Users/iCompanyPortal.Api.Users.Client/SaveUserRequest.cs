@@ -17,5 +17,9 @@ namespace iCompanyPortal.Api.Users.Client
 
         [Compare(nameof(Password))]
         public string ConfirmPassword { get; set; }
+
+        public byte[] Avatar { get; set; }
+
+        public string AvatarContentType { get; set; }
     }
 }

@@ -32,7 +32,12 @@ namespace iCompanyPortal.Api.Users.Controllers
         private readonly PasswordHasher passwordHasher;
         private readonly ICompanyInvitationsClient companyInvitationsClient;
 
-        public UsersController(IAuthenticator authenticator, UsersDbContext db, IEmailingClient emailingClient, PasswordHasher passwordHasher, ICompanyInvitationsClient companyInvitationsClient)
+        public UsersController(
+            IAuthenticator authenticator, 
+            UsersDbContext db, 
+            IEmailingClient emailingClient,
+            PasswordHasher passwordHasher, 
+            ICompanyInvitationsClient companyInvitationsClient)
         {
             this.authenticator = authenticator;
             this.db = db;
@@ -59,7 +64,19 @@ namespace iCompanyPortal.Api.Users.Controllers
             try
             {
                 var userId = this.GetUserId();
-                var user = await db.Users.SingleOrDefaultAsync(x => x.UserId == userId);
+                var user = await db.Users
+                    .AsNoTracking()
+                    .Where(x => x.UserId == userId)
+                    .Select(x => new User
+                    {
+                        UserId = x.UserId,
+                        FirstName = x.FirstName,
+                        LastName = x.LastName,
+                        DeleteAt = x.DeleteAt,
+                        Email = x.Email,
+                        Status = x.Status
+                    })
+                    .SingleOrDefaultAsync();
                 if (user == null)
                 {
                     return NoContent();
@@ -106,6 +123,53 @@ namespace iCompanyPortal.Api.Users.Controllers
             }
             var info = ToUserInfo(user);
             return Ok(info);
+        }
+
+        [HttpGet("{userId}/avatar/url")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAvatarUrl(int userId)
+        {
+            var avatar = await db.Users
+                .Where(x => x.UserId == userId)
+                .Select(x => new
+                {
+                    x.UserId,
+                    x.FirstName,
+                    x.LastName,
+                    x.Avatar,
+                })
+                .SingleAsync();
+
+            if (avatar.Avatar == null)
+            {
+                var name = $"{avatar.FirstName} {avatar.LastName}";
+                return Ok($"https://ui-avatars.com/api/?name={WebUtility.UrlEncode(name)}");
+            }
+            var url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/{avatar.UserId}/avatar";
+            return Ok(url);
+        }
+
+        [HttpGet("{userId}/avatar")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAvatar(int userId)
+        {
+            var avatar = await db.Users
+                .Where(x => x.UserId == userId)
+                .Select(x => new
+                {
+                    x.FirstName,
+                    x.LastName,
+                    x.Avatar,
+                    x.AvatarContentType
+                })
+                .SingleAsync();
+
+            if (avatar.Avatar == null)
+            {
+                var name = $"{avatar.FirstName} {avatar.LastName}";
+                return Redirect($"https://ui-avatars.com/api/?name={WebUtility.UrlEncode(name)}");
+            }
+            return File(avatar.Avatar, avatar.AvatarContentType);
         }
 
         [HttpPut("reset-password/{responseUrl}")]
@@ -221,6 +285,12 @@ namespace iCompanyPortal.Api.Users.Controllers
 
             user.FirstName = request.FirstName;
             user.LastName = request.LastName;
+
+            if (request.Avatar != null && request.Avatar.Length > 0)
+            {
+                user.Avatar = request.Avatar;
+                user.AvatarContentType = request.AvatarContentType;
+            }
 
             await db.SaveChangesAsync();
 
@@ -347,6 +417,18 @@ namespace iCompanyPortal.Api.Users.Controllers
             return NoContent();
         }
 
+        [HttpDelete("avatar")]
+        [Authorize]
+        public async Task<IActionResult> DeleteAvatar()
+        {
+            var userId = this.GetUserId();
+            var user = await db.Users.SingleAsync(x => x.UserId == userId);
+            user.Avatar = null;
+            user.AvatarContentType = null;
+            await db.SaveChangesAsync();
+            return NoContent();
+        }
+
         private async Task SendEmailConfirmationToken(string responseUrl, int userId, string to)
         {
             var token = await db.ConfirmationTokens.SingleOrDefaultAsync(x => x.Type == ConfirmationTokenType.Email && x.UserId == userId);
@@ -372,8 +454,9 @@ namespace iCompanyPortal.Api.Users.Controllers
             });
         }
 
-        private static UserInfo ToUserInfo(User user)
+        private UserInfo ToUserInfo(User user)
         {
+            var url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/{user.UserId}/avatar";
             return new UserInfo
             {
                 DeleteAt = user.DeleteAt,
@@ -381,7 +464,8 @@ namespace iCompanyPortal.Api.Users.Controllers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Status = user.Status,
-                UserId = user.UserId
+                UserId = user.UserId,
+                AvatarUrl = url
             };
         }
     }

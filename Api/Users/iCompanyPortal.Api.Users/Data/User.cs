@@ -18,6 +18,10 @@ namespace iCompanyPortal.Api.Users.Data
 
         public string Password { get; set; }
 
+        public byte[] Avatar { get; set; }
+
+        public string AvatarContentType { get; set; }
+
         public UserStatus Status { get; set; }
 
         public DateTime? DeleteAt { get; set; }

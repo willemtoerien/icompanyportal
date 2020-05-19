@@ -1,14 +1,18 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { UsersClient } from 'users-api';
+import { UsersClient, SaveUserRequest } from 'users-api';
 import { FormValidators, invokeForm } from 'forms-ex';
 import { AuthStore } from 'src/app/modules/auth-utils/services';
 import { UserStatus } from 'src/app/services/api-clients/users-api/user-status';
+import { ImageInputData } from 'forms-ex';
+import { flatMap } from 'rxjs/operators';
 
 @Component({
   templateUrl: './edit-page.component.html'
 })
 export class EditPageComponent implements OnInit {
+  imageInputData: ImageInputData;
+
   form: FormGroup;
 
   isSaved = false;
@@ -34,18 +38,18 @@ export class EditPageComponent implements OnInit {
   }
 
   onSubmit() {
-    const originalEmail = this.authStore.signedInUser.value.email;
+    const request: SaveUserRequest = this.form.value;
+    if (this.imageInputData) {
+      request.avatar = this.imageInputData.data;
+      request.avatarContentType = this.imageInputData.contentType;
+    }
     this.users
-      .save(location.origin + '/token/account/confirm/email/{0}', this.form.value)
-      .pipe(invokeForm(this.form))
-      .subscribe(() => {
-        const user = this.authStore.signedInUser.value;
-        if (originalEmail.toLowerCase() !== this.form.value.email.toLowerCase()) {
-          user.status = UserStatus.pendingEmailConfirmation;
-        }
-        user.email = this.form.value.email;
-        user.firstName = this.form.value.firstName;
-        user.lastName = this.form.value.lastName;
+      .save(location.origin + '/token/account/confirm/email/{0}', request)
+      .pipe(
+        invokeForm(this.form),
+        flatMap(() => this.users.getSignedInUser())
+      )
+      .subscribe((user) => {
         this.authStore.signedInUser.next(user);
       });
   }
@@ -53,5 +57,20 @@ export class EditPageComponent implements OnInit {
   onResend(event: Event) {
     event.preventDefault();
     this.users.resendEmailConfirmationToken(location.origin + '/token/account/confirm/email/{0}').subscribe();
+  }
+
+  onImageChanged(data: ImageInputData) {
+    this.imageInputData = data;
+  }
+
+  onDeleteAvatar() {
+    this.users
+      .deleteAvatar()
+      .pipe(flatMap(() => this.users.getAvatarUrl(this.authStore.signedInUser.value.userId)))
+      .subscribe((url) => {
+        const user = this.authStore.signedInUser.value;
+        user.avatarUrl = url;
+        this.authStore.signedInUser.next(user);
+      });
   }
 }

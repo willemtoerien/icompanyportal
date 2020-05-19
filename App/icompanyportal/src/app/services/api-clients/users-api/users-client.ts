@@ -38,6 +38,10 @@ export class UsersClient {
     return this.http.get<User>(`${this.endpoint}/by-email/${encodeURIComponent(email)}`);
   }
 
+  getAvatarUrl(userId: number) {
+    return this.http.get<string>(`${this.endpoint}/${userId}/avatar/url`, { responseType: 'text' as any });
+  }
+
   resetPassword(responseUrl: string, request: ResetPasswordRequest) {
     return this.http.put<void>(`${this.endpoint}/reset-password/${encodeURIComponent(responseUrl)}`, request);
   }
@@ -64,5 +68,9 @@ export class UsersClient {
 
   delete() {
     return this.http.delete<void>(this.endpoint);
+  }
+
+  deleteAvatar() {
+    return this.http.delete<void>(`${this.endpoint}/avatar`);
   }
 }

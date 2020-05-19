@@ -40,6 +40,10 @@ namespace iCompanyPortal.Api.Users.Data
                 .IsRequired()
                 .HasMaxLength(100);
 
+            builder.Property(nameof(User.Avatar));
+
+            builder.Property(nameof(User.AvatarContentType));
+
             builder.Property(nameof(User.Status));
 
             builder.Property(nameof(User.DeleteAt));

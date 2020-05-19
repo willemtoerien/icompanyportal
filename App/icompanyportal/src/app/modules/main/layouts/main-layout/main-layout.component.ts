@@ -23,7 +23,7 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
   }
 
   get src() {
-    return `https://ui-avatars.com/api/?name=${this.userName}`;
+    return this.usersStore.signedInUser.value.avatarUrl;
   }
 
   constructor(

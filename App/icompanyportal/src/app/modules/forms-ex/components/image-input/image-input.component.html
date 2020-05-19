@@ -1,0 +1,12 @@
+<app-input [label]="label" [description]="description">
+  <div>
+    <img class="img-thumbnail mb-3 avatar-92" [src]="src" />
+    <button type="button" [class.d-none]="!canRemove" class="btn btn-danger ml-3 align-top" (click)="deleted.emit()">
+      Remove
+    </button>
+  </div>
+  <div class="custom-file">
+    <input [id]="name" type="file" class="custom-file-input" (change)="onChange($event)" />
+    <label class="custom-file-label" [htmlFor]="name">Choose file...</label>
+  </div>
+</app-input>

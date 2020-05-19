@@ -1,12 +1,15 @@
 ﻿using iCompanyPortal.Api.Companies.Client;
 using iCompanyPortal.Api.Companies.Data;
 using iCompanyPortal.Api.Companies.Filters;
+using iCompanyPortal.Api.Companies.Models;
 using iCompanyPortal.Api.Users.Client;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -61,6 +64,33 @@ namespace iCompanyPortal.Api.Companies.Controllers
             var userId = this.GetUserId();
             var company = await db.Companies.SingleOrDefaultAsync(x => x.CompanyId == companyId);
             return Ok(company);
+        }
+
+        [HttpGet("{companyId}/export")]
+        [CompanyExists]
+        [ValidateCompanyUser]
+        public async Task<IActionResult> Export(int companyId)
+        {
+            var export = new ExportCompany();
+            export.Company = await db.Companies
+                .Include(x => x.CompanyUsers)
+                .SingleAsync(x => x.CompanyId == companyId);
+            var json = JsonConvert.SerializeObject(export, new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+            byte[] companyJson;
+            using (var memory = new MemoryStream())
+            {
+                using (var writer = new StreamWriter(memory))
+                {
+                    await writer.WriteAsync(json);
+                }
+
+                companyJson = memory.ToArray();
+            }
+
+            return File(companyJson, "application/octet-stream");
         }
 
         [HttpGet("favorites")]

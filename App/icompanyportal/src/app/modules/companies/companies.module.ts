@@ -17,6 +17,7 @@ import { FormsExModule } from '../forms-ex/forms-ex.module';
 import { UsersLayoutComponent } from './layouts/users-layout/users-layout.component';
 import { CompanyUtilsModule } from '../company-utils/company-utils.module';
 import { ConfirmPageComponent } from './pages/confirm-page/confirm-page.component';
+import { ExportPageComponent } from './pages/export-page/export-page.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ConfirmPageComponent } from './pages/confirm-page/confirm-page.componen
     InvitePageComponent,
     DeletePageComponent,
     UsersLayoutComponent,
-    ConfirmPageComponent
+    ConfirmPageComponent,
+    ExportPageComponent
   ],
   imports: [CommonModule, CompaniesRoutingModule, UtilsModule, FormsExModule, CompanyUtilsModule]
 })

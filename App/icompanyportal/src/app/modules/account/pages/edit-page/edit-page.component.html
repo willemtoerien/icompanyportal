@@ -10,6 +10,10 @@
     <p class="card-subtitle">Enter your account details.</p>
     <hr>
     <app-form [formGroup]="form" (submitted)="onSubmit()">
+      {{ authStore.signedInUser.value.avatarUrl }}
+      <app-image-input name="avatar" label="Avatar" [src]="authStore.signedInUser.value.avatarUrl"
+        (imageChanged)="onImageChanged($event)" [canRemove]="true" (deleted)="onDeleteAvatar()"></app-image-input>
+      <hr>
       <app-text-box name="email" type="email" label="Email">
         <p id="unconfirmed" *ngIf="authStore.signedInUser.value.status === 0" class="card-text">Your email has not yet
           been confirmed.
