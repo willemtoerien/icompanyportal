@@ -1,8 +1,9 @@
 export interface Notification {
   notificationId?: number;
   userId?: number;
+  redirectPath?: string;
   subject?: string;
-  message?: string;
+  body?: string;
   createdAt?: string;
   readAt?: string;
 }

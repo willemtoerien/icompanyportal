@@ -75,6 +75,8 @@ namespace iCompanyPortal.Api.Companies.UnitTests.Controllers.CompanyInvitationsC
             var result = await controller.Respond(originalInvitation.Token, true);
             Assert.IsType<NoContentResult>(result);
             db = Db;
+            var companyUser = db.CompanyUsers.Single();
+            Assert.Equal(1, companyUser.UserId);
             Assert.False(db.CompanyInvitations.Any());
         }
     }

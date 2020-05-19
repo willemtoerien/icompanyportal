@@ -17,22 +17,22 @@ namespace iCompanyPortal.Api.Notifications.Client
 
         public async Task<Notification[]> GetNotifications()
         {
-            return await http.GetAsync<Notification[]>($"/notifications");
+            return await http.GetAsync<Notification[]>($"/");
         }
 
         public async Task<int> GetCount(int userId)
         {
-            return await http.GetAsync<int>($"/notifications/count");
+            return await http.GetAsync<int>($"/count");
         }
 
         public async Task<int> Notify(int userId, NotifyRequest request)
         {
-            return await http.PostAsync<int>($"/notifications/{userId}", request);
+            return await http.PostAsync<int>($"/{userId}", request);
         }
 
         public async Task MarkAllAsRead()
         {
-            await http.PutAsync($"/notifications");
+            await http.PutAsync($"/");
         }
     }
 }

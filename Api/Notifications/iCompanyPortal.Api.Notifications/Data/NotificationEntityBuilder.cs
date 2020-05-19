@@ -24,7 +24,7 @@ namespace iCompanyPortal.Api.Notifications.Data
 
             builder.Property(nameof(Notification.CreatedAt));
 
-            builder.Property(nameof(Notification.Message))
+            builder.Property(nameof(Notification.Body))
                 .IsRequired();
 
             builder.Property(nameof(Notification.ReadAt));
@@ -34,6 +34,8 @@ namespace iCompanyPortal.Api.Notifications.Data
                 .IsRequired();
 
             builder.Property(nameof(Notification.UserId));
+
+            builder.Property(nameof(Notification.RedirectPath));
         }
     }
 }

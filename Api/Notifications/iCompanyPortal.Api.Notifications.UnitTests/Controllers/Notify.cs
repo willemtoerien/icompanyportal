@@ -30,7 +30,8 @@ namespace iCompanyPortal.Api.Notifications.UnitTests.Controllers
             var db = Db;
             var notification = db.Notifications.Single();
             Assert.Equal(request.Subject, notification.Subject);
-            Assert.Equal(request.Message, notification.Message);
+            Assert.Equal(request.Body, notification.Body);
+            Assert.Equal(request.RedirectPath, notification.RedirectPath);
             Assert.Equal(2, notification.UserId);
         }
 

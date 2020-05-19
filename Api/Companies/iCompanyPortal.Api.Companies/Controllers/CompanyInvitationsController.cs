@@ -2,6 +2,7 @@
 using iCompanyPortal.Api.Companies.Data;
 using iCompanyPortal.Api.Companies.Filters;
 using iCompanyPortal.Api.Emailing.Client;
+using iCompanyPortal.Api.Notifications.Client;
 using iCompanyPortal.Api.Users.Client;
 using iCompanyPortal.Api.Users.Shared;
 using Microsoft.AspNetCore.Authorization;
@@ -25,13 +26,20 @@ namespace iCompanyPortal.Api.Companies.Controllers
         private readonly IEmailingClient emailingClient;
         private readonly IUsersClient usersClient;
         private readonly IAuthenticator authenticator;
+        private readonly INotificationsClient notificationsClient;
 
-        public CompanyInvitationsController(CompaniesDbContext db, IEmailingClient emailingClient, IUsersClient usersClient, IAuthenticator authenticator)
+        public CompanyInvitationsController(
+            CompaniesDbContext db,
+            IEmailingClient emailingClient,
+            IUsersClient usersClient,
+            IAuthenticator authenticator,
+            INotificationsClient notificationsClient)
         {
             this.db = db;
             this.emailingClient = emailingClient;
             this.usersClient = usersClient;
             this.authenticator = authenticator;
+            this.notificationsClient = notificationsClient;
         }
 
         [HttpGet("{companyId}/all")]
@@ -92,6 +100,18 @@ namespace iCompanyPortal.Api.Companies.Controllers
                 To = request.Email
             });
 
+            var responseUri = new Uri(string.Format(WebUtility.UrlDecode(responseUrl), invitation.Token));
+            var user = await usersClient.GetUserByEmailAsync(request.Email);
+            if (user != null)
+            {
+                await notificationsClient.Notify(user.UserId, new NotifyRequest
+                {
+                    RedirectPath = responseUri.PathAndQuery,
+                    Subject = $"Company Invitation",
+                    Body = $"You have been invited to to join the company <strong>{companyName}</strong>."
+                });
+            }
+
             return NoContent();
         }
 
@@ -132,13 +152,32 @@ namespace iCompanyPortal.Api.Companies.Controllers
                 return NotFound(InvitationDoesNotExist);
             }
 
+            var user = await usersClient.GetUserByEmailAsync(invitation.Email);
+            var userName = user == null ? invitation.Email : $"{user.FirstName} {user.LastName}";
+            var statusStr = accepted ? "accepted" : "rejected";
+            var users = await db.CompanyUsers
+                .Where(x => x.CompanyId == invitation.CompanyId)
+                .ToArrayAsync();
+            foreach (var companyUser in users)
+            {
+                var body = $"<strong>{userName}</strong> has {statusStr} the invitation.";
+                if (user == null)
+                {
+                    body += " The user just need to sign up.";
+                }
+                await notificationsClient.Notify(companyUser.UserId, new NotifyRequest
+                {
+                    Subject = "Company Invitation Response",
+                    Body = body
+                });
+            }
+
             if (!accepted)
             {
                 invitation.Status = InvitationStatus.Rejected;
             }
             else
             {
-                var user = await usersClient.GetUserByEmailAsync(invitation.Email);
                 if (user == null)
                 {
                     invitation.Status = InvitationStatus.Accepted;
@@ -146,6 +185,11 @@ namespace iCompanyPortal.Api.Companies.Controllers
                 else
                 {
                     db.Remove(invitation);
+                    db.Add(new CompanyUser
+                    {
+                        CompanyId = invitation.CompanyId,
+                        UserId = user.UserId
+                    });
                     authenticator.Authenticate(HttpContext.Response, user.UserId);
                 }
             }

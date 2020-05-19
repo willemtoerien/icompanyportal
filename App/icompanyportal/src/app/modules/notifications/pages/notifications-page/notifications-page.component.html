@@ -7,8 +7,10 @@
   <ng-template #itemTemplate let-item="item">
     <div class="card" [class.border-info]="!item.readAt">
       <div class="card-body">
-        <h4 class="card-title">{{ item.subject }}</h4>
-        <p class="card-text">{{ item.message }}
+        <h4 *ngIf="!item.redirectPath" class="card-title" [innerHTML]="item.subject"></h4>
+        <h4 *ngIf="item.redirectPath" class="card-title"><a [routerLink]="item.redirectPath"
+            [innerHTML]="item.subject"></a></h4>
+        <div [innerHTML]="item.body"></div>
       </div>
       <div class="card-footer small text-muted">{{ item.createdAt | timeAgo }}</div>
     </div>

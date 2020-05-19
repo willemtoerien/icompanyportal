@@ -10,9 +10,11 @@ namespace iCompanyPortal.Api.Notifications.Client
 
         public int UserId { get; set; }
 
+        public string RedirectPath { get; set; }
+
         public string Subject { get; set; }
 
-        public string Message { get; set; }
+        public string Body { get; set; }
 
         public DateTime CreatedAt { get; set; }
 

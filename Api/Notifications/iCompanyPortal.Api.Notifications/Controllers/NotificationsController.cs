@@ -39,6 +39,7 @@ namespace iCompanyPortal.Api.Notifications.Controllers
         {
             var userId = this.GetUserId();
             var notifications = await db.Notifications
+                .Where(x => x.UserId == userId)
                 .OrderByDescending(x => x.CreatedAt)
                 .ToArrayAsync();
             return Ok(notifications);
@@ -52,6 +53,7 @@ namespace iCompanyPortal.Api.Notifications.Controllers
         }
 
         [HttpPost("{userId}")]
+        [AllowAnonymous]
         public async Task<IActionResult> Notify(int userId, [FromBody] NotifyRequest request)
         {
             if (!await usersClient.DoesUserExistAsync(userId))
@@ -60,8 +62,9 @@ namespace iCompanyPortal.Api.Notifications.Controllers
             }
             var notification = new Notification
             {
+                RedirectPath = request.RedirectPath,
                 CreatedAt = DateTime.Now,
-                Message = request.Message,
+                Body = request.Body,
                 Subject = request.Subject,
                 UserId = userId
             };
