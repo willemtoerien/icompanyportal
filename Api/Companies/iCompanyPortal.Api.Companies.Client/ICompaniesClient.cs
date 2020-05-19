@@ -4,12 +4,13 @@ namespace iCompanyPortal.Api.Companies.Client
 {
     public interface ICompaniesClient
     {
-        Task<int> Create(SaveCompanyRequest request);
-        Task Delete(int companyId);
-        Task<Company[]> GetCompanies(int pageSize, int page, string search = "");
-        Task<Company[]> GetFavorites();
-        Task<Company> GetCompany(int companyId);
-        Task<bool> IsUniqueNameUnique(string uniqueName);
-        Task Save(int companyId, SaveCompanyRequest request);
+        Task<int> CreateAsync(SaveCompanyRequest request);
+        Task DeleteAsync(int companyId);
+        Task<Company[]> GetCompaniesAsync(int pageSize, int page, string search = "");
+        Task<Company[]> GetFavoritesAsync();
+        Task<Company> GetCompanyAsync(int companyId);
+        Task<bool> IsUniqueNameUniqueAsync(string uniqueName);
+        Task SaveAsync(int companyId, SaveCompanyRequest request);
+        Task SetFavoriteAsync(int companyId, bool? value);
     }
 }

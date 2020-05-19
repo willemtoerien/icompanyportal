@@ -188,7 +188,8 @@ namespace iCompanyPortal.Api.Companies.Controllers
                     db.Add(new CompanyUser
                     {
                         CompanyId = invitation.CompanyId,
-                        UserId = user.UserId
+                        UserId = user.UserId,
+                        IsFavorite = true
                     });
                     authenticator.Authenticate(HttpContext.Response, user.UserId);
                 }

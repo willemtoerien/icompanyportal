@@ -94,6 +94,26 @@ namespace iCompanyPortal.Api.Companies.Controllers
             return NoContent();
         }
 
+        [HttpPut("{companyId}/favorite/{value}")]
+        [HttpPut("{companyId}/favorite")]
+        [CompanyExists]
+        [ValidateCompanyUser]
+        public async Task<IActionResult> SetFavorite(int companyId, bool? value)
+        {
+            var userId = this.GetUserId();
+            var companyUser = await db.CompanyUsers.SingleAsync(x => x.CompanyId == companyId && x.UserId == userId);
+            if (value.HasValue)
+            {
+                companyUser.IsFavorite = value.Value;
+            }
+            else
+            {
+                companyUser.IsFavorite = !companyUser.IsFavorite;
+            }
+            await db.SaveChangesAsync();
+            return NoContent();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] SaveCompanyRequest request)
         {

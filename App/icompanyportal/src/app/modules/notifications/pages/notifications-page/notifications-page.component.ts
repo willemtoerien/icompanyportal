@@ -19,6 +19,7 @@ export class NotificationsPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = this.client.notified.subscribe((notification) => {
       this.context.items.unshift(notification);
+      this.client.markAllAsRead().subscribe();
     });
     this.loadItems();
   }

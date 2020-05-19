@@ -8,6 +8,8 @@
     <div class="card">
       <div class="card-body">
         <app-card-menu>
+          <button class="dropdown-item" (click)="toggleFavorite(item.companyId)">Toggle Favorite</button>
+          <hr>
           <a class="dropdown-item" [routerLink]="[item.companyId, 'settings', 'edit']">Edit</a>
           <a class="dropdown-item" [routerLink]="[item.companyId, 'settings']">Settings</a>
         </app-card-menu>

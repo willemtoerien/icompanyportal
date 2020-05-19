@@ -16,37 +16,48 @@ namespace iCompanyPortal.Api.Companies.Client
             this.http = http;
         }
 
-        public async Task<bool> IsUniqueNameUnique(string uniqueName)
+        public async Task<bool> IsUniqueNameUniqueAsync(string uniqueName)
         {
             return await http.GetAsync<bool>($"/{WebUtility.UrlEncode(uniqueName)}/is-unique");
         }
 
-        public async Task<Company[]> GetCompanies(int pageSize, int page, string search = "")
+        public async Task<Company[]> GetCompaniesAsync(int pageSize, int page, string search = "")
         {
             return await http.GetAsync<Company[]>($"/{pageSize}/{page}?search=${WebUtility.UrlEncode(search)}");
         }
 
-        public async Task<Company[]> GetFavorites()
+        public async Task<Company[]> GetFavoritesAsync()
         {
             return await http.GetAsync<Company[]>($"/favorites");
         }
 
-        public async Task<Company> GetCompany(int companyId)
+        public async Task<Company> GetCompanyAsync(int companyId)
         {
             return await http.GetAsync<Company>($"/{companyId}");
         }
 
-        public async Task<int> Create(SaveCompanyRequest request)
+        public async Task<int> CreateAsync(SaveCompanyRequest request)
         {
             return await http.PostAsync<int>("/", request);
         }
 
-        public async Task Save(int companyId, SaveCompanyRequest request)
+        public async Task SaveAsync(int companyId, SaveCompanyRequest request)
         {
             await http.PutAsync($"/{companyId}", request);
         }
 
-        public async Task Delete(int companyId)
+        public async Task SetFavoriteAsync(int companyId, bool? value)
+        {
+            if (value.HasValue)
+            {
+                await http.PutAsync($"/{companyId}/favorite/{value}");
+            } else
+            {
+                await http.PutAsync($"/{companyId}/favorite");
+            }
+        }
+
+        public async Task DeleteAsync(int companyId)
         {
             await http.DeleteAsync($"/{companyId}");
         }

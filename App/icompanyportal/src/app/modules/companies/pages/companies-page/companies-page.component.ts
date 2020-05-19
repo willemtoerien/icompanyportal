@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CollectionContext } from 'utils';
-import { CompaniesClient } from 'companies-api';
+import { CompaniesClient, CompanyUsersClient } from 'companies-api';
 import { catchError, finalize, tap, takeUntil } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { CompanyStore } from 'src/app/modules/company-utils/services';
 
 @Component({
   templateUrl: './companies-page.component.html',
@@ -11,7 +12,7 @@ import { throwError } from 'rxjs';
 export class CompaniesPageComponent implements OnInit, OnDestroy {
   context = new CollectionContext('Companies');
 
-  constructor(private companiesClient: CompaniesClient) {}
+  constructor(private companiesClient: CompaniesClient, private companyStore: CompanyStore) {}
 
   ngOnInit(): void {
     this.loadItems();
@@ -40,5 +41,9 @@ export class CompaniesPageComponent implements OnInit, OnDestroy {
         takeUntil(this.context.cease)
       )
       .subscribe();
+  }
+
+  toggleFavorite(companyId: number) {
+    this.companiesClient.setFavorite(companyId).subscribe(() => this.companyStore.updated.emit());
   }
 }
