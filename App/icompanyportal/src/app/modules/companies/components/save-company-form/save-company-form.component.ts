@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { FormValidators, invokeForm, ImageInputData } from 'forms-ex';
 import { Observable } from 'rxjs';
 import { tap, flatMap } from 'rxjs/operators';
-import { CompanyStore } from 'src/app/modules/company-utils/services';
+import { CompanyStore } from 'company-utils';
 
 @Component({
   selector: 'app-save-company-form',

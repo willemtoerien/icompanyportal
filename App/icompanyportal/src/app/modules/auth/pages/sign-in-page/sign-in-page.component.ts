@@ -5,7 +5,7 @@ import { SignedInUserResolver } from 'auth-utils';
 import { Router } from '@angular/router';
 import { invokeForm } from 'forms-ex';
 import { flatMap } from 'rxjs/operators';
-import { AuthStore } from 'src/app/modules/auth-utils/services';
+import { AuthStore } from 'auth-utils';
 
 @Component({
   templateUrl: './sign-in-page.component.html'

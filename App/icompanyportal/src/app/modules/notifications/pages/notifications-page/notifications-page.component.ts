@@ -4,7 +4,7 @@ import { CollectionContext } from 'utils';
 import { catchError, finalize, tap, takeUntil } from 'rxjs/operators';
 import { throwError, Subscription } from 'rxjs';
 import { useCollectionContext } from 'utils';
-import { NotificationStore } from 'src/app/modules/notification-utils/services';
+import { NotificationStore } from 'notification-utils';
 
 @Component({
   templateUrl: './notifications-page.component.html'

@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build:libraries": "ng build users-api && ng build notifications-api && ng build companies-api && ng build notification-utils && ng build auth-utils && ng build company-utils"
   },
   "private": true,
   "dependencies": {

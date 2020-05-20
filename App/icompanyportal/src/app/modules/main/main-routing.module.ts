@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
-import { AuthGuard } from '../auth-utils';
-import { UnreadCountResolver } from '../notification-utils/services';
+import { AuthGuard } from 'auth-utils';
+import { UnreadCountResolver } from 'notification-utils';
 
 const routes: Routes = [
   {

@@ -2,8 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { UsersClient, SaveUserRequest } from 'users-api';
 import { FormValidators, invokeForm } from 'forms-ex';
-import { AuthStore } from 'src/app/modules/auth-utils/services';
-import { UserStatus } from 'src/app/services/api-clients/users-api/user-status';
+import { AuthStore } from 'auth-utils';
+import { UserStatus } from 'users-api';
 import { ImageInputData } from 'forms-ex';
 import { flatMap } from 'rxjs/operators';
 

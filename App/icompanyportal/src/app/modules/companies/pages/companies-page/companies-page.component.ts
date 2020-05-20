@@ -3,7 +3,7 @@ import { CollectionContext } from 'utils';
 import { CompaniesClient, CompanyUsersClient } from 'companies-api';
 import { catchError, finalize, tap, takeUntil } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-import { CompanyStore } from 'src/app/modules/company-utils/services';
+import { CompanyStore } from 'company-utils';
 
 @Component({
   templateUrl: './companies-page.component.html',

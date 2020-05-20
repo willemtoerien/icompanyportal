@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UsersClient, ConfirmationTokenType } from 'users-api';
 import { BehaviorSubject } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
-import { AuthStore } from 'src/app/modules/auth-utils/services';
+import { AuthStore } from 'auth-utils';
 
 @Component({
   templateUrl: './confirm-page.component.html'

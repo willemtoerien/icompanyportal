@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CompanyStore } from 'src/app/modules/company-utils/services';
+import { CompanyStore } from 'company-utils';
 import { CompaniesClient } from 'companies-api';
 
 @Component({

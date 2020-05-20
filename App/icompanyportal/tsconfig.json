@@ -17,23 +17,28 @@
     ],
     "paths": {
       "users-api": [
-        "src/app/services/api-clients/users-api"
+        "dist/users-api/users-api",
+        "dist/users-api"
       ],
       "notifications-api": [
-        "src/app/services/api-clients/notifications-api"
+        "dist/notifications-api/notifications-api",
+        "dist/notifications-api"
       ],
       "companies-api": [
-        "src/app/services/api-clients/companies-api"
+        "dist/companies-api/companies-api",
+        "dist/companies-api"
       ],
       "utils": [
         "dist/utils/utils",
         "dist/utils"
       ],
       "auth-utils": [
-        "src/app/modules/auth-utils"
+        "dist/auth-utils/auth-utils",
+        "dist/auth-utils"
       ],
       "company-utils": [
-        "src/app/modules/company-utils"
+        "dist/company-utils/company-utils",
+        "dist/company-utils"
       ],
       "notification-ex": [
         "src/app/modules/notification-ex"
@@ -41,6 +46,10 @@
       "forms-ex": [
         "dist/forms-ex/forms-ex",
         "dist/forms-ex"
+      ],
+      "notification-utils": [
+        "dist/notification-utils/notification-utils",
+        "dist/notification-utils"
       ]
     }
   },

@@ -5,11 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { AUTH_TOKEN_KEY, AuthInterceptor } from './modules/auth-utils';
+import { AUTH_TOKEN_KEY, AuthInterceptor } from 'auth-utils';
 import { NOTIFICATIONS_API_ENDPOINT, NOTIFICATIONS_API_AUTH_TOKEN } from 'notifications-api';
 import { USERS_API_ENDPOINT } from 'users-api';
 import { COMPANIES_API_ENDPOINT } from 'companies-api';
-import { COMPANY_NOT_FOUND_ROUTE } from './modules/company-utils/services/company-not-found-route';
+import { COMPANY_NOT_FOUND_ROUTE } from 'company-utils';
 import { UtilsModule, APP_TITLE } from 'utils';
 
 @NgModule({

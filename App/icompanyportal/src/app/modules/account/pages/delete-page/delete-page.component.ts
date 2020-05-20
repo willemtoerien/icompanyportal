@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersClient } from 'users-api';
-import { AuthTokenHelper } from 'src/app/modules/auth-utils/services';
+import { AuthTokenHelper } from 'auth-utils';
 import { Router } from '@angular/router';
 
 @Component({

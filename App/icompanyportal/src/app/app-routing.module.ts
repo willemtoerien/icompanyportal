@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SignedInUserResolver, UnauthGuard } from './modules/auth-utils';
+import { SignedInUserResolver, UnauthGuard } from 'auth-utils';
 
 const routes: Routes = [
   {

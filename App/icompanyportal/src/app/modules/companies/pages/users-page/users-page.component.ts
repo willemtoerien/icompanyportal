@@ -5,8 +5,8 @@ import { CompanyUsersClient, CompanyUser } from 'companies-api';
 import { Router } from '@angular/router';
 import { catchError, finalize, flatMap, map, takeUntil } from 'rxjs/operators';
 import { throwError, of } from 'rxjs';
-import { AuthStore } from 'src/app/modules/auth-utils/services';
-import { CompanyStore } from 'src/app/modules/company-utils/services';
+import { AuthStore } from 'auth-utils';
+import { CompanyStore } from 'company-utils';
 import { useCollectionContext } from 'utils';
 
 @Component({

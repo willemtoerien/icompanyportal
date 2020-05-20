@@ -6,14 +6,14 @@
     <span class="header">Home</span>
     <a routerLink="/notifications" class="sub-item d-flex justify-content-between"
       routerLinkActive="active"><span>Notifications</span><span class="badge badge-danger align-self-center"
-        appUnreadCount></span></a>
+        libUnreadCount></span></a>
     <hr>
     <div class="header d-flex justify-content-between">
       <span>Companies</span>
       <a routerLink="/companies">All Companies</a>
     </div>
     <a *ngFor="let company of companies" class="sub-item" [routerLink]="['/companies', company.companyId]"
-      routerLinkActive="active"><img [appCompanyLogo]="company" class="avatar-32 mr-2">
+      routerLinkActive="active"><img [libCompanyLogo]="company" class="avatar-32 mr-2">
       {{ company.name }}</a>
     <div class="text-center">
       <span *ngIf="!isLoading && companies.length === 0" class="small">You do not belong to any companies</span>

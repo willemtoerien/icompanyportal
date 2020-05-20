@@ -4,10 +4,10 @@ import { CommonModule } from '@angular/common';
 import { MainRoutingModule } from './main-routing.module';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { UtilsModule } from 'utils';
-import { AuthUtilsModule } from '../auth-utils/auth-utils.module';
+import { AuthUtilsModule } from 'auth-utils';
 import { CompanyFavoritesSidebarItemsComponent } from './components/company-favorites-sidebar-items/company-favorites-sidebar-items.component';
-import { NotificationUtilsModule } from '../notification-utils/notification-utils.module';
-import { CompanyUtilsModule } from '../company-utils/company-utils.module';
+import { NotificationUtilsModule } from 'notification-utils';
+import { CompanyUtilsModule } from 'company-utils';
 
 @NgModule({
   declarations: [MainLayoutComponent, CompanyFavoritesSidebarItemsComponent],

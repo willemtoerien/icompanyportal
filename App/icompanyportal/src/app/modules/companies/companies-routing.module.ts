@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CompanyLayoutComponent } from './layouts/company-layout/company-layout.component';
-import { CompanyResolver, CompanyInvitationResolver } from '../company-utils/services';
+import { CompanyResolver, CompanyInvitationResolver } from 'company-utils';
 import { CompaniesPageComponent } from './pages/companies-page/companies-page.component';
 import { CreatePageComponent } from './pages/create-page/create-page.component';
 import { EditPageComponent } from './pages/edit-page/edit-page.component';

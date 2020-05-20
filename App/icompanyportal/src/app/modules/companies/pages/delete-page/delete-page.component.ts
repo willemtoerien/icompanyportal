@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CompaniesClient } from 'companies-api';
 import { Router } from '@angular/router';
-import { CompanyStore } from 'src/app/modules/company-utils/services';
+import { CompanyStore } from 'company-utils';
 
 @Component({
   templateUrl: './delete-page.component.html',

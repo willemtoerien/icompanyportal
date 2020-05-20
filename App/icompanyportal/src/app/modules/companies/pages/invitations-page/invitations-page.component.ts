@@ -3,7 +3,7 @@ import { CollectionContext } from 'utils';
 import { CompanyInvitationsClient, CompanyInvitation } from 'companies-api';
 import { catchError, finalize, takeUntil } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-import { CompanyStore } from 'src/app/modules/company-utils/services';
+import { CompanyStore } from 'company-utils';
 
 @Component({
   templateUrl: './invitations-page.component.html',

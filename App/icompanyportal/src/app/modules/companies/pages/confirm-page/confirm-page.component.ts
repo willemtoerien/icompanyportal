@@ -4,7 +4,7 @@ import { CompanyInvitationsClient, CompanyInvitation } from 'companies-api';
 import { BehaviorSubject, throwError } from 'rxjs';
 import { catchError, finalize, flatMap } from 'rxjs/operators';
 import { UsersClient } from 'users-api';
-import { AuthStore, AuthTokenHelper } from 'src/app/modules/auth-utils/services';
+import { AuthStore, AuthTokenHelper } from 'auth-utils';
 
 @Component({
   templateUrl: './confirm-page.component.html',

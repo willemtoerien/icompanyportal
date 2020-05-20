@@ -6,6 +6,7 @@ import { CompanyStore } from 'company-utils';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { NotificationsClient } from 'notifications-api';
+import { NotificationStore } from 'notification-utils';
 
 @Component({
   templateUrl: './main-layout.component.html',
@@ -14,6 +15,7 @@ import { NotificationsClient } from 'notifications-api';
 export class MainLayoutComponent implements OnInit, OnDestroy {
   private cease = new Subject<void>();
   private notificationsSubscription: Subscription;
+  private notificationsCountSubscription: Subscription;
 
   isLoading = false;
   companies: Company[] = [];
@@ -40,7 +42,8 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
     private token: AuthTokenHelper,
     private companiesClient: CompaniesClient,
     private store: CompanyStore,
-    private notificationsClient: NotificationsClient
+    private notificationsClient: NotificationsClient,
+    private notificationStore: NotificationStore
   ) {}
 
   signOut() {
@@ -51,6 +54,9 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
     this.notificationsSubscription = this.notificationsClient.listen().subscribe();
     this.load();
     this.store.updated.subscribe(() => this.load());
+    this.notificationsCountSubscription = this.notificationsClient.countChanged.subscribe((count) =>
+      this.notificationStore.unreadCount.next(count)
+    );
   }
 
   ngOnDestroy() {
@@ -58,6 +64,9 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
     this.cease.complete();
     if (this.notificationsSubscription) {
       this.notificationsSubscription.unsubscribe();
+    }
+    if (this.notificationsCountSubscription) {
+      this.notificationsCountSubscription.unsubscribe();
     }
   }
 
