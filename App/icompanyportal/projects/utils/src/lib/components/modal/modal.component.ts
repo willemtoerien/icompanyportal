@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, AfterViewInit, Input, Templ
 import * as $ from 'jquery';
 
 @Component({
-  selector: 'app-modal',
+  selector: 'lib-modal',
   templateUrl: './modal.component.html'
 })
 export class ModalComponent implements AfterViewInit {

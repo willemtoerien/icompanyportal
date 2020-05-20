@@ -7,7 +7,7 @@ import { ResetPasswordPageComponent } from './pages/reset-password-page/reset-pa
 import { SignInPageComponent } from './pages/sign-in-page/sign-in-page.component';
 import { SignUpPageComponent } from './pages/sign-up-page/sign-up-page.component';
 import { FormsExModule } from '../forms-ex/forms-ex.module';
-import { UtilsModule } from '../utils/utils.module';
+import { UtilsModule } from 'utils';
 
 @NgModule({
   declarations: [AuthLayoutComponent, ResetPasswordPageComponent, SignInPageComponent, SignUpPageComponent],

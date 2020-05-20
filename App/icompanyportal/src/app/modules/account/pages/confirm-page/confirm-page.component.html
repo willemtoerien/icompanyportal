@@ -5,7 +5,7 @@
         <h4 class="card-title">Confirmation</h4>
         <div *ngIf="!invalid" id="is-busy">
           <p class="card-text">Please wait while we confirm your token...</p>
-          <div *appTimeout="500" class="spinner-border" role="status">
+          <div *libTimeout="500" class="spinner-border" role="status">
             <span class="sr-only">Loading...</span>
           </div>
         </div>

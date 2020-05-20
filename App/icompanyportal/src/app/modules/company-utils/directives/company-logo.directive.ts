@@ -1,7 +1,5 @@
 import { Directive, Input, ElementRef } from '@angular/core';
 import { Company } from 'companies-api';
-import { TrustResourcePipe } from '../../utils/pipes';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Directive({
   selector: '[appCompanyLogo]'

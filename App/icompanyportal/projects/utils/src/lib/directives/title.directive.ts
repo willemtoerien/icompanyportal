@@ -3,19 +3,19 @@ import { Title } from '@angular/platform-browser';
 import { APP_TITLE } from '../services/app-title';
 
 @Directive({
-  selector: '[appTitle]'
+  selector: '[libTitle]'
 })
 export class TitleDirective implements OnInit {
   @Input()
-  appTitle: string;
+  libTitle: string;
 
   constructor(private title: Title, @Inject(APP_TITLE) private applicationTitle: string) {}
 
   ngOnInit() {
     let titleToSet = this.applicationTitle;
 
-    if (this.appTitle) {
-      titleToSet = `${this.appTitle} | ${titleToSet}`;
+    if (this.libTitle) {
+      titleToSet = `${this.libTitle} | ${titleToSet}`;
     }
 
     this.title.setTitle(titleToSet);

@@ -1,17 +1,17 @@
 <a routerLink="invite" class="btn btn-success mb-3">Invite</a>
-<app-collection [context]="context" [itemTemplate]="itemTemplate" (loadMore)="loadItems()">
+<lib-collection [context]="context" [itemTemplate]="itemTemplate" (loadMore)="loadItems()">
   <ng-template #itemTemplate let-item="item">
     <div class="card">
       <div class="card-body">
-        <app-card-menu>
-          <button class="dropdown-item text-danger" [appModalToggler]="'remove-' + item.token">Remove</button>
-        </app-card-menu>
+        <lib-card-menu>
+          <button class="dropdown-item text-danger" [libModalToggler]="'remove-' + item.token">Remove</button>
+        </lib-card-menu>
         <h4 class="card-title">{{ item.email }}</h4>
       </div>
     </div>
-    <app-modal modalTitle="Remove?" [identity]="'remove-' + item.token" colorContext="danger" submitText="Remove"
+    <lib-modal modalTitle="Remove?" [identity]="'remove-' + item.token" colorContext="danger" submitText="Remove"
       (answered)="onRemove(item)">
       Are you sure you want to remove {{ item.email }}?
-    </app-modal>
+    </lib-modal>
   </ng-template>
-</app-collection>
+</lib-collection>

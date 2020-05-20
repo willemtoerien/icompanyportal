@@ -5,7 +5,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { APP_TITLE } from '../services/app-title';
 
 @Component({
-  template: '<div [appTitle]="title"></div>'
+  template: '<div [libTitle]="title"></div>'
 })
 class TestComponent {
   title: string;

@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router, NavigationEnd, NavigationCancel, NavigationError, Event } from '@angular/router';
 
 @Component({
-  selector: 'app-initial-loading',
+  selector: 'lib-initial-loading',
   templateUrl: './initial-loading.component.html'
 })
 export class InitialLoadingComponent implements OnInit {

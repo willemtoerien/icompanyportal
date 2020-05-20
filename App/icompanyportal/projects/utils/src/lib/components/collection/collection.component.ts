@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, TemplateRef, Output,
 import { CollectionContext } from '../../models/collection-context';
 
 @Component({
-  selector: 'app-collection',
+  selector: 'lib-collection',
   templateUrl: './collection.component.html'
 })
 export class CollectionComponent {

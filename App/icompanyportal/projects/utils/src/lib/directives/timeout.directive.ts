@@ -1,16 +1,16 @@
 import { Directive, Input, TemplateRef, ViewContainerRef, OnInit } from '@angular/core';
 
 @Directive({
-  selector: '[appTimeout]'
+  selector: '[libTimeout]'
 })
 export class TimeoutDirective implements OnInit {
   @Input()
-  appTimeout: number;
+  libTimeout: number;
 
   constructor(private el: TemplateRef<HTMLElement>, private viewContainer: ViewContainerRef) {}
 
   ngOnInit() {
     this.viewContainer.clear();
-    setTimeout(() => this.viewContainer.createEmbeddedView(this.el), this.appTimeout);
+    setTimeout(() => this.viewContainer.createEmbeddedView(this.el), this.libTimeout);
   }
 }

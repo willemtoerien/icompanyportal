@@ -2,7 +2,7 @@
   <a class="brand" routerLink="/">iCompanyPortal.com</a>
 </ng-template>
 <ng-template #sidebarContentTemplate>
-  <app-sidebar>
+  <lib-sidebar>
     <span class="header">Home</span>
     <a routerLink="/notifications" class="sub-item d-flex justify-content-between"
       routerLinkActive="active"><span>Notifications</span><span class="badge badge-danger align-self-center"
@@ -18,16 +18,16 @@
     <div class="text-center">
       <span *ngIf="!isLoading && companies.length === 0" class="small">You do not belong to any companies</span>
       <div *ngIf="isLoading" class="text-center">
-        <div *appTimeout="500" class="spinner-border" role="status">
+        <div *libTimeout="500" class="spinner-border" role="status">
           <span class="sr-only">Loading...</span>
         </div>
       </div>
       <a routerLink="/companies/create" class="btn btn-success text-center mt-3">Create Company</a>
     </div>
-  </app-sidebar>
+  </lib-sidebar>
 </ng-template>
 
-<app-navbar [brandTemplate]="brandTemplate" [sidebarContentTemplate]="sidebarContentTemplate">
+<lib-navbar [brandTemplate]="brandTemplate" [sidebarContentTemplate]="sidebarContentTemplate">
   <nav class="nav">
     <div class="nav-item nav-link dropdown pr-0">
       <a class="dropdown-toggle dropdown-menu-right text-white p-0" href="#" role="button" data-toggle="dropdown"
@@ -55,7 +55,7 @@
       </div>
     </div>
   </nav>
-</app-navbar>
+</lib-navbar>
 
 <div class="main-content">
   <div class="d-flex flex-row">

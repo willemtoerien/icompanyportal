@@ -12,7 +12,7 @@ import { UsersPageComponent } from './pages/users-page/users-page.component';
 import { InvitationsPageComponent } from './pages/invitations-page/invitations-page.component';
 import { InvitePageComponent } from './pages/invite-page/invite-page.component';
 import { DeletePageComponent } from './pages/delete-page/delete-page.component';
-import { UtilsModule } from '../utils/utils.module';
+import { UtilsModule } from 'utils';
 import { FormsExModule } from '../forms-ex/forms-ex.module';
 import { UsersLayoutComponent } from './layouts/users-layout/users-layout.component';
 import { CompanyUtilsModule } from '../company-utils/company-utils.module';

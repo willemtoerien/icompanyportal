@@ -7,7 +7,7 @@ import { catchError, finalize, flatMap, map, takeUntil } from 'rxjs/operators';
 import { throwError, of } from 'rxjs';
 import { AuthStore } from 'src/app/modules/auth-utils/services';
 import { CompanyStore } from 'src/app/modules/company-utils/services';
-import { useCollectionContext } from 'src/app/modules/utils/operators/use-collection-context';
+import { useCollectionContext } from 'utils';
 
 @Component({
   templateUrl: './users-page.component.html',

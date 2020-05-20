@@ -9,14 +9,12 @@ import { AUTH_TOKEN_KEY, AuthInterceptor } from './modules/auth-utils';
 import { NOTIFICATIONS_API_ENDPOINT, NOTIFICATIONS_API_AUTH_TOKEN } from 'notifications-api';
 import { USERS_API_ENDPOINT } from 'users-api';
 import { COMPANIES_API_ENDPOINT } from 'companies-api';
-import { APP_TITLE } from './modules/utils/services';
 import { COMPANY_NOT_FOUND_ROUTE } from './modules/company-utils/services/company-not-found-route';
-import { InitialLoadingComponent } from './components/initial-loading/initial-loading.component';
-import { PageLoadingIndicatorComponent } from './components/page-loading-indicator/page-loading-indicator.component';
+import { UtilsModule, APP_TITLE } from 'utils';
 
 @NgModule({
-  declarations: [AppComponent, InitialLoadingComponent, PageLoadingIndicatorComponent],
-  imports: [BrowserModule, HttpClientModule, AppRoutingModule],
+  declarations: [AppComponent],
+  imports: [BrowserModule, HttpClientModule, AppRoutingModule, UtilsModule],
   providers: [
     {
       provide: APP_TITLE,

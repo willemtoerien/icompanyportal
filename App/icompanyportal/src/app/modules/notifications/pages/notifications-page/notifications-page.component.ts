@@ -3,7 +3,7 @@ import { NotificationsClient, Notification } from 'notifications-api';
 import { CollectionContext } from 'utils';
 import { catchError, finalize, tap, takeUntil } from 'rxjs/operators';
 import { throwError, Subscription } from 'rxjs';
-import { useCollectionContext } from 'src/app/modules/utils/operators/use-collection-context';
+import { useCollectionContext } from 'utils';
 import { NotificationStore } from 'src/app/modules/notification-utils/services';
 
 @Component({

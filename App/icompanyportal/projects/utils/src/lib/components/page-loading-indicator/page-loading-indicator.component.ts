@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError, Event } from '@angular/router';
 
 @Component({
-  selector: 'app-page-loading-indicator',
+  selector: 'lib-page-loading-indicator',
   templateUrl: './page-loading-indicator.component.html',
   styles: []
 })

@@ -2,12 +2,12 @@
   <div class="col-md-4 text-center mb-3">
     <div class="card">
       <div class="card-body">
-        <app-card-menu>
+        <lib-card-menu>
           <button class="dropdown-item" (click)="toggleFavorite()">Toggle Favorite</button>
           <hr>
           <a class="dropdown-item" routerLink="settings/edit">Edit</a>
           <a class="dropdown-item" routerLink="settings">Settings</a>
-        </app-card-menu>
+        </lib-card-menu>
         <img [appCompanyLogo]="store.company.value" class="img-thumbnail mb-3 avatar-92">
         <h4 class="card-title">{{ store.company.value.name }}</h4>
         <p class="card-subtitle">@{{ store.company.value.uniqueName }}</p>

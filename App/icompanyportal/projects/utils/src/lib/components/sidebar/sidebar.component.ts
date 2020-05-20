@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'app-sidebar',
+  selector: 'lib-sidebar',
   templateUrl: './sidebar.component.html'
 })
 export class SidebarComponent {}

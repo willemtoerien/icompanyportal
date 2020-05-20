@@ -3,16 +3,16 @@
     <li class="breadcrumb-item active" aria-current="page">Companies</li>
   </ol>
 </nav>
-<app-collection appTitle="Companies" [context]="context" [itemTemplate]="itemTemplate" (loadMore)="loadItems()">
+<lib-collection libTitle="Companies" [context]="context" [itemTemplate]="itemTemplate" (loadMore)="loadItems()">
   <ng-template #itemTemplate let-item="item">
     <div class="card">
       <div class="card-body">
-        <app-card-menu>
+        <lib-card-menu>
           <button class="dropdown-item" (click)="toggleFavorite(item.companyId)">Toggle Favorite</button>
           <hr>
           <a class="dropdown-item" [routerLink]="[item.companyId, 'settings', 'edit']">Edit</a>
           <a class="dropdown-item" [routerLink]="[item.companyId, 'settings']">Settings</a>
-        </app-card-menu>
+        </lib-card-menu>
         <div class="d-md-flex">
           <img [appCompanyLogo]="item" class="img-thumbnail mb-3 mr-3 mb-md-0 avatar-92">
           <div class="mr-auto">
@@ -23,4 +23,4 @@
       </div>
     </div>
   </ng-template>
-</app-collection>
+</lib-collection>

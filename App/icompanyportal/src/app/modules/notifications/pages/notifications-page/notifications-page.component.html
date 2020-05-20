@@ -3,7 +3,7 @@
     <li class="breadcrumb-item active" aria-current="page">Notifications</li>
   </ol>
 </nav>
-<app-collection appTitle="Notifications" [context]="context" [itemTemplate]="itemTemplate" (loadMore)="loadItems()">
+<lib-collection libTitle="Notifications" [context]="context" [itemTemplate]="itemTemplate" (loadMore)="loadItems()">
   <ng-template #itemTemplate let-item="item">
     <div class="card" [class.border-info]="!item.readAt">
       <div class="card-body">
@@ -15,4 +15,4 @@
       <div class="card-footer small text-muted">{{ item.createdAt | timeAgo }}</div>
     </div>
   </ng-template>
-</app-collection>
+</lib-collection>
