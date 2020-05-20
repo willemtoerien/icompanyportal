@@ -5,7 +5,13 @@ import { IEnvironment } from './i-environment';
 // The list of file replacements can be found in `angular.json`.
 
 export const environment: IEnvironment = {
-  production: false
+  production: false,
+  authToken: 'authToken',
+  apiEndpoints: {
+    users: 'https://localhost:1002',
+    notifications: 'https://localhost:1004',
+    companies: 'https://localhost:1006'
+  }
 };
 
 /*

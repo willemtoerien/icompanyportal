@@ -3,9 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host=0.0.0.0",
-    "build": "ng build",
-    "test": "ng test",
+    "build": "npm run build:libraries && ng build:app && ng build",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build:libraries": "ng build users-api && ng build notifications-api && ng build companies-api && ng build notification-utils && ng build auth-utils && ng build company-utils"

@@ -1,0 +1,16 @@
+a:hover,
+a:focus,
+.btn-link:hover,
+.btn-link:focus {
+  text-decoration: none;
+}
+
+.card-btn-link {
+  @extend .btn;
+  @extend .btn-link;
+
+  border: unset;
+  padding: unset;
+
+  @extend .card-link;
+}
