@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
 import { ImageInputData } from '../../models/image-input-data';
 
 @Component({
-  selector: 'app-image-input',
+  selector: 'lib-image-input',
   templateUrl: './image-input.component.html'
 })
 export class ImageInputComponent {

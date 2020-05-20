@@ -10,25 +10,25 @@
     <p class="card-subtitle">Enter your account details.</p>
     <hr>
     <app-form [formGroup]="form" (submitted)="onSubmit()">
-      <app-image-input name="avatar" label="Avatar" [src]="hasSrc ? (src | trustResource) : defaultSrc"
-        (imageChanged)="onImageChanged($event)" [canRemove]="hasSrc" (deleted)="onDeleteAvatar()"></app-image-input>
+      <lib-image-input name="avatar" label="Avatar" [src]="hasSrc ? (src | trustResource) : defaultSrc"
+        (imageChanged)="onImageChanged($event)" [canRemove]="hasSrc" (deleted)="onDeleteAvatar()"></lib-image-input>
       <hr>
-      <app-text-box name="email" type="email" label="Email">
+      <lib-text-box name="email" type="email" label="Email">
         <p id="unconfirmed" *ngIf="authStore.signedInUser.value.status === 0" class="card-text">
           Your email has not yet been confirmed. Please click <a href="#" (click)="onResend($event)">here</a> to resend
           an email confirmation.</p>
         <p id="confirmed" *ngIf="authStore.signedInUser.value.status !== 0" class="card-text">
           Your email was confirmed.
         </p>
-      </app-text-box>
+      </lib-text-box>
       <hr />
-      <app-text-box name="firstName" label="First Name"></app-text-box>
-      <app-text-box name="lastName" label="Last Name"></app-text-box>
+      <lib-text-box name="firstName" label="First Name"></lib-text-box>
+      <lib-text-box name="lastName" label="Last Name"></lib-text-box>
       <hr />
-      <app-text-box name="password" type="password" label="Password"></app-text-box>
-      <app-text-box name="confirmPassword" type="password" label="Confirm"></app-text-box>
+      <lib-text-box name="password" type="password" label="Password"></lib-text-box>
+      <lib-text-box name="confirmPassword" type="password" label="Confirm"></lib-text-box>
       <hr />
-      <app-submit-button>Save</app-submit-button>
+      <lib-submit-button>Save</lib-submit-button>
     </app-form>
     <div id="saved" *ngIf="isSaved" class="alert alert-success mt-3">
       <h4 class="alert-heading">Saved</h4>

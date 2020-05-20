@@ -4,7 +4,7 @@ import { FormGroupDirective } from '@angular/forms';
 export type CheckboxType = 'checkbox' | 'radio' | 'switch';
 
 @Component({
-  selector: 'app-check-box',
+  selector: 'lib-check-box',
   templateUrl: './check-box.component.html'
 })
 export class CheckBoxComponent {

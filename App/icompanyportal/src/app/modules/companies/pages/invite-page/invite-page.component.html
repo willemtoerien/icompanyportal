@@ -4,9 +4,9 @@
     <div class="card-subtitle">Enter the email of the person you want to invite.</div>
     <hr>
     <app-form [formGroup]="form" (submitted)="onSubmit()">
-      <app-text-box name="email" label="Email" type="email"></app-text-box>
+      <lib-text-box name="email" label="Email" type="email"></lib-text-box>
       <hr>
-      <app-submit-button>Send Invite</app-submit-button>
+      <lib-submit-button>Send Invite</lib-submit-button>
     </app-form>
     <div id="sent" *ngIf="isSent" class="alert alert-success mt-3 mb-0">
       <h4 class="alert-heading">Invitation Sent</h4>

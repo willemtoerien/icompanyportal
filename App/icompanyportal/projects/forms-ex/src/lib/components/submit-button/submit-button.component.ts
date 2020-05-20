@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
 
 @Component({
-  selector: 'app-submit-button',
+  selector: 'lib-submit-button',
   templateUrl: './submit-button.component.html'
 })
 export class SubmitButtonComponent {

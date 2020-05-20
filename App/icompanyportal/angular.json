@@ -166,6 +166,46 @@
           }
         }
       }
+    },
+    "forms-ex": {
+      "projectType": "library",
+      "root": "projects/forms-ex",
+      "sourceRoot": "projects/forms-ex/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/forms-ex/tsconfig.lib.json",
+            "project": "projects/forms-ex/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/forms-ex/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/forms-ex/src/test.ts",
+            "tsConfig": "projects/forms-ex/tsconfig.spec.json",
+            "karmaConfig": "projects/forms-ex/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/forms-ex/tsconfig.lib.json",
+              "projects/forms-ex/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "icompanyportal",

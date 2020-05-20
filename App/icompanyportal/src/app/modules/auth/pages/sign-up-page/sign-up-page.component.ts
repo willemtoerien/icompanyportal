@@ -3,9 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UsersClient } from 'users-api';
 import { SignedInUserResolver, AuthStore } from 'auth-utils';
 import { Router, ActivatedRoute } from '@angular/router';
-import { invokeForm } from 'forms-ex';
+import { invokeForm, FormValidators } from 'forms-ex';
 import { flatMap } from 'rxjs/operators';
-import { FormValidators } from 'src/app/modules/forms-ex/validation';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({

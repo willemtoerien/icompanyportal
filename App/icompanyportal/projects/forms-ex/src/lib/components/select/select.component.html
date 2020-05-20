@@ -1,8 +1,8 @@
-<app-input [name]="name" [label]="label" [isEnabled]="isEnabled" [description]="description">
+<lib-input [name]="name" [label]="label" [isEnabled]="isEnabled" [description]="description">
   <select [id]="name" class="custom-select" [formControl]="control" (change)="select($event.target.value)">
     <option *ngFor="let option of options" [selected]="isSelected(option)" (select)="select(option)"
       [value]="option.value">{{
       option.text
     }}</option>
   </select>
-</app-input>
+</lib-input>

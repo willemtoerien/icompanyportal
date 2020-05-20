@@ -1,9 +1,9 @@
 <app-form [formGroup]="form" (submitted)="onSubmit()">
-  <app-image-input *ngIf="company" name="logo" label="Logo" [src]="hasSrc ? (src | trustResource) : defaultSrc"
-    (imageChanged)="onImageChanged($event)" [canRemove]="hasSrc" (deleted)="onDeleteLogo()"></app-image-input>
+  <lib-image-input *ngIf="company" name="logo" label="Logo" [src]="hasSrc ? (src | trustResource) : defaultSrc"
+    (imageChanged)="onImageChanged($event)" [canRemove]="hasSrc" (deleted)="onDeleteLogo()"></lib-image-input>
   <hr *ngIf="company">
-  <app-text-box name="name" label="Name"></app-text-box>
-  <app-text-box name="uniqueName" label="Unique Name"></app-text-box>
+  <lib-text-box name="name" label="Name"></lib-text-box>
+  <lib-text-box name="uniqueName" label="Unique Name"></lib-text-box>
   <hr>
-  <app-submit-button>Save</app-submit-button>
+  <lib-submit-button>Save</lib-submit-button>
 </app-form>

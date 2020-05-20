@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
 
 @Component({
-  selector: 'app-input',
+  selector: 'lib-input',
   templateUrl: './input.component.html'
 })
 export class InputComponent {

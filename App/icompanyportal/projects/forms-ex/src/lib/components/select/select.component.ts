@@ -7,7 +7,7 @@ export interface SelectOption {
 }
 
 @Component({
-  selector: 'app-select',
+  selector: 'lib-select',
   templateUrl: './select.component.html'
 })
 export class SelectComponent {

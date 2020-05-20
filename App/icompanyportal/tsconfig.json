@@ -39,7 +39,8 @@
         "src/app/modules/notification-ex"
       ],
       "forms-ex": [
-        "src/app/modules/forms-ex"
+        "dist/forms-ex/forms-ex",
+        "dist/forms-ex"
       ]
     }
   },

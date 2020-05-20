@@ -2,13 +2,10 @@ import { Component, OnInit, AfterViewInit, Input, ViewChild, ElementRef } from '
 import { FormGroupDirective } from '@angular/forms';
 
 @Component({
-  selector: 'app-text-box',
-  templateUrl: './text-box.component.html'
+  selector: 'lib-text-area',
+  templateUrl: './text-area.component.html'
 })
-export class TextBoxComponent implements AfterViewInit {
-  @Input()
-  type = 'text';
-
+export class TextAreaComponent implements AfterViewInit {
   @Input()
   name: string;
 
@@ -19,7 +16,7 @@ export class TextBoxComponent implements AfterViewInit {
   description: string;
 
   @Input()
-  autoComplete = 'off';
+  rows = 3;
 
   @Input()
   isEnabled = true;
@@ -37,9 +34,6 @@ export class TextBoxComponent implements AfterViewInit {
   constructor(private directive: FormGroupDirective) {}
 
   ngAfterViewInit() {
-    if (this.autoComplete) {
-      this.inputElement.nativeElement.autocomplete = this.autoComplete;
-    }
     if (this.labelAsPlaceholder) {
       this.inputElement.nativeElement.placeholder = this.label;
     }
