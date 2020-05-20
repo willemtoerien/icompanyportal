@@ -8,6 +8,7 @@
           <a class="dropdown-item" routerLink="settings/edit">Edit</a>
           <a class="dropdown-item" routerLink="settings">Settings</a>
         </app-card-menu>
+        <img [appCompanyLogo]="store.company.value" class="img-thumbnail mb-3 avatar-92">
         <h4 class="card-title">{{ store.company.value.name }}</h4>
         <p class="card-subtitle">@{{ store.company.value.uniqueName }}</p>
       </div>

@@ -5,4 +5,6 @@ export interface Company {
   uniqueName?: string;
   name?: string;
   status?: CompanyStatus;
+  logo?: string;
+  logoContentType?: string;
 }

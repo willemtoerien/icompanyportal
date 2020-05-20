@@ -12,5 +12,9 @@ namespace iCompanyPortal.Api.Companies.Client
 
         [Required]
         public string UniqueName { get; set; }
+
+        public byte[] Logo { get; set; }
+
+        public string LogoContentType { get; set; }
     }
 }

@@ -19,15 +19,24 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
   companies: Company[] = [];
 
   get userName() {
-    return `${this.usersStore.signedInUser.value.firstName} ${this.usersStore.signedInUser.value.lastName}`;
+    return `${this.authStore.signedInUser.value.firstName} ${this.authStore.signedInUser.value.lastName}`;
   }
 
   get src() {
-    return this.usersStore.signedInUser.value.avatarUrl;
+    const user = this.authStore.signedInUser.value;
+    return `data:${user.avatarContentType};base64,${user.avatar}`;
+  }
+
+  get hasSrc() {
+    return !!this.authStore.signedInUser.value.avatar;
+  }
+
+  get defaultSrc() {
+    return `https://ui-avatars.com/api/?name=${encodeURIComponent(this.userName)}`;
   }
 
   constructor(
-    public usersStore: AuthStore,
+    public authStore: AuthStore,
     private token: AuthTokenHelper,
     private companiesClient: CompaniesClient,
     private store: CompanyStore,

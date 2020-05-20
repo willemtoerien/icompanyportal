@@ -30,10 +30,8 @@ namespace iCompanyPortal.Api.Companies.Controllers
             this.usersClient = usersClient;
         }
 
-
         [HttpGet("is-alive")]
         public bool IsAlive() => true;
-
 
         [HttpGet("{uniqueName}/is-unique")]
         public async Task<IActionResult> IsUniqueNameUnique(string uniqueName)
@@ -120,6 +118,12 @@ namespace iCompanyPortal.Api.Companies.Controllers
             company.Name = request.Name;
             company.UniqueName = request.UniqueName;
 
+            if (request.Logo != null && request.Logo.Length > 0)
+            {
+                company.Logo = request.Logo;
+                company.LogoContentType = request.LogoContentType;
+            }
+
             await db.SaveChangesAsync();
             return NoContent();
         }
@@ -156,7 +160,9 @@ namespace iCompanyPortal.Api.Companies.Controllers
                 Name = request.Name,
                 UniqueName = request.UniqueName,
                 CreatedAt = DateTime.Now,
-                Status = CompanyStatus.Active
+                Status = CompanyStatus.Active,
+                Logo = request.Logo,
+                LogoContentType = request.LogoContentType
             };
             db.Add(company);
             var userId = this.GetUserId();
@@ -179,6 +185,18 @@ namespace iCompanyPortal.Api.Companies.Controllers
             var company = await db.Companies.SingleOrDefaultAsync(x => x.CompanyId == companyId);
             company.Status = CompanyStatus.PendingDeletion;
             company.DeleteAt = DateTime.Now.AddDays(15);
+            await db.SaveChangesAsync();
+            return NoContent();
+        }
+
+        [HttpDelete("{companyId}/logo")]
+        [CompanyExists]
+        [ValidateCompanyUser]
+        public async Task<IActionResult> DeleteAvatar(int companyId)
+        {
+            var company = await db.Companies.SingleOrDefaultAsync(x => x.CompanyId == companyId);
+            company.Logo = null;
+            company.LogoContentType = null;
             await db.SaveChangesAsync();
             return NoContent();
         }

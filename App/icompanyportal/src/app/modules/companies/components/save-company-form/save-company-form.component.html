@@ -1,4 +1,7 @@
 <app-form [formGroup]="form" (submitted)="onSubmit()">
+  <app-image-input *ngIf="company" name="logo" label="Logo" [src]="hasSrc ? (src | trustResource) : defaultSrc"
+    (imageChanged)="onImageChanged($event)" [canRemove]="hasSrc" (deleted)="onDeleteLogo()"></app-image-input>
+  <hr *ngIf="company">
   <app-text-box name="name" label="Name"></app-text-box>
   <app-text-box name="uniqueName" label="Unique Name"></app-text-box>
   <hr>

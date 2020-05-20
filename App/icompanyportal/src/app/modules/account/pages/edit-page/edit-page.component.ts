@@ -17,6 +17,23 @@ export class EditPageComponent implements OnInit {
 
   isSaved = false;
 
+  get userName() {
+    return `${this.authStore.signedInUser.value.firstName} ${this.authStore.signedInUser.value.lastName}`;
+  }
+
+  get src() {
+    const user = this.authStore.signedInUser.value;
+    return `data:${user.avatarContentType};base64,${user.avatar}`;
+  }
+
+  get hasSrc() {
+    return !!this.authStore.signedInUser.value.avatar;
+  }
+
+  get defaultSrc() {
+    return `https://ui-avatars.com/api/?name=${encodeURIComponent(this.userName)}`;
+  }
+
   constructor(private builder: FormBuilder, private users: UsersClient, public authStore: AuthStore) {}
 
   ngOnInit(): void {
@@ -66,10 +83,8 @@ export class EditPageComponent implements OnInit {
   onDeleteAvatar() {
     this.users
       .deleteAvatar()
-      .pipe(flatMap(() => this.users.getAvatarUrl(this.authStore.signedInUser.value.userId)))
-      .subscribe((url) => {
-        const user = this.authStore.signedInUser.value;
-        user.avatarUrl = url;
+      .pipe(flatMap(() => this.users.getSignedInUser()))
+      .subscribe((user) => {
         this.authStore.signedInUser.next(user);
       });
   }

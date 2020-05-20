@@ -22,7 +22,7 @@ export class CompaniesClient {
     return this.http.get<Company[]>(`${this.endpoint}/favorites`);
   }
 
-  get(companyId: number) {
+  getCompany(companyId: number) {
     return this.http.get<Company>(`${this.endpoint}/${companyId}`);
   }
 
@@ -48,5 +48,9 @@ export class CompaniesClient {
 
   delete(companyId: number) {
     return this.http.delete<void>(`${this.endpoint}/${companyId}`);
+  }
+
+  deleteLogo(companyId: number) {
+    return this.http.delete<void>(`${this.endpoint}/${companyId}/logo`);
   }
 }

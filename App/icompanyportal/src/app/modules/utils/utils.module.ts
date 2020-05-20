@@ -11,6 +11,7 @@ import { TimeoutDirective } from './directives/timeout.directive';
 import { CommonModule } from '@angular/common';
 import { TimeSpanPipe } from './pipes/time-span.pipe';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
+import { TrustResourcePipe } from './pipes/trust-resource.pipe';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { TimeAgoPipe } from './pipes/time-ago.pipe';
     ModalTogglerDirective,
     TimeoutDirective,
     TimeAgoPipe,
-    TimeSpanPipe
+    TimeSpanPipe,
+    TrustResourcePipe
   ],
   imports: [CommonModule],
   providers: [Title],
@@ -37,7 +39,8 @@ import { TimeAgoPipe } from './pipes/time-ago.pipe';
     ModalTogglerDirective,
     TimeoutDirective,
     TimeAgoPipe,
-    TimeSpanPipe
+    TimeSpanPipe,
+    TrustResourcePipe
   ]
 })
 export class UtilsModule {}

@@ -8,7 +8,9 @@ namespace iCompanyPortal.Api.Users.Client
     {
         public int UserId { get; set; }
 
-        public string AvatarUrl { get; set; }
+        public byte[] Avatar { get; set; }
+
+        public string AvatarContentType { get; set; }
 
         public string Email { get; set; }
 

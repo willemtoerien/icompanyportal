@@ -38,6 +38,11 @@ namespace iCompanyPortal.Api.Companies.Data
             builder.Property(nameof(Company.CreatedAt));
 
             builder.Property(nameof(Company.DeleteAt));
+
+            builder.Property(nameof(Company.Logo));
+
+            builder.Property(nameof(Company.LogoContentType))
+                .HasMaxLength(100);
         }
     }
 }

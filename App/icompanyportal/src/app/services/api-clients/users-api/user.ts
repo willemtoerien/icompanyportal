@@ -6,5 +6,6 @@ export interface User {
   firstName?: string;
   lastName?: string;
   status?: UserStatus;
-  avatarUrl?: string;
+  avatar?: string;
+  avatarContentType?: string;
 }

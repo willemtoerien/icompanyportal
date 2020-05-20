@@ -39,7 +39,7 @@ export class CompanyResolver implements Resolve<Company> {
       return of(this.store.company.value);
     }
 
-    return this.companiesClient.get(companyId).pipe(
+    return this.companiesClient.getCompany(companyId).pipe(
       notFound(() =>
         this.router.navigateByUrl(this.notFoundRoute, {
           queryParams: {

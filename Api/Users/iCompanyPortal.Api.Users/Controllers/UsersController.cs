@@ -67,15 +67,6 @@ namespace iCompanyPortal.Api.Users.Controllers
                 var user = await db.Users
                     .AsNoTracking()
                     .Where(x => x.UserId == userId)
-                    .Select(x => new User
-                    {
-                        UserId = x.UserId,
-                        FirstName = x.FirstName,
-                        LastName = x.LastName,
-                        DeleteAt = x.DeleteAt,
-                        Email = x.Email,
-                        Status = x.Status
-                    })
                     .SingleOrDefaultAsync();
                 if (user == null)
                 {
@@ -123,53 +114,6 @@ namespace iCompanyPortal.Api.Users.Controllers
             }
             var info = ToUserInfo(user);
             return Ok(info);
-        }
-
-        [HttpGet("{userId}/avatar/url")]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetAvatarUrl(int userId)
-        {
-            var avatar = await db.Users
-                .Where(x => x.UserId == userId)
-                .Select(x => new
-                {
-                    x.UserId,
-                    x.FirstName,
-                    x.LastName,
-                    x.Avatar,
-                })
-                .SingleAsync();
-
-            if (avatar.Avatar == null)
-            {
-                var name = $"{avatar.FirstName} {avatar.LastName}";
-                return Ok($"https://ui-avatars.com/api/?name={WebUtility.UrlEncode(name)}");
-            }
-            var url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/{avatar.UserId}/avatar";
-            return Ok(url);
-        }
-
-        [HttpGet("{userId}/avatar")]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetAvatar(int userId)
-        {
-            var avatar = await db.Users
-                .Where(x => x.UserId == userId)
-                .Select(x => new
-                {
-                    x.FirstName,
-                    x.LastName,
-                    x.Avatar,
-                    x.AvatarContentType
-                })
-                .SingleAsync();
-
-            if (avatar.Avatar == null)
-            {
-                var name = $"{avatar.FirstName} {avatar.LastName}";
-                return Redirect($"https://ui-avatars.com/api/?name={WebUtility.UrlEncode(name)}");
-            }
-            return File(avatar.Avatar, avatar.AvatarContentType);
         }
 
         [HttpPut("reset-password/{responseUrl}")]
@@ -456,7 +400,6 @@ namespace iCompanyPortal.Api.Users.Controllers
 
         private UserInfo ToUserInfo(User user)
         {
-            var url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/{user.UserId}/avatar";
             return new UserInfo
             {
                 DeleteAt = user.DeleteAt,
@@ -465,7 +408,8 @@ namespace iCompanyPortal.Api.Users.Controllers
                 LastName = user.LastName,
                 Status = user.Status,
                 UserId = user.UserId,
-                AvatarUrl = url
+                Avatar = user.Avatar,
+                AvatarContentType = user.AvatarContentType
             };
         }
     }

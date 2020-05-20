@@ -17,6 +17,10 @@ namespace iCompanyPortal.Api.Companies.Client
 
         public DateTime? DeleteAt { get; set; }
 
+        public byte[] Logo { get; set; }
+
+        public string LogoContentType { get; set; }
+
         public ICollection<CompanyInvitation> CompanyInvitations { get; set; } = new HashSet<CompanyInvitation>();
 
         public ICollection<CompanyUser> CompanyUsers { get; set; } = new HashSet<CompanyUser>();

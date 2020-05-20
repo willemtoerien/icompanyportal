@@ -42,7 +42,8 @@ namespace iCompanyPortal.Api.Users.Data
 
             builder.Property(nameof(User.Avatar));
 
-            builder.Property(nameof(User.AvatarContentType));
+            builder.Property(nameof(User.AvatarContentType))
+                .HasMaxLength(100);
 
             builder.Property(nameof(User.Status));
 

@@ -10,17 +10,15 @@
     <p class="card-subtitle">Enter your account details.</p>
     <hr>
     <app-form [formGroup]="form" (submitted)="onSubmit()">
-      {{ authStore.signedInUser.value.avatarUrl }}
-      <app-image-input name="avatar" label="Avatar" [src]="authStore.signedInUser.value.avatarUrl"
-        (imageChanged)="onImageChanged($event)" [canRemove]="true" (deleted)="onDeleteAvatar()"></app-image-input>
+      <app-image-input name="avatar" label="Avatar" [src]="hasSrc ? (src | trustResource) : defaultSrc"
+        (imageChanged)="onImageChanged($event)" [canRemove]="hasSrc" (deleted)="onDeleteAvatar()"></app-image-input>
       <hr>
       <app-text-box name="email" type="email" label="Email">
-        <p id="unconfirmed" *ngIf="authStore.signedInUser.value.status === 0" class="card-text">Your email has not yet
-          been confirmed.
-          Please
-          click <a href="#" (click)="onResend($event)">here</a>
-          to resend an email confirmation.</p>
-        <p id="confirmed" *ngIf="authStore.signedInUser.value.status !== 0" class="card-text">Your email was confirmed.
+        <p id="unconfirmed" *ngIf="authStore.signedInUser.value.status === 0" class="card-text">
+          Your email has not yet been confirmed. Please click <a href="#" (click)="onResend($event)">here</a> to resend
+          an email confirmation.</p>
+        <p id="confirmed" *ngIf="authStore.signedInUser.value.status !== 0" class="card-text">
+          Your email was confirmed.
         </p>
       </app-text-box>
       <hr />
