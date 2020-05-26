@@ -4,8 +4,8 @@ export const environment: IEnvironment = {
   production: true,
   authToken: 'authToken',
   apiEndpoints: {
-    users: 'https://localhost:1002',
-    notifications: 'https://localhost:1004',
-    companies: 'https://localhost:1006'
+    users: 'https://icompanyportal:1002/api/users',
+    notifications: 'https://icompanyportal:1004/api/notifications',
+    companies: 'https://icompanyportal:1006/api/companies'
   }
 };

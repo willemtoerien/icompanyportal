@@ -1,24 +1,13 @@
 import { IEnvironment } from './i-environment';
 
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-
 export const environment: IEnvironment = {
   production: false,
   authToken: 'authToken',
   apiEndpoints: {
-    users: 'https://localhost:1002',
-    notifications: 'https://localhost:1004',
-    companies: 'https://localhost:1006'
+    users: 'https://localhost:1002/api/users',
+    notifications: 'https://localhost:1004/api/notifications',
+    companies: 'https://localhost:1006/api/companies'
   }
 };
 
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-import 'zone.js/dist/zone-error'; // Included with Angular CLI.import { IEnvironment } from './i-environment';
+import 'zone.js/dist/zone-error';
