@@ -39,6 +39,7 @@ namespace iCompanyPortal.Api.Companies
                 .AddEmailingClient(Configuration)
                 .AddUsersClient(Configuration)
                 .AddNotificationsClient(Configuration)
+                .AddProjectSwagger(Configuration)
                 .AddControllers()
                 .AddNewtonsoftJson(options =>
                 {
@@ -61,6 +62,8 @@ namespace iCompanyPortal.Api.Companies
             app.UseRouting();
 
             app.UseUsers();
+
+            app.UseProjectSwagger();
 
             app.UseEndpoints(endpoints =>
             {

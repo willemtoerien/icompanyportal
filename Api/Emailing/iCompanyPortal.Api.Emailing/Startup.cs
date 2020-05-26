@@ -35,6 +35,7 @@ namespace iCompanyPortal.Api.Emailing
                 .Configure<EmailSettings>(Configuration.GetSection("EmailSettings"))
                 .AddTransient<ITemplator, LocalTemplator>()
                 .AddTransient<EmailSender>()
+                .AddProjectSwagger(Configuration)
                 .AddControllers();
         }
 
@@ -52,6 +53,8 @@ namespace iCompanyPortal.Api.Emailing
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseProjectSwagger();
 
             app.UseEndpoints(endpoints =>
             {

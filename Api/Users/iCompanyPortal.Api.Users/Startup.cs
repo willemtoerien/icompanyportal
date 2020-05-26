@@ -16,6 +16,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NSwag;
+using NSwag.Generation.Processors.Security;
 
 namespace iCompanyPortal.Api.Users
 {
@@ -40,6 +42,7 @@ namespace iCompanyPortal.Api.Users
                 .AddCompaniesClients(Configuration)
                 .AddTransient<PasswordHasher>()
                 .Configure<UsersSettings>(Configuration.GetSection("Users"))
+                .AddProjectSwagger(Configuration)
                 .AddControllers();
         }
 
@@ -53,12 +56,13 @@ namespace iCompanyPortal.Api.Users
 
             app.UseProjectCors();
 
-
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseUsers();
+
+            app.UseProjectSwagger();
 
             app.UseEndpoints(endpoints =>
             {

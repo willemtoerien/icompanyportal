@@ -45,5 +45,12 @@ namespace Microsoft.AspNetCore.Builder
             app.UseCors();
             return app;
         }
+
+        public static IApplicationBuilder UseProjectSwagger(this IApplicationBuilder app)
+        {
+            return app
+                .UseOpenApi()
+                .UseSwaggerUi3();
+        }
     }
 }

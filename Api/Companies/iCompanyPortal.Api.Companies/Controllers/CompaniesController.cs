@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using NSwag.Annotations;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,31 +16,28 @@ using System.Threading.Tasks;
 
 namespace iCompanyPortal.Api.Companies.Controllers
 {
-    [Route("")]
+    [Route("api/companies")]
     [Authorize]
     public class CompaniesController : ControllerBase
     {
         public const string UniqueNameNotUnique = "This unique name has already been taken.";
 
         private readonly CompaniesDbContext db;
-        private readonly IUsersClient usersClient;
 
-        public CompaniesController(CompaniesDbContext db, IUsersClient usersClient)
+        public CompaniesController(CompaniesDbContext db)
         {
             this.db = db;
-            this.usersClient = usersClient;
         }
 
-        [HttpGet("is-alive")]
-        public bool IsAlive() => true;
-
         [HttpGet("{uniqueName}/is-unique")]
+        [SwaggerResponse(200, typeof(bool))]
         public async Task<IActionResult> IsUniqueNameUnique(string uniqueName)
         {
             return Ok(!await db.Companies.AnyAsync(x => x.UniqueName == uniqueName));
         }
 
         [HttpGet("{pageSize}/{page}")]
+        [SwaggerResponse(200, typeof(Company[]))]
         public async Task<IActionResult> GetCompanies(int pageSize, int page)
         {
             var userId = this.GetUserId();
@@ -57,6 +55,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
         [HttpGet("{companyId}")]
         [CompanyExists]
         [ValidateCompanyUser]
+        [SwaggerResponse(200, typeof(Company))]
         public async Task<IActionResult> GetCompany(int companyId)
         {
             var userId = this.GetUserId();
@@ -67,6 +66,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
         [HttpGet("{companyId}/export")]
         [CompanyExists]
         [ValidateCompanyUser]
+        [SwaggerResponse(200, typeof(object))]
         public async Task<IActionResult> Export(int companyId)
         {
             var export = new ExportCompany();
@@ -92,6 +92,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
         }
 
         [HttpGet("favorites")]
+        [SwaggerResponse(200, typeof(Company[]))]
         public async Task<IActionResult> GetFavorites()
         {
             var userId = this.GetUserId();
@@ -107,6 +108,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
         [HttpPut("{companyId}")]
         [CompanyExists]
         [ValidateCompanyUser]
+        [SwaggerResponse(204, typeof(void))]
         public async Task<IActionResult> Save(int companyId, [FromBody] SaveCompanyRequest request)
         {
             var company = await db.Companies.SingleOrDefaultAsync(x => x.CompanyId == companyId);
@@ -132,6 +134,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
         [HttpPut("{companyId}/favorite")]
         [CompanyExists]
         [ValidateCompanyUser]
+        [SwaggerResponse(204, typeof(void))]
         public async Task<IActionResult> SetFavorite(int companyId, bool? value)
         {
             var userId = this.GetUserId();
@@ -149,6 +152,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
         }
 
         [HttpPost]
+        [SwaggerResponse(200, typeof(int))]
         public async Task<IActionResult> Create([FromBody] SaveCompanyRequest request)
         {
             if (await db.Companies.AnyAsync(x => x.UniqueName == request.UniqueName))
@@ -180,6 +184,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
         [HttpDelete("{companyId}")]
         [CompanyExists]
         [ValidateCompanyUser]
+        [SwaggerResponse(204, typeof(void))]
         public async Task<IActionResult> Delete(int companyId)
         {
             var company = await db.Companies.SingleOrDefaultAsync(x => x.CompanyId == companyId);
@@ -192,6 +197,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
         [HttpDelete("{companyId}/logo")]
         [CompanyExists]
         [ValidateCompanyUser]
+        [SwaggerResponse(204, typeof(void))]
         public async Task<IActionResult> DeleteAvatar(int companyId)
         {
             var company = await db.Companies.SingleOrDefaultAsync(x => x.CompanyId == companyId);

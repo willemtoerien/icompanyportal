@@ -8,6 +8,7 @@ using iCompanyPortal.Api.Users.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NSwag.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace iCompanyPortal.Api.Users.Controllers
 {
-    [Route("")]
+    [Route("api/users")]
     [AllowAnonymous]
     public class UsersController : ControllerBase
     {
@@ -47,18 +48,22 @@ namespace iCompanyPortal.Api.Users.Controllers
         }
 
         [HttpGet("{userId}/exists")]
+        [SwaggerResponse(typeof(bool))]
         public async Task<IActionResult> DoesUserExist(int userId)
         {
             return Ok(await db.Users.AnyAsync(x => x.UserId == userId));
         }
 
         [HttpGet("{email}/is-unique")]
+        [SwaggerResponse(200, typeof(bool))]
         public async Task<IActionResult> IsEmailUnique(string email)
         {
             return Ok(!await db.Users.AnyAsync(x => x.Email == email));
         }
 
         [HttpGet]
+        [SwaggerResponse(200, typeof(UserInfo))]
+        [SwaggerResponse(204, typeof(void))]
         public async Task<IActionResult> GetSignedInUser()
         {
             try
@@ -82,6 +87,8 @@ namespace iCompanyPortal.Api.Users.Controllers
         }
 
         [HttpGet("{userId}")]
+        [SwaggerResponse(200, typeof(UserInfo))]
+        [SwaggerResponse(404, typeof(void))]
         public async Task<IActionResult> GetUser(int userId)
         {
             var user = await db.Users.SingleOrDefaultAsync(x => x.UserId == userId);
@@ -94,6 +101,7 @@ namespace iCompanyPortal.Api.Users.Controllers
         }
 
         [HttpGet("users/{userIds}")]
+        [SwaggerResponse(200, typeof(UserInfo[]))]
         public async Task<IActionResult> GetUsers(string userIds)
         {
             var ids = userIds.Split(',').Select(x => int.Parse(x));
@@ -105,6 +113,8 @@ namespace iCompanyPortal.Api.Users.Controllers
         }
 
         [HttpGet("by-email/{email}")]
+        [SwaggerResponse(200, typeof(UserInfo))]
+        [SwaggerResponse(204, typeof(void))]
         public async Task<IActionResult> GetUserByEmail(string email)
         {
             var user = await db.Users.SingleOrDefaultAsync(x => x.Email == email);
@@ -118,6 +128,7 @@ namespace iCompanyPortal.Api.Users.Controllers
 
         [HttpPut("reset-password/{responseUrl}")]
         [ValidateModel]
+        [SwaggerResponse(204, typeof(void))]
         public async Task<IActionResult> ResetPassword(string responseUrl, [FromBody] ResetPasswordRequest request)
         {
             var user = await db.Users
@@ -165,6 +176,7 @@ namespace iCompanyPortal.Api.Users.Controllers
 
         [HttpPut("sign-in")]
         [ValidateModel]
+        [SwaggerResponse(204, typeof(void))]
         public async Task<IActionResult> SignIn([FromBody] SignInRequest request)
         {
             var user = await db.Users
@@ -204,6 +216,7 @@ namespace iCompanyPortal.Api.Users.Controllers
         [HttpPut("{responseUrl}")]
         [ValidateModel]
         [Authorize]
+        [SwaggerResponse(204, typeof(void))]
         public async Task<IActionResult> Save(string responseUrl, [FromBody] SaveUserRequest request)
         {
             var userId = this.GetUserId();
@@ -242,6 +255,7 @@ namespace iCompanyPortal.Api.Users.Controllers
         }
 
         [HttpPut("confirm/{type}/{value}")]
+        [SwaggerResponse(204, typeof(void))]
         public async Task<IActionResult> Confirm(ConfirmationTokenType type, Guid value)
         {
             var query =
@@ -275,6 +289,7 @@ namespace iCompanyPortal.Api.Users.Controllers
 
         [HttpPost("/resend-email-confirmation/{responseUrl}")]
         [Authorize]
+        [SwaggerResponse(204, typeof(void))]
         public async Task<IActionResult> ResendEmailConfirmation(string responseUrl)
         {
             var userId = this.GetUserId();
@@ -308,6 +323,7 @@ namespace iCompanyPortal.Api.Users.Controllers
 
         [HttpPost("{responseUrl}")]
         [ValidateModel]
+        [SwaggerResponse(204, typeof(void))]
         public async Task<IActionResult> SignUp(string responseUrl, [FromBody] SignUpRequest request)
         {
             if (await db.Users.AnyAsync(x => x.Email == request.Email))
@@ -344,6 +360,7 @@ namespace iCompanyPortal.Api.Users.Controllers
 
         [HttpDelete]
         [Authorize]
+        [SwaggerResponse(204, typeof(void))]
         public async Task<IActionResult> Delete()
         {
             var userId = this.GetUserId();
@@ -363,6 +380,7 @@ namespace iCompanyPortal.Api.Users.Controllers
 
         [HttpDelete("avatar")]
         [Authorize]
+        [SwaggerResponse(204, typeof(void))]
         public async Task<IActionResult> DeleteAvatar()
         {
             var userId = this.GetUserId();

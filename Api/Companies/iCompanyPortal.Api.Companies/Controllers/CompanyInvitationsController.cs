@@ -8,6 +8,7 @@ using iCompanyPortal.Api.Users.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NSwag.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ using System.Threading.Tasks;
 namespace iCompanyPortal.Api.Companies.Controllers
 {
     [Authorize]
-    [Route("invitations")]
+    [Route("api/companies/invitations")]
     public class CompanyInvitationsController : ControllerBase
     {
         public const string InvitationDoesNotExist = "The invitation does not exist.";
@@ -45,6 +46,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
         [HttpGet("{companyId}/all")]
         [CompanyExists]
         [ValidateCompanyUser]
+        [SwaggerResponse(200, typeof(CompanyInvitation[]))]
         public async Task<IActionResult> GetInvitations(int companyId)
         {
             var invitations = await db.CompanyInvitations
@@ -55,6 +57,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
 
         [HttpGet("{token}")]
         [AllowAnonymous]
+        [SwaggerResponse(200, typeof(CompanyInvitation))]
         public async Task<IActionResult> Get(Guid token)
         {
             var invitation = await db.CompanyInvitations
@@ -70,6 +73,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
         [HttpPost("{companyId}/{responseUrl}")]
         [CompanyExists]
         [ValidateCompanyUser]
+        [SwaggerResponse(204, typeof(void))]
         public async Task<IActionResult> Invite(int companyId, string responseUrl, [FromBody] CompanyInvitationRequest request)
         {
             if (await db.CompanyInvitations.AnyAsync(x => x.CompanyId == companyId && x.Email == request.Email))
@@ -117,6 +121,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
 
         [HttpPut("{email}/{userId}/activate")]
         [AllowAnonymous]
+        [SwaggerResponse(200, typeof(bool))]
         public async Task<IActionResult> Activate(string email, int userId)
         {
             var invitations = await db.CompanyInvitations
@@ -143,6 +148,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
 
         [AllowAnonymous]
         [HttpPut("{token}/{accepted}")]
+        [SwaggerResponse(204, typeof(void))]
         public async Task<IActionResult> Respond(Guid token, bool accepted)
         {
             var invitation = await db.CompanyInvitations
@@ -201,6 +207,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
         }
 
         [HttpDelete("{token}")]
+        [SwaggerResponse(204, typeof(void))]
         public async Task<IActionResult> Delete(Guid token)
         {
             var invitation = await db.CompanyInvitations

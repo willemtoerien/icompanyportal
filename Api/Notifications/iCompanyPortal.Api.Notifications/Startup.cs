@@ -36,6 +36,7 @@ namespace iCompanyPortal.Api.Notifications
                 .AddTransient<EntityBuilder, NotificationEntityBuilder>()
                 .AddSingleton<IUserIdProvider, NameUserIdProvider>()
                 .AddUsersClient(Configuration)
+                .AddProjectSwagger(Configuration)
                 .AddControllers();
             services
                 .AddSignalR();
@@ -56,12 +57,12 @@ namespace iCompanyPortal.Api.Notifications
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseProjectSwagger();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<NotificationsHub>("/hub");
+                endpoints.MapHub<NotificationsHub>("/api/notifications/hub");
             });
         }
     }

@@ -1,9 +1,11 @@
-﻿using iCompanyPortal.Api.Companies.Data;
+﻿using iCompanyPortal.Api.Companies.Client;
+using iCompanyPortal.Api.Companies.Data;
 using iCompanyPortal.Api.Companies.Filters;
 using iCompanyPortal.Api.Notifications.Client;
 using iCompanyPortal.Api.Users.Client;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NSwag.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace iCompanyPortal.Api.Companies.Controllers
 {
-    [Route("users")]
+    [Route("api/companies/users")]
     public class CompanyUsersController : ControllerBase
     {
         private readonly CompaniesDbContext db;
@@ -26,6 +28,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
         [HttpGet("{companyId}/all")]
         [CompanyExists]
         [ValidateCompanyUser]
+        [SwaggerResponse(200, typeof(CompanyUser[]))]
         public async Task<IActionResult> GetCompanyUsers(int companyId)
         {
             var users = await db.CompanyUsers
@@ -36,6 +39,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
 
         [HttpGet("{companyId}")]
         [CompanyExists]
+        [SwaggerResponse(200, typeof(CompanyUser))]
         public async Task<IActionResult> Get(int companyId)
         {
             var userId = this.GetUserId();
@@ -46,6 +50,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
         [HttpPost("{companyId}/notify")]
         [CompanyExists]
         [ValidateCompanyUser]
+        [SwaggerResponse(204, typeof(void))]
         public async Task<IActionResult> Notify(int companyId, [FromBody] NotifyRequest request)
         {
             var users = await db.CompanyUsers
@@ -61,6 +66,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
         [HttpDelete("{companyId}/{userId}")]
         [CompanyExists]
         [ValidateCompanyUser]
+        [SwaggerResponse(204, typeof(void))]
         public async Task<IActionResult> Delete(int companyId, int userId)
         {
             var user = await db.CompanyUsers.SingleOrDefaultAsync(x => x.CompanyId == companyId && x.UserId == userId);

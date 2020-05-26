@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using NSwag.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace iCompanyPortal.Api.Notifications.Controllers
 {
-    [Route("")]
+    [Route("api/notifications")]
     [Authorize]
     public class NotificationsController : ControllerBase
     {
@@ -30,11 +31,8 @@ namespace iCompanyPortal.Api.Notifications.Controllers
             this.usersClient = usersClient;
         }
 
-
-        [HttpGet("is-alive")]
-        public bool IsAlive() => true;
-
         [HttpGet]
+        [SwaggerResponse(200, typeof(Notification[]))]
         public async Task<IActionResult> GetNotifications()
         {
             var userId = this.GetUserId();
@@ -46,6 +44,7 @@ namespace iCompanyPortal.Api.Notifications.Controllers
         }
 
         [HttpGet("count")]
+        [SwaggerResponse(200, typeof(int))]
         public async Task<IActionResult> GetCount()
         {
             var userId = this.GetUserId();
@@ -54,6 +53,7 @@ namespace iCompanyPortal.Api.Notifications.Controllers
 
         [HttpPost("{userId}")]
         [AllowAnonymous]
+        [SwaggerResponse(200, typeof(int))]
         public async Task<IActionResult> Notify(int userId, [FromBody] NotifyRequest request)
         {
             if (!await usersClient.DoesUserExistAsync(userId))
@@ -78,7 +78,8 @@ namespace iCompanyPortal.Api.Notifications.Controllers
             return Ok(notification.NotificationId);
         }
 
-        [HttpPut()]
+        [HttpPut]
+        [SwaggerResponse(204, typeof(void))]
         public async Task<IActionResult> MarkAllAsRead()
         {
             var userId = this.GetUserId();
