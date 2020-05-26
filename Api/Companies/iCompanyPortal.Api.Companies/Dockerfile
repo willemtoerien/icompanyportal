@@ -19,6 +19,7 @@ RUN dotnet restore "Api/Companies/iCompanyPortal.Api.Companies/iCompanyPortal.Ap
 COPY . .
 WORKDIR "/src/Api/Companies/iCompanyPortal.Api.Companies"
 RUN dotnet build "iCompanyPortal.Api.Companies.csproj" -c Release -o /app/build
+RUN dotnet test "iCompanyPortal.Api.Companies.UnitTests.csproj" -c Release
 
 FROM build AS publish
 RUN dotnet publish "iCompanyPortal.Api.Companies.csproj" -c Release -o /app/publish

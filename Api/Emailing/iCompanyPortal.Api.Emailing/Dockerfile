@@ -15,6 +15,7 @@ RUN dotnet restore "Api/Emailing/iCompanyPortal.Api.Emailing/iCompanyPortal.Api.
 COPY . .
 WORKDIR "/src/Api/Emailing/iCompanyPortal.Api.Emailing"
 RUN dotnet build "iCompanyPortal.Api.Emailing.csproj" -c Release -o /app/build
+RUN dotnet test "iCompanyPortal.Api.Emailing.UnitTests.csproj" -c Release
 
 FROM build AS publish
 RUN dotnet publish "iCompanyPortal.Api.Emailing.csproj" -c Release -o /app/publish

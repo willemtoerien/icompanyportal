@@ -17,6 +17,7 @@ RUN dotnet restore "Api/Notifications/iCompanyPortal.Api.Notifications/iCompanyP
 COPY . .
 WORKDIR "/src/Api/Notifications/iCompanyPortal.Api.Notifications"
 RUN dotnet build "iCompanyPortal.Api.Notifications.csproj" -c Release -o /app/build
+RUN dotnet test "iCompanyPortal.Api.Notifications.UnitTests.csproj" -c Release
 
 FROM build AS publish
 RUN dotnet publish "iCompanyPortal.Api.Notifications.csproj" -c Release -o /app/publish
