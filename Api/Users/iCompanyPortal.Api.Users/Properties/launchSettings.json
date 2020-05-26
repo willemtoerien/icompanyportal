@@ -25,11 +25,8 @@
     "Docker": {
       "commandName": "Docker",
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
-      "publishAllPorts": true,
-      "useSSL": true
-    },
-    "Azure Dev Spaces": {
-      "commandName": "AzureDevSpaces"
+      "useSSL": true,
+      "sslPort": 1002
     }
   }
 }

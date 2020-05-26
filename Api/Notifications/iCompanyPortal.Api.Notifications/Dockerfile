@@ -8,6 +8,11 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["Api/Notifications/iCompanyPortal.Api.Notifications/iCompanyPortal.Api.Notifications.csproj", "Api/Notifications/iCompanyPortal.Api.Notifications/"]
+COPY ["Api/Shared/iCompanyPortal.Api.Shared/iCompanyPortal.Api.Shared.csproj", "Api/Shared/iCompanyPortal.Api.Shared/"]
+COPY ["Api/Users/iCompanyPortal.Api.Users.Client/iCompanyPortal.Api.Users.Client.csproj", "Api/Users/iCompanyPortal.Api.Users.Client/"]
+COPY ["Api/Shared/iCompanyPortal.Api.HttpHelpers/iCompanyPortal.Api.HttpHelpers.csproj", "Api/Shared/iCompanyPortal.Api.HttpHelpers/"]
+COPY ["Api/Users/iCompanyPortal.Api.Users.Shared/iCompanyPortal.Api.Users.Shared.csproj", "Api/Users/iCompanyPortal.Api.Users.Shared/"]
+COPY ["Api/Notifications/iCompanyPortal.Api.Notifications.Client/iCompanyPortal.Api.Notifications.Client.csproj", "Api/Notifications/iCompanyPortal.Api.Notifications.Client/"]
 RUN dotnet restore "Api/Notifications/iCompanyPortal.Api.Notifications/iCompanyPortal.Api.Notifications.csproj"
 COPY . .
 WORKDIR "/src/Api/Notifications/iCompanyPortal.Api.Notifications"
