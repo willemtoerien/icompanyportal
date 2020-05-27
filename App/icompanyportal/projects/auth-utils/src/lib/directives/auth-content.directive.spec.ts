@@ -1,12 +1,12 @@
 import { AuthContentDirective } from './auth-content.directive';
-import { AUTH_TOKEN_KEY } from 'auth-utils';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { AuthTokenHelper } from '../services/auth-token-helper';
 import { By } from '@angular/platform-browser';
+import { AUTH_TOKEN_KEY } from '../services/auth-token-key';
 
 @Component({
-  template: '<div *appAuthContent="authContent">Test</div>'
+  template: '<div *libAuthContent="authContent">Test</div>'
 })
 class TestComponent {
   authContent = true;
@@ -37,7 +37,7 @@ describe('AuthContent', () => {
 
   it('authContent = true | isSet = false > no content', () => {
     component.authContent = true;
-    helper.value = undefined;
+    helper.isSet.next(false);
     fixture.detectChanges();
     const element = fixture.debugElement.query(By.css('div'));
     expect(element).toBeFalsy();
@@ -45,7 +45,7 @@ describe('AuthContent', () => {
 
   it('authContent = true | isSet = true > content', () => {
     component.authContent = true;
-    helper.value = '1234';
+    helper.isSet.next(true);
     fixture.detectChanges();
     const element = fixture.debugElement.query(By.css('div'));
     expect(element).toBeTruthy();
@@ -53,7 +53,7 @@ describe('AuthContent', () => {
 
   it('authContent = false | isSet = false > content', () => {
     component.authContent = false;
-    helper.value = undefined;
+    helper.isSet.next(false);
     fixture.detectChanges();
     const element = fixture.debugElement.query(By.css('div'));
     expect(element).toBeTruthy();
@@ -61,7 +61,7 @@ describe('AuthContent', () => {
 
   it('authContent = false | isSet = true > no content', () => {
     component.authContent = false;
-    helper.value = '1234';
+    helper.isSet.next(true);
     fixture.detectChanges();
     const element = fixture.debugElement.query(By.css('div'));
     expect(element).toBeFalsy();
