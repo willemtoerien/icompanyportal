@@ -8,8 +8,7 @@ import { flatMap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
-  templateUrl: './sign-up-page.component.html',
-  styles: []
+  templateUrl: './sign-up-page.component.html'
 })
 export class SignUpPageComponent implements OnInit {
   form: FormGroup;

@@ -7,8 +7,7 @@ import { UsersClient } from 'users-api';
 import { AuthStore, AuthTokenHelper } from 'auth-utils';
 
 @Component({
-  templateUrl: './confirm-page.component.html',
-  styles: []
+  templateUrl: './confirm-page.component.html'
 })
 export class ConfirmPageComponent {
   isBusy = false;

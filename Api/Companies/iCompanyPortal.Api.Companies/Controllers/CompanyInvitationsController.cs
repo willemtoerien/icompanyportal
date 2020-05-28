@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 namespace iCompanyPortal.Api.Companies.Controllers
 {
     [Authorize]
-    [Route("api/companies/invitations")]
+    [Route("api/invitations")]
     public class CompanyInvitationsController : ControllerBase
     {
         public const string InvitationDoesNotExist = "The invitation does not exist.";

@@ -4,8 +4,7 @@ import { Router } from '@angular/router';
 import { CompanyStore } from 'company-utils';
 
 @Component({
-  templateUrl: './delete-page.component.html',
-  styles: []
+  templateUrl: './delete-page.component.html'
 })
 export class DeletePageComponent {
   constructor(private companiesClient: CompaniesClient, private companiesStore: CompanyStore, private router: Router) {}

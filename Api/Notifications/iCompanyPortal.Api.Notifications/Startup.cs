@@ -62,7 +62,7 @@ namespace iCompanyPortal.Api.Notifications
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<NotificationsHub>("/api/notifications/hub");
+                endpoints.MapHub<NotificationsHub>("/api/hub");
             });
         }
     }

@@ -7,8 +7,7 @@ import { invokeForm } from 'forms-ex';
 import { flatMap } from 'rxjs/operators';
 
 @Component({
-  templateUrl: './reset-password-page.component.html',
-  styles: []
+  templateUrl: './reset-password-page.component.html'
 })
 export class ResetPasswordPageComponent implements OnInit {
   form: FormGroup;

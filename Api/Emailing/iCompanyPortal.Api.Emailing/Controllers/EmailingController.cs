@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace iCompanyPortal.Api.Emailing.Controllers
 {
-    [Route("api/emailing")]
+    [Route("api")]
     public class EmailingController : ControllerBase
     {
         private readonly EmailSender sender;

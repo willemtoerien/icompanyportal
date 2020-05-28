@@ -4,9 +4,10 @@ export const environment: IEnvironment = {
   production: false,
   authToken: 'authToken',
   apiEndpoints: {
-    users: 'https://localhost:1002/api/users',
-    notifications: 'https://localhost:1004/api/notifications',
-    companies: 'https://localhost:1006/api/companies'
+    emailing: 'https://localhost:1000/api',
+    users: 'https://localhost:1002/api',
+    notifications: 'https://localhost:1004/api',
+    companies: 'https://localhost:1006/api'
   }
 };
 

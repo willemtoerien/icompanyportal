@@ -3,11 +3,11 @@
     <h4 class="card-title">Invite</h4>
     <div class="card-subtitle">Enter the email of the person you want to invite.</div>
     <hr>
-    <app-form [formGroup]="form" (submitted)="onSubmit()">
+    <lib-form [formGroup]="form" (submitted)="onSubmit()">
       <lib-text-box name="email" label="Email" type="email"></lib-text-box>
       <hr>
       <lib-submit-button>Send Invite</lib-submit-button>
-    </app-form>
+    </lib-form>
     <div id="sent" *ngIf="isSent" class="alert alert-success mt-3 mb-0">
       <h4 class="alert-heading">Invitation Sent</h4>
     </div>

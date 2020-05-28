@@ -4,8 +4,7 @@ import { AuthTokenHelper } from 'auth-utils';
 import { Router } from '@angular/router';
 
 @Component({
-  templateUrl: './delete-page.component.html',
-  styles: []
+  templateUrl: './delete-page.component.html'
 })
 export class DeletePageComponent {
   constructor(private usersClient: UsersClient, private authTokenHelper: AuthTokenHelper) {}

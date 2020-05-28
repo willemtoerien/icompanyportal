@@ -1,15 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  templateUrl: './users-layout.component.html',
-  styles: [
-  ]
+  templateUrl: './users-layout.component.html'
 })
-export class UsersLayoutComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class UsersLayoutComponent {}

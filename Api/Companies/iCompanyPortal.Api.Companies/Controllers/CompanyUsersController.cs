@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace iCompanyPortal.Api.Companies.Controllers
 {
-    [Route("api/companies/users")]
+    [Route("api/users")]
     public class CompanyUsersController : ControllerBase
     {
         private readonly CompaniesDbContext db;

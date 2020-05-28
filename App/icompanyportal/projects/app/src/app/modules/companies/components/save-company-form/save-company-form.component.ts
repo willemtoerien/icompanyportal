@@ -9,8 +9,7 @@ import { CompanyStore } from 'company-utils';
 
 @Component({
   selector: 'app-save-company-form',
-  templateUrl: './save-company-form.component.html',
-  styles: []
+  templateUrl: './save-company-form.component.html'
 })
 export class SaveCompanyFormComponent implements OnInit {
   imageInputData: ImageInputData;

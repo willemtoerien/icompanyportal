@@ -9,7 +9,7 @@
     <h4 class="card-title">Edit Account</h4>
     <p class="card-subtitle">Enter your account details.</p>
     <hr>
-    <app-form [formGroup]="form" (submitted)="onSubmit()">
+    <lib-form [formGroup]="form" (submitted)="onSubmit()">
       <lib-image-input name="avatar" label="Avatar" [src]="hasSrc ? (src | trustResource) : defaultSrc"
         (imageChanged)="onImageChanged($event)" [canRemove]="hasSrc" (deleted)="onDeleteAvatar()"></lib-image-input>
       <hr>
@@ -29,7 +29,7 @@
       <lib-text-box name="confirmPassword" type="password" label="Confirm"></lib-text-box>
       <hr />
       <lib-submit-button>Save</lib-submit-button>
-    </app-form>
+    </lib-form>
     <div id="saved" *ngIf="isSaved" class="alert alert-success mt-3">
       <h4 class="alert-heading">Saved</h4>
       <span>Your changes was saved.</span>

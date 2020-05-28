@@ -3,8 +3,7 @@ import { CompanyStore } from 'company-utils';
 import { CompaniesClient } from 'companies-api';
 
 @Component({
-  templateUrl: './company-layout.component.html',
-  styles: []
+  templateUrl: './company-layout.component.html'
 })
 export class CompanyLayoutComponent implements OnInit {
   constructor(public store: CompanyStore, private companiesClient: CompaniesClient) {}

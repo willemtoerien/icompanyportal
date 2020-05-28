@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace iCompanyPortal.Api.Users.Controllers
 {
-    [Route("api/users")]
+    [Route("api")]
     [AllowAnonymous]
     public class UsersController : ControllerBase
     {

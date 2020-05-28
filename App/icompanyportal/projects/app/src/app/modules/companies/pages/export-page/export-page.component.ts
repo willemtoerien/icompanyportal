@@ -6,8 +6,7 @@ import { throwError } from 'rxjs';
 import * as saveAs from 'file-saver';
 
 @Component({
-  templateUrl: './export-page.component.html',
-  styles: []
+  templateUrl: './export-page.component.html'
 })
 export class ExportPageComponent implements OnInit {
   isExporting: boolean;

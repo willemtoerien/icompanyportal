@@ -3,8 +3,7 @@ import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationErr
 
 @Component({
   selector: 'lib-page-loading-indicator',
-  templateUrl: './page-loading-indicator.component.html',
-  styles: []
+  templateUrl: './page-loading-indicator.component.html'
 })
 export class PageLoadingIndicatorComponent implements OnInit {
   isLoading: boolean;

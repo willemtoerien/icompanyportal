@@ -6,8 +6,7 @@ import { throwError } from 'rxjs';
 import { CompanyStore } from 'company-utils';
 
 @Component({
-  templateUrl: './companies-page.component.html',
-  styles: []
+  templateUrl: './companies-page.component.html'
 })
 export class CompaniesPageComponent implements OnInit, OnDestroy {
   context = new CollectionContext('Companies');

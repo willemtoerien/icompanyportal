@@ -5,8 +5,7 @@ import { invokeForm } from 'forms-ex';
 import { CompanyStore } from 'company-utils';
 
 @Component({
-  templateUrl: './invite-page.component.html',
-  styles: []
+  templateUrl: './invite-page.component.html'
 })
 export class InvitePageComponent implements OnInit {
   isSent = false;

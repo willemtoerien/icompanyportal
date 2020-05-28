@@ -6,8 +6,7 @@ import { CompanyStore } from 'company-utils';
 
 @Component({
   selector: 'app-company-favorites-sidebar-items',
-  templateUrl: './company-favorites-sidebar-items.component.html',
-  styles: []
+  templateUrl: './company-favorites-sidebar-items.component.html'
 })
 export class CompanyFavoritesSidebarItemsComponent implements OnInit, OnDestroy {
   private cease = new Subject<void>();

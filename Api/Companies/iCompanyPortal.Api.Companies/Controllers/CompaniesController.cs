@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace iCompanyPortal.Api.Companies.Controllers
 {
-    [Route("api/companies")]
+    [Route("api")]
     [Authorize]
     public class CompaniesController : ControllerBase
     {

@@ -1,4 +1,5 @@
 interface ApiEndpoints {
+  emailing: string;
   users: string;
   notifications: string;
   companies: string;

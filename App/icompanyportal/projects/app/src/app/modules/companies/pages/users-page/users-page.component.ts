@@ -10,8 +10,7 @@ import { CompanyStore } from 'company-utils';
 import { useCollectionContext } from 'utils';
 
 @Component({
-  templateUrl: './users-page.component.html',
-  styles: []
+  templateUrl: './users-page.component.html'
 })
 export class UsersPageComponent implements OnInit, OnDestroy {
   context = new CollectionContext('Company Users');

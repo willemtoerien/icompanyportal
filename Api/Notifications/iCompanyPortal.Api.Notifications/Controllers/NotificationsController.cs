@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace iCompanyPortal.Api.Notifications.Controllers
 {
-    [Route("api/notifications")]
+    [Route("api")]
     [Authorize]
     public class NotificationsController : ControllerBase
     {
