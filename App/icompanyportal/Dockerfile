@@ -9,6 +9,6 @@ COPY . /app
 RUN ng build
 
 FROM nginx
-COPY --from=build /app/dist/app /usr/share/nginx/html
+COPY --from=build /app/dist/icompanyportal /usr/share/nginx/html
 EXPOSE 80
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
