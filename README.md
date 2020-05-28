@@ -7,7 +7,7 @@
 1. Prepare
 1. Build
    1. API
-   1. App
+   1. Apps
 
 ## 1. Introduction
 
@@ -40,11 +40,30 @@ There are two parts of building the project: the API and the App.
 
 To build the API's, simply open the iCompanyPortal.sln file and build it.
 
-### 4.2 App
+### 4.2 Apps
 
 To build the APP, run the following in the terminal.
 
 ```cmd
 npm install
+npm install -g @angular/cli
+npm run build:libraries
+ng build app
+ng build
+```
+
+Should you want to build and run the docker images.
+
+For the functional application.
+
+```cmd
+npm run build:app
+npm run run:app
+```
+
+For the SEO application.
+
+```cmd
 npm run build
+npm run run
 ```

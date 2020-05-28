@@ -6,6 +6,9 @@ RUN npm install -g @angular/cli
 RUN npm install
 COPY . /app
 
+# RUN ng test emailing-api --watch=false
+RUN ng build emailing-api
+# RUN ng build --watch=false
 RUN ng build
 
 FROM nginx

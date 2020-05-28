@@ -5,6 +5,7 @@
     "ng": "ng",
     "build": "docker build -t icompanyportal:latest -f ./DockerFile .",
     "build:app": "docker build -t icompanyportal-app:latest -f ./projects/app/Dockerfile .",
+    "build:libraries": "ng build emailing-api && ng build users-api && ng build notifications-api && ng build companies-api && ng build utils && ng build forms-ex && ng build auth-utils && ng build notification-utils && ng build company-utils",
     "run": "docker run -d --rm -p 4201:80 icompanyportal:latest",
     "run:app": "docker run -d --rm -p 4200:80 icompanyportal-app:latest",
     "serve": "ng serve --host 0.0.0.0",

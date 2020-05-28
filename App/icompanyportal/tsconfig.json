@@ -50,6 +50,10 @@
       "notification-utils": [
         "dist/notification-utils/notification-utils",
         "dist/notification-utils"
+      ],
+      "emailing-api": [
+        "dist/emailing-api/emailing-api",
+        "dist/emailing-api"
       ]
     }
   },

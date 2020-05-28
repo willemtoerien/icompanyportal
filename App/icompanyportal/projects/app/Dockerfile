@@ -10,6 +10,8 @@ RUN npm install -g @angular/cli
 RUN npm install
 COPY . /app
 
+# RUN ng test emailing-api --watch=false
+RUN ng build emailing-api
 # RUN ng test users-api --watch=false
 RUN ng build users-api
 # RUN ng test notifications-api --watch=false

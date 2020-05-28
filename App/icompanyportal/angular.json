@@ -567,6 +567,46 @@
           }
         }
       }
+    },
+    "emailing-api": {
+      "projectType": "library",
+      "root": "projects/emailing-api",
+      "sourceRoot": "projects/emailing-api/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/emailing-api/tsconfig.lib.json",
+            "project": "projects/emailing-api/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/emailing-api/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/emailing-api/src/test.ts",
+            "tsConfig": "projects/emailing-api/tsconfig.spec.json",
+            "karmaConfig": "projects/emailing-api/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/emailing-api/tsconfig.lib.json",
+              "projects/emailing-api/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "icompanyportal",
