@@ -3,8 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "build": "ng build",
-    "build:app": "docker build -t icompanyportal-app:dev -f ./projects/app/Dockerfile .",
+    "build": "docker build -t icompanyportal:latest -f ./DockerFile .",
+    "build:app": "docker build -t icompanyportal-app:latest -f ./projects/app/Dockerfile .",
+    "run": "docker run -d --rm -p 4201:80 icompanyportal:latest",
+    "run:app": "docker run -d --rm -p 4200:80 icompanyportal-app:latest",
     "serve": "ng serve --host 0.0.0.0",
     "serve:app": "ng serve app --host 0.0.0.0",
     "lint": "ng lint",

@@ -32,4 +32,4 @@ RUN ng build app
 FROM nginx
 COPY --from=build /app/dist/app /usr/share/nginx/html
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
