@@ -514,13 +514,15 @@
             "polyfills": "projects/app/src/polyfills.ts",
             "tsConfig": "projects/app/tsconfig.app.json",
             "aot": true,
+            "vendorSourceMap": true,
             "assets": [
               "projects/app/src/favicon.ico",
               "projects/app/src/assets",
               "projects/app/src/manifest.webmanifest"
             ],
             "styles": [
-              "projects/app/src/styles.scss"
+              "projects/app/src/styles.scss",
+              "node_modules/@mdi/font/css/materialdesignicons.min.css"
             ],
             "scripts": []
           },
@@ -560,7 +562,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "app:build"
+            "browserTarget": "app:build",
           },
           "configurations": {
             "production": {

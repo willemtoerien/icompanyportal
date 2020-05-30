@@ -42,7 +42,7 @@ namespace Microsoft.Extensions.DependencyInjection
                         OnMessageReceived = context =>
                         {
                             var path = context.HttpContext.Request.Path;
-                            if (!path.ToString().StartsWith("/hub"))
+                            if (!path.ToString().StartsWith("/api/hub"))
                             {
                                 return Task.CompletedTask;
                             }
@@ -52,7 +52,7 @@ namespace Microsoft.Extensions.DependencyInjection
                                 return Task.CompletedTask;
                             }
 
-                            if (path.StartsWithSegments("/hub"))
+                            if (path.StartsWithSegments("/api/hub"))
                             {
                                 context.Token = accessToken;
                             }

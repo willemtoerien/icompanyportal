@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  icompanyportal.api.emailing:
+    image: ${DOCKER_REGISTRY-}icompanyportalapiemailing
+    build:
+      context: .
+      dockerfile: Api/Emailing/iCompanyPortal.Api.Emailing/Dockerfile
+
+  icompanyportal.api.users:
+    image: ${DOCKER_REGISTRY-}icompanyportalapiusers
+    build:
+      context: .
+      dockerfile: Api/Users/iCompanyPortal.Api.Users/Dockerfile
+
+
+  icompanyportal.api.notifications:
+    image: ${DOCKER_REGISTRY-}icompanyportalapinotifications
+    build:
+      context: .
+      dockerfile: Api/Notifications/iCompanyPortal.Api.Notifications/Dockerfile
+
+
+  icompanyportal.api.companies:
+    image: ${DOCKER_REGISTRY-}icompanyportalapicompanies
+    build:
+      context: .
+      dockerfile: Api/Companies/iCompanyPortal.Api.Companies/Dockerfile
+

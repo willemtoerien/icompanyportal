@@ -53,11 +53,11 @@ namespace iCompanyPortal.Api.Notifications
             app.UseHttpsRedirection();
 
             app.UseProjectCors();
-            app.UseUsers();
 
             app.UseRouting();
 
             app.UseProjectSwagger();
+            app.UseUsers();
 
             app.UseEndpoints(endpoints =>
             {

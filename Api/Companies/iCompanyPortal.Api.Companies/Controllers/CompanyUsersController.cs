@@ -47,6 +47,35 @@ namespace iCompanyPortal.Api.Companies.Controllers
             return Ok(companyUser);
         }
 
+        [HttpPut("{comanyId}/{userId}/{permissionType}/{isSet}")]
+        [CompanyExists]
+        [SwaggerResponse(204, typeof(void))]
+        public async Task<IActionResult> SetPermission(int companyId, int userId, CompanyUserPermissionType permissionType, bool isSet)
+        {
+            var permission = await db.CompanyUserPermissions
+                .SingleOrDefaultAsync(x => x.CompanyId == companyId && x.UserId == userId && x.Type == permissionType);
+            if (!isSet && (permission == null || !permission.IsSet))
+            {
+                return NoContent();
+            }
+
+            if (permission == null)
+            {
+                permission = db.Add(new CompanyUserPermission
+                {
+                    CompanyId = companyId,
+                    Type = permissionType,
+                    UserId = userId
+                }).Entity;
+            }
+
+            permission.IsSet = isSet;
+
+            await db.SaveChangesAsync();
+
+            return NoContent();
+        }
+
         [HttpPost("{companyId}/notify")]
         [CompanyExists]
         [ValidateCompanyUser]

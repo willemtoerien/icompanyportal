@@ -16,6 +16,8 @@ namespace iCompanyPortal.Api.Companies.Data
 
         public DbSet<CompanyUser> CompanyUsers { get; set; }
 
+        public DbSet<CompanyUserPermission> CompanyUserPermissions { get; set; }
+
         public CompaniesDbContext(DbContextOptions options, IEnumerable<EntityBuilder> builders) : base(options, builders)
         {
         }

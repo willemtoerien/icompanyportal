@@ -14,8 +14,8 @@ export class CompaniesClient {
     return this.http.get<boolean>(`${this.endpoint}/${uniqueName}/is-unique`);
   }
 
-  getCompanies(pageSize: number, page: number, search = '') {
-    return this.http.get<Company[]>(`${this.endpoint}/${pageSize}/${page}?search=${encodeURIComponent(search)}`);
+  getCompanies() {
+    return this.http.get<Company[]>(this.endpoint);
   }
 
   getFavorites() {
@@ -24,6 +24,10 @@ export class CompaniesClient {
 
   getCompany(companyId: number) {
     return this.http.get<Company>(`${this.endpoint}/${companyId}`);
+  }
+
+  getPermissions() {
+    return this.http.get<{ [key: number]: string }>(`${this.endpoint}/permissions`);
   }
 
   export(companyId: number) {

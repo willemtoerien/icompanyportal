@@ -13,5 +13,7 @@ namespace iCompanyPortal.Api.Companies.Client
         public bool IsFavorite { get; set; }
 
         public Company Company { get; set; }
+
+        public ICollection<CompanyUserPermission> CompanyUserPermissions { get; set; } = new HashSet<CompanyUserPermission>();
     }
 }

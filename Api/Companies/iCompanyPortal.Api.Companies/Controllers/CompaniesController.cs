@@ -10,8 +10,10 @@ using Newtonsoft.Json;
 using NSwag.Annotations;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace iCompanyPortal.Api.Companies.Controllers
@@ -31,14 +33,15 @@ namespace iCompanyPortal.Api.Companies.Controllers
 
         [HttpGet("{uniqueName}/is-unique")]
         [SwaggerResponse(200, typeof(bool))]
+        [AllowAnonymous]
         public async Task<IActionResult> IsUniqueNameUnique(string uniqueName)
         {
             return Ok(!await db.Companies.AnyAsync(x => x.UniqueName == uniqueName));
         }
 
-        [HttpGet("{pageSize}/{page}")]
+        [HttpGet]
         [SwaggerResponse(200, typeof(Company[]))]
-        public async Task<IActionResult> GetCompanies(int pageSize, int page)
+        public async Task<IActionResult> GetCompanies()
         {
             var userId = this.GetUserId();
             var companies = await db.CompanyUsers
@@ -46,8 +49,6 @@ namespace iCompanyPortal.Api.Companies.Controllers
                 .Where(x => x.UserId == userId && x.Company.Status == CompanyStatus.Active)
                 .Select(x => x.Company)
                 .OrderBy(x => x.Name)
-                .Skip(pageSize * page)
-                .Take(pageSize)
                 .ToArrayAsync();
             return Ok(companies);
         }
@@ -103,6 +104,24 @@ namespace iCompanyPortal.Api.Companies.Controllers
                 .OrderBy(x => x.Name)
                 .ToArrayAsync();
             return Ok(companies);
+        }
+
+        [HttpGet("permissions")]
+        [SwaggerResponse(200, typeof(Dictionary<CompanyUserPermissionType, string>))]
+        public IActionResult GetAvailablePermissions()
+        {
+            var type = typeof(CompanyUserPermissionType);
+            var names = (string[])Enum.GetNames(type);
+            var result = new Dictionary<CompanyUserPermissionType, string>();
+            foreach (var name in names)
+            {
+                var value = (CompanyUserPermissionType)Enum.Parse(type, name);
+                var info = type.GetMember(name)[0];
+                var attribute = info.GetCustomAttribute<DescriptionAttribute>();
+                result[value] = attribute.Description;
+            }
+
+            return Ok(result);
         }
 
         [HttpPut("{companyId}")]

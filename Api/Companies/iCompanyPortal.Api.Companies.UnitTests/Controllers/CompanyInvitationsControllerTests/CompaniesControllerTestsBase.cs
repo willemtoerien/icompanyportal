@@ -24,6 +24,7 @@ namespace iCompanyPortal.Api.Companies.UnitTests.Controllers.CompanyInvitationsC
                 .AddEntityBuilder<CompanyEntityBuilder>()
                 .AddEntityBuilder<CompanyUserEntityBuilder>()
                 .AddEntityBuilder<CompanyInvitationEntityBuilder>()
+                .AddEntityBuilder<CompanyUserPermissionEntityBuilder>()
                 .AddSingleton(new Mock<IAuthenticator>().Object);
         }
     }

@@ -1,4 +1,5 @@
-﻿using iCompanyPortal.Api.Companies.Controllers;
+﻿using iCompanyPortal.Api.Companies.Client;
+using iCompanyPortal.Api.Companies.Controllers;
 using iCompanyPortal.Api.Companies.Data;
 using iCompanyPortal.Api.UnitTestHelpers;
 using iCompanyPortal.Api.Users.Client;
@@ -18,7 +19,8 @@ namespace iCompanyPortal.Api.Companies.UnitTests.Controllers.CompaniesController
                 .AddSingleton(new Mock<IUsersClient>().Object)
                 .AddEntityBuilder<CompanyEntityBuilder>()
                 .AddEntityBuilder<CompanyUserEntityBuilder>()
-                .AddEntityBuilder<CompanyInvitationEntityBuilder>();
+                .AddEntityBuilder<CompanyInvitationEntityBuilder>()
+                .AddEntityBuilder<CompanyUserPermissionEntityBuilder>();
         }
     }
 }

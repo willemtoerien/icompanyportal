@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { COMPANIES_API_ENDPOINT } from './companies-api-endpoint';
 import { CompanyUser } from '../models/company-user';
 import { NotifyRequest } from 'notifications-api';
+import { CompanyUserPermissionType } from '../models/company-user-permission-type';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,10 @@ export class CompanyUsersClient {
 
   get(companyId: number) {
     return this.http.get<CompanyUser>(`${this.endpoint}/users/${companyId}`);
+  }
+
+  setPermission(companyId: number, userId: number, permissionType: CompanyUserPermissionType, isSet: boolean) {
+    return this.http.put<void>(`${this.endpoint}/users/${companyId}/${userId}/${permissionType}/${isSet}`, undefined);
   }
 
   notify(companyId: number, request: NotifyRequest) {

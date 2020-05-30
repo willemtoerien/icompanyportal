@@ -22,7 +22,8 @@ namespace iCompanyPortal.Api.Companies.UnitTests.Filters
                 .AddSingleton(new Mock<IUsersClient>().Object)
                 .AddEntityBuilder<CompanyEntityBuilder>()
                 .AddEntityBuilder<CompanyUserEntityBuilder>()
-                .AddEntityBuilder<CompanyInvitationEntityBuilder>();
+                .AddEntityBuilder<CompanyInvitationEntityBuilder>()
+                .AddEntityBuilder<CompanyUserPermissionEntityBuilder>();
         }
 
         [Fact]

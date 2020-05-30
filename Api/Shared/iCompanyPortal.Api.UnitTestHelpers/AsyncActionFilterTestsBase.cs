@@ -17,6 +17,8 @@ namespace iCompanyPortal.Api.UnitTestHelpers
         where TDbContext : ProjectDbContext
         where TFilter : IAsyncActionFilter, new()
     {
+        public TFilter Filter { get; set; } = new TFilter();
+
         public AsyncActionFilterTestsBase()
         {
         }
@@ -41,8 +43,7 @@ namespace iCompanyPortal.Api.UnitTestHelpers
                 wasNextCalled = true;
                 return Task.FromResult(executedContext);
             });
-            var filter = new TFilter();
-            await filter.OnActionExecutionAsync(executingContext, next);
+            await Filter.OnActionExecutionAsync(executingContext, next);
             Assert.True(wasNextCalled);
             return executingContext;
         }
