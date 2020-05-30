@@ -6,8 +6,9 @@ const routes: Routes = [];
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-      relativeLinkResolution: 'corrected'
-    })
+    relativeLinkResolution: 'corrected',
+    initialNavigation: 'enabled'
+})
   ],
   exports: [RouterModule]
 })

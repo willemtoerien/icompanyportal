@@ -9,9 +9,6 @@ COPY . /app
 # RUN ng test emailing-api --watch=false
 RUN ng build emailing-api
 # RUN ng build --watch=false
-RUN ng build
+RUN npm run build:ssr
 
-FROM nginx
-COPY --from=build /app/dist/icompanyportal /usr/share/nginx/html
-EXPOSE 80
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["npm", "run", "serve:ssr"]

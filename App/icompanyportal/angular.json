@@ -32,7 +32,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/icompanyportal",
+            "outputPath": "dist/icompanyportal/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -123,6 +123,53 @@
             "production": {
               "devServerTarget": "icompanyportal:serve:production"
             }
+          }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/icompanyportal/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "sourceMap": false,
+              "optimization": true
+            }
+          }
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "options": {
+            "browserTarget": "icompanyportal:build",
+            "serverTarget": "icompanyportal:server"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "icompanyportal:build:production",
+              "serverTarget": "icompanyportal:server:production"
+            }
+          }
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "browserTarget": "icompanyportal:build:production",
+            "serverTarget": "icompanyportal:server:production",
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {}
           }
         }
       }
@@ -469,7 +516,8 @@
             "aot": true,
             "assets": [
               "projects/app/src/favicon.ico",
-              "projects/app/src/assets"
+              "projects/app/src/assets",
+              "projects/app/src/manifest.webmanifest"
             ],
             "styles": [
               "projects/app/src/styles.scss"
@@ -503,7 +551,9 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "projects/app/ngsw-config.json"
             }
           }
         },
@@ -533,7 +583,8 @@
             "karmaConfig": "projects/app/karma.conf.js",
             "assets": [
               "projects/app/src/favicon.ico",
-              "projects/app/src/assets"
+              "projects/app/src/assets",
+              "projects/app/src/manifest.webmanifest"
             ],
             "styles": [
               "projects/app/src/styles.scss"

@@ -11,10 +11,11 @@ import { COMPANIES_API_ENDPOINT } from 'companies-api';
 import { COMPANY_NOT_FOUND_ROUTE } from 'company-utils';
 import { UtilsModule, APP_TITLE } from 'utils';
 import { environment } from '../environments/environment';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, HttpClientModule, AppRoutingModule, UtilsModule],
+  imports: [BrowserModule, HttpClientModule, AppRoutingModule, UtilsModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
   providers: [
     {
       provide: APP_TITLE,

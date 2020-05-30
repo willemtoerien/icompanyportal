@@ -18,6 +18,4 @@
     <ProjectReference Include="..\iCompanyPortal.Api.Users.Client\iCompanyPortal.Api.Users.Client.csproj" />
     <ProjectReference Include="..\iCompanyPortal.Api.Users.Shared\iCompanyPortal.Api.Users.Shared.csproj" />
   </ItemGroup>
-
-
 </Project>
