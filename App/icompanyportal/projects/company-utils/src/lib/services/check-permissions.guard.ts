@@ -24,13 +24,21 @@ export class CheckPermissionsGuard implements CanActivate {
 
     const user = this.store.user.value;
     if (!user) {
-      return this.router.createUrlTree(this.forbiddenRoute.split('/'));
+      return this.router.createUrlTree(this.forbiddenRoute.split('/'), {
+        queryParams: {
+          pageRoute: state.url
+        }
+      });
     }
 
     const permissions = next.data.permissions as CompanyUserPermissionType[];
     for (const permission of permissions) {
       if (!user.companyUserPermissions.filter((x) => x.type === permission && x.isSet)[0]) {
-        return this.router.createUrlTree(this.forbiddenRoute.split('/'));
+        return this.router.createUrlTree(this.forbiddenRoute.split('/'), {
+          queryParams: {
+            pageRoute: state.url
+          }
+        });
       }
     }
 

@@ -21,6 +21,7 @@ namespace iCompanyPortal.Api.Companies.Filters
             if (!await db.Companies.AnyAsync(x => x.CompanyId == companyId))
             {
                 context.Result = new NotFoundObjectResult(CompanyNotFound);
+                return;
             }
 
             await next();

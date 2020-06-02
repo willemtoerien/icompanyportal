@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   templateUrl: './forbidden-page.component.html',
-  styles: [
-  ]
+  styles: []
 })
 export class ForbiddenPageComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+  get pageRoute() {
+    return (this.activatedRoute.queryParams as BehaviorSubject<any>).value.pageRoute;
   }
 
+  constructor(private activatedRoute: ActivatedRoute) {}
+
+  ngOnInit(): void {}
 }
