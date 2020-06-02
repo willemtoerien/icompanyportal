@@ -18,6 +18,8 @@ import { UsersLayoutComponent } from './layouts/users-layout/users-layout.compon
 import { CompanyUtilsModule } from 'company-utils';
 import { ConfirmPageComponent } from './pages/confirm-page/confirm-page.component';
 import { ExportPageComponent } from './pages/export-page/export-page.component';
+import { ForbiddenPageComponent } from './pages/forbidden-page/forbidden-page.component';
+import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { ExportPageComponent } from './pages/export-page/export-page.component';
     DeletePageComponent,
     UsersLayoutComponent,
     ConfirmPageComponent,
-    ExportPageComponent
+    ExportPageComponent,
+    ForbiddenPageComponent,
+    NotFoundPageComponent
   ],
   imports: [CommonModule, CompaniesRoutingModule, UtilsModule, FormsExModule, CompanyUtilsModule]
 })

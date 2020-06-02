@@ -22,13 +22,20 @@ export class CompanyResolver implements Resolve<Company> {
   ) {}
 
   resolve(route: ActivatedRouteSnapshot) {
+    let companyId: number;
     if (!route.params.companyId) {
-      // The route is create, so clear the store.
-      this.store.user.next(undefined);
-      this.store.company.next(undefined);
-      return of(undefined);
+      // Make sure the parent doesn't have it.
+      if (!route.parent.params.companyId) {
+        // The route is "create", so clear the store.
+        this.store.user.next(undefined);
+        this.store.company.next(undefined);
+        return of(undefined);
+      } else {
+        companyId = parseInt(route.parent.params.companyId, 0);
+      }
+    } else {
+      companyId = parseInt(route.params.companyId, 0);
     }
-    const companyId = parseInt(route.params.companyId, 0);
     if (isNaN(companyId)) {
       // Later we will make use of uniqueName. For now, throw an error.
       throw new Error(formatString(CompanyResolver.invalidCompanyId, { companyId: route.params.companyId }));

@@ -7,6 +7,11 @@
           <button class="dropdown-item text-danger" [libModalToggler]="'remove-' + item.token">Remove</button>
         </lib-card-menu>
         <h4 class="card-title">{{ item.email }}</h4>
+        <p class="card-text">
+          <strong>Permissions: </strong>
+          <span *ngFor="let permission of getPermissionTypes(item)"
+            class="mr-2">{{ getPermissionDescription(permission) }}</span>
+        </p>
       </div>
     </div>
     <lib-modal modalTitle="Remove?" [identity]="'remove-' + item.token" colorContext="danger" submitText="Remove"

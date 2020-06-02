@@ -11,5 +11,8 @@ namespace iCompanyPortal.Api.Companies.Client
         [EmailAddress]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+
+        [Required]
+        public int[] Permissions { get; set; }
     }
 }

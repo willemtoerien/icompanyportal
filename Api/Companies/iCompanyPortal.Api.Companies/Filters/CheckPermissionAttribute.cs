@@ -30,10 +30,11 @@ namespace iCompanyPortal.Api.Companies.Filters
             var companyId = (int)context.ActionArguments["companyId"];
             var userId = ((ControllerBase)context.Controller).GetUserId();
             var db = context.HttpContext.RequestServices.GetService<CompaniesDbContext>();
-            var count = await db.CompanyUserPermissions.Where(x => Types.Contains(x.Type) && x.IsSet).CountAsync();
+            var count = await db.CompanyUserPermissions.Where(x => Types.Contains(x.Type) && x.IsSet && x.UserId == userId && x.CompanyId == companyId).CountAsync();
             if (count != Types.Count)
             {
                 context.Result = new ForbidResult();
+                return;
             }
 
             await next();

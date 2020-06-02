@@ -5,6 +5,19 @@
     <hr>
     <lib-form [formGroup]="form" (submitted)="onSubmit()">
       <lib-text-box name="email" label="Email" type="email"></lib-text-box>
+      <div class="form-group row">
+        <label class="col-lg-3 col-form-label text-lg-right">Permissions</label>
+        <div class="col-lg-9 align-self-center">
+          <div *ngFor="let permission of permissions" class="d-flex flex-wrap">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" [id]="'type-' + permission.type"
+                [defaultChecked]="getPermission(permission.type)" (change)="togglePermission(permission.type)">
+              <label class="custom-control-label"
+                [htmlFor]="'type-' + permission.type">{{ permission.description }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
       <hr>
       <lib-submit-button>Send Invite</lib-submit-button>
     </lib-form>

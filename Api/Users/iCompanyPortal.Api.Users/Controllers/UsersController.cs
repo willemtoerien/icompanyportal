@@ -343,9 +343,6 @@ namespace iCompanyPortal.Api.Users.Controllers
 
             await db.SaveChangesAsync();
 
-
-            await db.SaveChangesAsync();
-
             var madeAnActivation = await companyInvitationsClient.ActivateAsync(WebUtility.UrlEncode(user.Email), user.UserId);
 
             if (!madeAnActivation)

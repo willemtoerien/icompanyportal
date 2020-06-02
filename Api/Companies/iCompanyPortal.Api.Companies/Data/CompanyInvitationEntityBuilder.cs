@@ -32,6 +32,10 @@ namespace iCompanyPortal.Api.Companies.Data
 
             builder.Property(nameof(CompanyInvitation.Status));
 
+            builder.Property(nameof(CompanyInvitation.Permissions))
+                .HasMaxLength(300)
+                .IsRequired();
+
             builder.HasOne(nameof(CompanyInvitation.Company))
                 .WithMany(nameof(Company.CompanyInvitations))
                 .HasForeignKey(nameof(CompanyInvitation.CompanyId))

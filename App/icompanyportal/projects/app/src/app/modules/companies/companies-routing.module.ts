@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CompanyLayoutComponent } from './layouts/company-layout/company-layout.component';
-import { CompanyResolver, CompanyInvitationResolver } from 'company-utils';
+import { CompanyResolver, CompanyInvitationResolver, CheckPermissionsGuard } from 'company-utils';
 import { CompaniesPageComponent } from './pages/companies-page/companies-page.component';
 import { CreatePageComponent } from './pages/create-page/create-page.component';
 import { EditPageComponent } from './pages/edit-page/edit-page.component';
@@ -13,6 +13,9 @@ import { SettingsPageComponent } from './pages/settings-page/settings-page.compo
 import { UsersLayoutComponent } from './layouts/users-layout/users-layout.component';
 import { ConfirmPageComponent } from './pages/confirm-page/confirm-page.component';
 import { ExportPageComponent } from './pages/export-page/export-page.component';
+import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
+import { ForbiddenPageComponent } from './pages/forbidden-page/forbidden-page.component';
+import { CompanyUserPermissionType } from 'companies-api';
 
 const routes: Routes = [
   {
@@ -34,7 +37,12 @@ const routes: Routes = [
     }
   },
   {
-    path: 'not-found'
+    path: 'not-found',
+    component: NotFoundPageComponent
+  },
+  {
+    path: 'forbidden',
+    component: ForbiddenPageComponent
   },
   {
     path: ':companyId',
@@ -45,6 +53,8 @@ const routes: Routes = [
     children: [
       {
         path: 'settings',
+        canActivate: [CheckPermissionsGuard],
+        data: { permissions: [CompanyUserPermissionType.editSettings] },
         children: [
           {
             path: '',

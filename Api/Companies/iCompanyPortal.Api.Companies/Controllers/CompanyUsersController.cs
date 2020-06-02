@@ -32,6 +32,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
         public async Task<IActionResult> GetCompanyUsers(int companyId)
         {
             var users = await db.CompanyUsers
+                .Include(x => x.CompanyUserPermissions)
                 .Where(x => x.CompanyId == companyId)
                 .ToArrayAsync();
             return Ok(users);
@@ -43,13 +44,16 @@ namespace iCompanyPortal.Api.Companies.Controllers
         public async Task<IActionResult> Get(int companyId)
         {
             var userId = this.GetUserId();
-            var companyUser = await db.CompanyUsers.SingleOrDefaultAsync(x => x.CompanyId == companyId && x.UserId == userId);
+            var companyUser = await db.CompanyUsers
+                .Include(x => x.CompanyUserPermissions)
+                .SingleOrDefaultAsync(x => x.CompanyId == companyId && x.UserId == userId);
             return Ok(companyUser);
         }
 
-        [HttpPut("{comanyId}/{userId}/{permissionType}/{isSet}")]
+        [HttpPut("{companyId}/{userId}/{permissionType}/{isSet}")]
         [CompanyExists]
         [SwaggerResponse(204, typeof(void))]
+        [CheckPermission(CompanyUserPermissionType.EditSettings)]
         public async Task<IActionResult> SetPermission(int companyId, int userId, CompanyUserPermissionType permissionType, bool isSet)
         {
             var permission = await db.CompanyUserPermissions
@@ -96,6 +100,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
         [CompanyExists]
         [ValidateCompanyUser]
         [SwaggerResponse(204, typeof(void))]
+        [CheckPermission(CompanyUserPermissionType.EditSettings)]
         public async Task<IActionResult> Delete(int companyId, int userId)
         {
             var user = await db.CompanyUsers.SingleOrDefaultAsync(x => x.CompanyId == companyId && x.UserId == userId);

@@ -14,6 +14,8 @@ namespace iCompanyPortal.Api.Companies.Client
 
         public InvitationStatus Status { get; set; }
 
+        public string Permissions { get; set; }
+
         public Company Company { get; set; }
     }
 }

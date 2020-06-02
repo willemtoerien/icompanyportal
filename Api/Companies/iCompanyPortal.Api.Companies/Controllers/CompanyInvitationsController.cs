@@ -47,6 +47,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
         [CompanyExists]
         [ValidateCompanyUser]
         [SwaggerResponse(200, typeof(CompanyInvitation[]))]
+        [CheckPermission(CompanyUserPermissionType.EditSettings)]
         public async Task<IActionResult> GetInvitations(int companyId)
         {
             var invitations = await db.CompanyInvitations
@@ -74,6 +75,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
         [CompanyExists]
         [ValidateCompanyUser]
         [SwaggerResponse(204, typeof(void))]
+        [CheckPermission(CompanyUserPermissionType.EditSettings)]
         public async Task<IActionResult> Invite(int companyId, string responseUrl, [FromBody] CompanyInvitationRequest request)
         {
             if (await db.CompanyInvitations.AnyAsync(x => x.CompanyId == companyId && x.Email == request.Email))
@@ -85,6 +87,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
             invitation.CompanyId = companyId;
             invitation.Email = request.Email;
             invitation.Status = InvitationStatus.Pending;
+            invitation.Permissions = string.Join(",", request.Permissions);
             db.Add(invitation);
             await db.SaveChangesAsync();
 
@@ -191,12 +194,22 @@ namespace iCompanyPortal.Api.Companies.Controllers
                 else
                 {
                     db.Remove(invitation);
-                    db.Add(new CompanyUser
+                    var companyUser = db.Add(new CompanyUser
                     {
                         CompanyId = invitation.CompanyId,
                         UserId = user.UserId,
                         IsFavorite = true
-                    });
+                    }).Entity;
+                    var types = invitation.Permissions.Split(',').Select(x => (CompanyUserPermissionType)int.Parse(x));
+                    foreach (var type in (CompanyUserPermissionType[])Enum.GetValues(typeof(CompanyUserPermissionType)))
+                    {
+                        db.CompanyUserPermissions.Add(new CompanyUserPermission
+                        {
+                            Type = type,
+                            CompanyUser = companyUser,
+                            IsSet = types.Contains(type)
+                        });
+                    }
                     authenticator.Authenticate(HttpContext.Response, user.UserId);
                 }
             }
@@ -208,6 +221,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
 
         [HttpDelete("{token}")]
         [SwaggerResponse(204, typeof(void))]
+        [CheckPermission(CompanyUserPermissionType.EditSettings)]
         public async Task<IActionResult> Delete(Guid token)
         {
             var invitation = await db.CompanyInvitations

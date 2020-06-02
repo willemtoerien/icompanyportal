@@ -68,6 +68,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
         [CompanyExists]
         [ValidateCompanyUser]
         [SwaggerResponse(200, typeof(object))]
+        [CheckPermission(CompanyUserPermissionType.EditSettings)]
         public async Task<IActionResult> Export(int companyId)
         {
             var export = new ExportCompany();
@@ -108,6 +109,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
 
         [HttpGet("permissions")]
         [SwaggerResponse(200, typeof(Dictionary<CompanyUserPermissionType, string>))]
+        [CheckPermission(CompanyUserPermissionType.EditSettings)]
         public IActionResult GetAvailablePermissions()
         {
             var type = typeof(CompanyUserPermissionType);
@@ -128,6 +130,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
         [CompanyExists]
         [ValidateCompanyUser]
         [SwaggerResponse(204, typeof(void))]
+        [CheckPermission(CompanyUserPermissionType.EditSettings)]
         public async Task<IActionResult> Save(int companyId, [FromBody] SaveCompanyRequest request)
         {
             var company = await db.Companies.SingleOrDefaultAsync(x => x.CompanyId == companyId);
@@ -196,6 +199,15 @@ namespace iCompanyPortal.Api.Companies.Controllers
                 IsFavorite = true
             };
             db.Add(companyUser);
+            foreach (var type in (CompanyUserPermissionType[])Enum.GetValues(typeof(CompanyUserPermissionType)))
+            {
+                db.CompanyUserPermissions.Add(new CompanyUserPermission
+                {
+                    Type = type,
+                    CompanyUser = companyUser,
+                    IsSet = true,
+                });
+            }
             await db.SaveChangesAsync();
             return Ok(company.CompanyId);
         }
@@ -204,6 +216,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
         [CompanyExists]
         [ValidateCompanyUser]
         [SwaggerResponse(204, typeof(void))]
+        [CheckPermission(CompanyUserPermissionType.EditSettings)]
         public async Task<IActionResult> Delete(int companyId)
         {
             var company = await db.Companies.SingleOrDefaultAsync(x => x.CompanyId == companyId);
@@ -217,6 +230,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
         [CompanyExists]
         [ValidateCompanyUser]
         [SwaggerResponse(204, typeof(void))]
+        [CheckPermission(CompanyUserPermissionType.EditSettings)]
         public async Task<IActionResult> DeleteAvatar(int companyId)
         {
             var company = await db.Companies.SingleOrDefaultAsync(x => x.CompanyId == companyId);

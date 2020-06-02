@@ -24,7 +24,7 @@ export class CompaniesPageComponent implements OnInit, OnDestroy {
   loadItems() {
     this.context.isLoading = true;
     this.companiesClient
-      .getCompanies(this.context.pageSize, this.context.currentPage++)
+      .getCompanies()
       .pipe(
         catchError((error) => {
           this.context.error = error;

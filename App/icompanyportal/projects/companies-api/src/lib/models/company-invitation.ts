@@ -7,4 +7,5 @@ export interface CompanyInvitation {
   email?: string;
   status?: CompanyInvitationStatus;
   company?: Company;
+  permissions?: string;
 }

@@ -7,6 +7,14 @@
             [libModalToggler]="'remove-company-user-' + item.userId">Remove</button>
         </lib-card-menu>
         <h4 class="card-title">{{ getName(item) }}</h4>
+        <div *ngFor="let permission of permissions" class="d-flex flex-wrap">
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" [id]="'type-' + permission.type + '_' + item.userId"
+              [defaultChecked]="getPermission(item, permission.type)" (change)="togglePermission(item, permission)">
+            <label class="custom-control-label"
+              [htmlFor]="'type-' + permission.type + '_' + item.userId">{{ permission.description }}</label>
+          </div>
+        </div>
       </div>
     </div>
     <lib-modal modalTitle="Remove?" [identity]="'remove-company-user-' + item.userId" colorContext="danger"

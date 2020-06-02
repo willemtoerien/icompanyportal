@@ -1,12 +1,12 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { CollectionContext } from 'utils';
 import { User, UsersClient } from 'users-api';
-import { CompanyUsersClient, CompanyUser } from 'companies-api';
+import { CompanyUsersClient, CompanyUser, CompanyUserPermissionType, CompanyUserPermission, CompaniesClient } from 'companies-api';
 import { Router } from '@angular/router';
 import { catchError, finalize, flatMap, map, takeUntil } from 'rxjs/operators';
 import { throwError, of } from 'rxjs';
 import { AuthStore } from 'auth-utils';
-import { CompanyStore } from 'company-utils';
+import { CompanyStore, PERMISSION_DESCRIPTIONS } from 'company-utils';
 import { useCollectionContext } from 'utils';
 
 @Component({
@@ -16,6 +16,8 @@ export class UsersPageComponent implements OnInit, OnDestroy {
   context = new CollectionContext('Company Users');
 
   users: { [key: number]: User } = {};
+
+  permissions = PERMISSION_DESCRIPTIONS;
 
   constructor(
     private companyUsersClient: CompanyUsersClient,
@@ -75,5 +77,17 @@ export class UsersPageComponent implements OnInit, OnDestroy {
       return '';
     }
     return user.firstName + ' ' + user.lastName;
+  }
+
+  togglePermission(companyUser: CompanyUser, permission: CompanyUserPermission) {
+    const toSet = companyUser.companyUserPermissions.filter((x) => x.type === permission.type && x.userId === companyUser.userId)[0];
+    this.companyUsersClient
+      .setPermission(toSet.companyId, toSet.userId, toSet.type, !toSet.isSet)
+      .subscribe(() => (toSet.isSet = !toSet.isSet));
+  }
+
+  getPermission(companyUser: CompanyUser, type: CompanyUserPermissionType) {
+    const permission = companyUser.companyUserPermissions.filter((x) => x.type === type && x.userId === companyUser.userId)[0];
+    return permission ? permission.isSet : false;
   }
 }

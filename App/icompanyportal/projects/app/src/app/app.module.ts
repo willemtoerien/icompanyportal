@@ -8,7 +8,7 @@ import { AUTH_TOKEN_KEY, AuthInterceptor } from 'auth-utils';
 import { NOTIFICATIONS_API_ENDPOINT, NOTIFICATIONS_API_AUTH_TOKEN } from 'notifications-api';
 import { USERS_API_ENDPOINT } from 'users-api';
 import { COMPANIES_API_ENDPOINT } from 'companies-api';
-import { COMPANY_NOT_FOUND_ROUTE } from 'company-utils';
+import { COMPANY_NOT_FOUND_ROUTE, COMPANY_FORBIDDEN_ROUTE } from 'company-utils';
 import { UtilsModule, APP_TITLE } from 'utils';
 import { environment } from '../environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -46,6 +46,10 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     {
       provide: COMPANY_NOT_FOUND_ROUTE,
       useValue: '/companies/not-found'
+    },
+    {
+      provide: COMPANY_FORBIDDEN_ROUTE,
+      useValue: '/companies/forbidden'
     },
     {
       provide: HTTP_INTERCEPTORS,
