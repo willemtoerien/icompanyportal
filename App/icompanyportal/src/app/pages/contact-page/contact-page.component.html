@@ -1,0 +1,42 @@
+<div libTitle="Home" libTitleDescription="Laborum consequat ad exercitation nulla do enim ex."
+  libTitleImg="https://dummyimage.com/600x400/000/fff" class="jumbotron jumbotron-fluid">
+  <div class="container pb-5 pt-6">
+    <div class="row">
+      <div class="col-md-6 align-self-center">
+        <h1 class="h3">Contact</h1>
+        <p class="lead">
+          Laborum consequat ad exercitation nulla do enim ex. Proident et dolor enim sit laboris duis eu nostrud. Id ut
+          adipisicing deserunt reprehenderit quis reprehenderit nostrud adipisicing. Officia ea sunt sunt sit magna
+          culpa est. Adipisicing reprehenderit consectetur ea officia anim veniam et est culpa ea enim sint sit dolore.
+          Consequat fugiat veniam culpa sit fugiat enim. Nisi reprehenderit duis sit id amet.
+        </p>
+      </div>
+      <div class="col-md-6 text-center">
+        <img class="img-fluid" src="https://dummyimage.com/600x400/000/fff" height="300" alt="Features" />
+      </div>
+    </div>
+  </div>
+</div>
+<div class="my-6">
+  <div class="container">
+    <div class="row">
+      <div class="offset-lg-3 col-lg-6 offset-md-2 col-md-8">
+        <div class="card border-primary">
+          <div class="card-body">
+            <lib-form [formGroup]="form" (submitted)="onSubmit()">
+              <h1 class="h4 card-title text-primary">Contact Form</h1>
+              <p class="card-subtitle text-muted">Please fill out the form to contact us.</p>
+              <hr />
+              <lib-text-box name="email" label="Email" type="email" [labelAsPlaceholder]="true"></lib-text-box>
+              <lib-text-box name="name" label="Name" [labelAsPlaceholder]="true"></lib-text-box>
+              <lib-text-box name="subject" label="Subject" [labelAsPlaceholder]="true"></lib-text-box>
+              <lib-text-area name="body" label="Message" rows="4" [labelAsPlaceholder]="true"></lib-text-area>
+              <hr />
+              <lib-submit-button [isBlock]="true">Send</lib-submit-button>
+            </lib-form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

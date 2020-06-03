@@ -5,4 +5,5 @@ interface ApiEndpoints {
 export interface IEnvironment {
   production: boolean;
   apiEndpoints: ApiEndpoints;
+  appEndpoint: string;
 }
