@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { Component } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { APP_TITLE } from '../services/app-title';
+import { RouterTestingModule } from '@angular/router/testing';
 
 @Component({
   template: '<div [libTitle]="title"></div>'
@@ -18,6 +19,7 @@ describe('TitleDirective', () => {
 
   beforeEach(async () => {
     const testBed = TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
       declarations: [TestComponent, TitleDirective],
       providers: [
         Title,
@@ -32,11 +34,6 @@ describe('TitleDirective', () => {
     await testBed.compileComponents();
     fixture = testBed.createComponent(TestComponent);
     component = fixture.componentInstance;
-  });
-
-  it('should set undefined value', () => {
-    fixture.detectChanges();
-    expect(title.getTitle()).toBe('icompanyportal.com');
   });
 
   it('should set defined value', () => {

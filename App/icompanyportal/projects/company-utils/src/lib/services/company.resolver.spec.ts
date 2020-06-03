@@ -39,6 +39,9 @@ describe('CompanyResolver', () => {
 
   it('undefined companyId cleans the store', async () => {
     const route: any = {
+      parent: {
+        params: {}
+      },
       params: {
         companyId: undefined
       }
@@ -52,6 +55,9 @@ describe('CompanyResolver', () => {
 
   it('invalid companyId throws error', async () => {
     const route: any = {
+      parent: {
+        params: {}
+      },
       params: {
         companyId: 'ABC'
       }
@@ -66,6 +72,9 @@ describe('CompanyResolver', () => {
 
   it('existing company will not be retrieved again', () => {
     const route: any = {
+      parent: {
+        params: {}
+      },
       params: {
         companyId: 1
       }
@@ -78,6 +87,9 @@ describe('CompanyResolver', () => {
 
   it('company will be retrieved correctly with a user', () => {
     const route: any = {
+      parent: {
+        params: {}
+      },
       params: {
         companyId: 1
       }
@@ -101,6 +113,9 @@ describe('CompanyResolver', () => {
 
   it('company will be retrieved correctly without a user', () => {
     const route: any = {
+      parent: {
+        params: {}
+      },
       params: {
         companyId: 1
       }
