@@ -7,11 +7,11 @@ import { CompanyStore } from 'company-utils';
   templateUrl: './delete-page.component.html'
 })
 export class DeletePageComponent {
-  constructor(private companiesClient: CompaniesClient, private companiesStore: CompanyStore, private router: Router) {}
+  constructor(private companiesClient: CompaniesClient, public store: CompanyStore, private router: Router) {}
 
   onDelete() {
-    this.companiesClient.delete(this.companiesStore.company.value.companyId).subscribe(() => {
-      this.companiesStore.updated.emit();
+    this.companiesClient.delete(this.store.company.value.companyId).subscribe(() => {
+      this.store.updated.emit();
       this.router.navigateByUrl('/companies');
     });
   }

@@ -1,6 +1,6 @@
 <lib-input [label]="label" [description]="description">
   <div>
-    <img class="img-thumbnail mb-3 avatar-92" [src]="src" />
+    <img class="img-thumbnail mb-3 avatar-92 rounded-circle" [src]="src" />
     <button type="button" [class.d-none]="!canRemove" class="btn btn-danger ml-3 align-top" (click)="deleted.emit()">
       Remove
     </button>

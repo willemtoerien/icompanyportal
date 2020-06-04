@@ -12,6 +12,8 @@ import {
 } from './components';
 import { TimeAgoPipe, TimeSpanPipe, TrustResourcePipe } from './pipes';
 import { CommonModule } from '@angular/common';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -27,9 +29,10 @@ import { CommonModule } from '@angular/common';
     TimeSpanPipe,
     TrustResourcePipe,
     InitialLoadingComponent,
-    PageLoadingIndicatorComponent
+    PageLoadingIndicatorComponent,
+    BreadcrumbComponent
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   providers: [Title],
   exports: [
     TitleDirective,
@@ -44,7 +47,8 @@ import { CommonModule } from '@angular/common';
     TimeSpanPipe,
     TrustResourcePipe,
     InitialLoadingComponent,
-    PageLoadingIndicatorComponent
+    PageLoadingIndicatorComponent,
+    BreadcrumbComponent
   ]
 })
 export class UtilsModule {}

@@ -5,6 +5,7 @@ import { catchError, finalize, tap, takeUntil } from 'rxjs/operators';
 import { throwError, Subscription } from 'rxjs';
 import { useCollectionContext } from 'utils';
 import { NotificationStore } from 'notification-utils';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   templateUrl: './notifications-page.component.html'
@@ -14,7 +15,7 @@ export class NotificationsPageComponent implements OnInit, OnDestroy {
 
   context = new CollectionContext<Notification>('Notifications', 5);
 
-  constructor(private client: NotificationsClient, private store: NotificationStore) {}
+  constructor(private client: NotificationsClient, private store: NotificationStore, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.subscription = this.client.notified.subscribe((notification) => {

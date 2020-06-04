@@ -97,4 +97,16 @@ export class UsersPageComponent implements OnInit, OnDestroy {
     const permission = companyUser.companyUserPermissions.filter((x) => x.type === type && x.userId === companyUser.userId)[0];
     return permission ? permission.isSet : false;
   }
+
+  getSrc(companyUser: CompanyUser) {
+    return `data:${companyUser.user.avatarContentType};base64,${companyUser.user.avatar}`;
+  }
+
+  getHasSrc(companyUser: CompanyUser) {
+    return !!companyUser.user.avatar;
+  }
+
+  getDefaultSrc(companyUser: CompanyUser) {
+    return `https://ui-avatars.com/api/?name=${encodeURIComponent(this.getName(companyUser))}`;
+  }
 }

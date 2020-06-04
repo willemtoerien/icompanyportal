@@ -12,7 +12,7 @@ export class ExportPageComponent implements OnInit {
   isExporting: boolean;
   errorMessage: string;
 
-  constructor(private store: CompanyStore, private companiesClient: CompaniesClient) {}
+  constructor(public store: CompanyStore, private companiesClient: CompaniesClient) {}
 
   ngOnInit(): void {}
 

@@ -4,7 +4,7 @@ import { Subject, Subscription } from 'rxjs';
 import { Company, CompaniesClient } from 'companies-api';
 import { CompanyStore } from 'company-utils';
 import { finalize, takeUntil } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { NotificationsClient } from 'notifications-api';
 import { NotificationStore } from 'notification-utils';
 
@@ -43,7 +43,8 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
     private companiesClient: CompaniesClient,
     private store: CompanyStore,
     private notificationsClient: NotificationsClient,
-    private notificationStore: NotificationStore
+    private notificationStore: NotificationStore,
+    private router: Router
   ) {}
 
   signOut() {

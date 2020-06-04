@@ -7,13 +7,19 @@
           <button class="dropdown-item text-danger"
             [libModalToggler]="'remove-company-user-' + item.userId">Remove</button>
         </lib-card-menu>
-        <h4 class="card-title">{{ getName(item) }}</h4>
-        <div *ngFor="let permission of permissions" class="d-flex flex-wrap">
-          <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" [id]="'type-' + permission.type + '_' + item.userId"
-              [defaultChecked]="getPermission(item, permission.type)" (change)="togglePermission(item, permission)">
-            <label class="custom-control-label"
-              [htmlFor]="'type-' + permission.type + '_' + item.userId">{{ permission.description }}</label>
+        <div class="d-flex">
+          <img [src]="getHasSrc(item) ? (getSrc(item) | trustResource) : getDefaultSrc(item)"
+            class="avatar-64 mr-3 rounded-circle" />
+          <div>
+            <h4 class="card-title">{{ getName(item) }}</h4>
+            <div *ngFor="let permission of permissions" class="d-flex flex-wrap">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" [id]="'type-' + permission.type + '_' + item.userId"
+                  [defaultChecked]="getPermission(item, permission.type)" (change)="togglePermission(item, permission)">
+                <label class="custom-control-label"
+                  [htmlFor]="'type-' + permission.type + '_' + item.userId">{{ permission.description }}</label>
+              </div>
+            </div>
           </div>
         </div>
       </div>
