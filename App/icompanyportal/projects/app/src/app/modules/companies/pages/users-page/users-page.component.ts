@@ -3,7 +3,7 @@ import { CollectionContext } from 'utils';
 import { User, UsersClient } from 'users-api';
 import { CompanyUsersClient, CompanyUser, CompanyUserPermissionType, CompanyUserPermission, CompaniesClient } from 'companies-api';
 import { Router } from '@angular/router';
-import { catchError, finalize, flatMap, map, takeUntil } from 'rxjs/operators';
+import { catchError, finalize, flatMap, map, takeUntil, tap } from 'rxjs/operators';
 import { throwError, of } from 'rxjs';
 import { AuthStore } from 'auth-utils';
 import { CompanyStore, PERMISSION_DESCRIPTIONS } from 'company-utils';
@@ -13,9 +13,8 @@ import { useCollectionContext } from 'utils';
   templateUrl: './users-page.component.html'
 })
 export class UsersPageComponent implements OnInit, OnDestroy {
-  context = new CollectionContext('Company Users');
-
-  users: { [key: number]: User } = {};
+  private original: CompanyUser[] = [];
+  context = new CollectionContext<CompanyUser>('Company Users');
 
   permissions = PERMISSION_DESCRIPTIONS;
 
@@ -36,18 +35,26 @@ export class UsersPageComponent implements OnInit, OnDestroy {
   }
 
   loadItems() {
+    if (this.context.items.length > 0) {
+      if (this.context.search) {
+        this.context.items = this.context.items.filter((x) => this.getName(x).includes(this.context.search));
+      } else {
+        this.context.items = this.original;
+      }
+      return;
+    }
     this.context.isLoading = true;
     this.companyUsersClient
       .getAll(this.companyStore.company.value.companyId)
       .pipe(
-        useCollectionContext(this.context),
         flatMap((items) => {
           if (items.length > 0) {
             const userIds = items.map((x) => x.userId).join(',');
             return this.usersClient.getUsers(userIds).pipe(
               map((users) => {
                 for (const user of users) {
-                  this.users[user.userId] = user;
+                  const item = items.filter((x) => x.userId === user.userId)[0];
+                  item.user = user;
                 }
                 return items;
               })
@@ -55,9 +62,13 @@ export class UsersPageComponent implements OnInit, OnDestroy {
           } else {
             return of(items);
           }
-        })
+        }),
+        map((items) => {
+          return items.sort((a, b) => (this.getName(a) < this.getName(b) ? -1 : 1));
+        }),
+        useCollectionContext(this.context)
       )
-      .subscribe();
+      .subscribe((items) => (this.original = items));
   }
 
   onRemove(companyUser: CompanyUser) {
@@ -72,11 +83,7 @@ export class UsersPageComponent implements OnInit, OnDestroy {
   }
 
   getName(companyUser: CompanyUser) {
-    const user = this.users[companyUser.userId];
-    if (!user) {
-      return '';
-    }
-    return user.firstName + ' ' + user.lastName;
+    return companyUser.user.firstName + ' ' + companyUser.user.lastName;
   }
 
   togglePermission(companyUser: CompanyUser, permission: CompanyUserPermission) {

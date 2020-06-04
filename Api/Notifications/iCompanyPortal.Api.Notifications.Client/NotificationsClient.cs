@@ -1,4 +1,5 @@
-﻿using System;
+﻿using iCompanyPortal.Api.HttpHelpers;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
@@ -15,22 +16,22 @@ namespace iCompanyPortal.Api.Notifications.Client
             this.http = http;
         }
 
-        public async Task<Notification[]> GetNotifications()
+        public async Task<Notification[]> GetNotificationsAsync(GetQuery getQuery)
         {
-            return await http.GetAsync<Notification[]>($"/");
+            return await http.GetAsync<Notification[]>($"/{getQuery.ToQueryParams()}");
         }
 
-        public async Task<int> GetCount(int userId)
+        public async Task<int> GetUnreadCountAsync(int userId)
         {
             return await http.GetAsync<int>($"/count");
         }
 
-        public async Task<int> Notify(int userId, NotifyRequest request)
+        public async Task<int> NotifyAsync(int userId, NotifyRequest request)
         {
             return await http.PostAsync<int>($"/{userId}", request);
         }
 
-        public async Task MarkAllAsRead()
+        public async Task MarkAllAsReadAsync()
         {
             await http.PutAsync($"/");
         }

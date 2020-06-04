@@ -111,7 +111,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
             var user = await usersClient.GetUserByEmailAsync(request.Email);
             if (user != null)
             {
-                await notificationsClient.Notify(user.UserId, new NotifyRequest
+                await notificationsClient.NotifyAsync(user.UserId, new NotifyRequest
                 {
                     RedirectPath = responseUri.PathAndQuery,
                     Subject = $"Company Invitation",
@@ -174,7 +174,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
                 {
                     body += " The user just need to sign up.";
                 }
-                await notificationsClient.Notify(companyUser.UserId, new NotifyRequest
+                await notificationsClient.NotifyAsync(companyUser.UserId, new NotifyRequest
                 {
                     Subject = "Company Invitation Response",
                     Body = body

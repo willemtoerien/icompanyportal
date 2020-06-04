@@ -2,6 +2,7 @@
 using iCompanyPortal.Api.Companies.Data;
 using iCompanyPortal.Api.Companies.Filters;
 using iCompanyPortal.Api.Companies.Models;
+using iCompanyPortal.Api.HttpHelpers;
 using iCompanyPortal.Api.Users.Client;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -41,7 +42,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
 
         [HttpGet]
         [SwaggerResponse(200, typeof(Company[]))]
-        public async Task<IActionResult> GetCompanies()
+        public async Task<IActionResult> GetCompanies([FromQuery] GetQuery getQuery)
         {
             var userId = this.GetUserId();
             var companies = await db.CompanyUsers
@@ -49,6 +50,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
                 .Where(x => x.UserId == userId && x.Company.Status == CompanyStatus.Active)
                 .Select(x => x.Company)
                 .OrderBy(x => x.Name)
+                .InvokeGetQuery(getQuery, x => x.Name.Contains(getQuery.Search) || x.UniqueName.Contains(getQuery.Search))
                 .ToArrayAsync();
             return Ok(companies);
         }

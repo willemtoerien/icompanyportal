@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CollectionContext } from 'utils';
+import { CollectionContext, useCollectionContext } from 'utils';
 import { CompaniesClient, CompanyUsersClient } from 'companies-api';
 import { catchError, finalize, tap, takeUntil } from 'rxjs/operators';
 import { throwError } from 'rxjs';
@@ -9,7 +9,7 @@ import { CompanyStore } from 'company-utils';
   templateUrl: './companies-page.component.html'
 })
 export class CompaniesPageComponent implements OnInit, OnDestroy {
-  context = new CollectionContext('Companies');
+  context = new CollectionContext('Companies', 5);
 
   constructor(private companiesClient: CompaniesClient, private companyStore: CompanyStore) {}
 
@@ -22,23 +22,9 @@ export class CompaniesPageComponent implements OnInit, OnDestroy {
   }
 
   loadItems() {
-    this.context.isLoading = true;
     this.companiesClient
-      .getCompanies()
-      .pipe(
-        catchError((error) => {
-          this.context.error = error;
-          return throwError(error);
-        }),
-        finalize(() => (this.context.isLoading = false)),
-        tap((items) => {
-          this.context.hasMore = items.length >= this.context.pageSize;
-          for (const item of items) {
-            this.context.items.push(item);
-          }
-        }),
-        takeUntil(this.context.cease)
-      )
+      .getCompanies(this.context.currentPage, this.context.pageSize, this.context.search)
+      .pipe(useCollectionContext(this.context))
       .subscribe();
   }
 

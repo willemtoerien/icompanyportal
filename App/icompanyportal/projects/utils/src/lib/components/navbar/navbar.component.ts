@@ -23,7 +23,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
-      this.ngOnInit();
+      this.init();
     }
   }
 

@@ -7,6 +7,7 @@ export class CollectionContext<T = any> {
   error: Error;
   items: T[] = [];
   hasMore = false;
+  search: string;
 
   constructor(public title: string, public pageSize = 20) {}
 

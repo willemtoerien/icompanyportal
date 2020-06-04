@@ -1,9 +1,5 @@
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item active" aria-current="page">Companies</li>
-  </ol>
-</nav>
-<lib-collection libTitle="Companies" [context]="context" [itemTemplate]="itemTemplate" (loadMore)="loadItems()">
+<lib-collection libTitle="Companies" [searchable]="true" [context]="context" [itemTemplate]="itemTemplate"
+  (loadMore)="loadItems()">
   <ng-template #itemTemplate let-item="item">
     <div class="card">
       <div class="card-body">

@@ -14,8 +14,12 @@ export class CompaniesClient {
     return this.http.get<boolean>(`${this.endpoint}/${uniqueName}/is-unique`);
   }
 
-  getCompanies() {
-    return this.http.get<Company[]>(this.endpoint);
+  getCompanies(page: number, pageSize: number, search?: string) {
+    let getQuery = `?Page=${page}&PageSize=${pageSize}`;
+    if (search) {
+      getQuery += `&Search=${encodeURIComponent(search)}`;
+    }
+    return this.http.get<Company[]>(`${this.endpoint}${getQuery}`);
   }
 
   getFavorites() {

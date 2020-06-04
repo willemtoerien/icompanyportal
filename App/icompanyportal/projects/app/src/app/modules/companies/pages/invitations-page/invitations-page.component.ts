@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CollectionContext } from 'utils';
+import { CollectionContext, useCollectionContext } from 'utils';
 import { CompanyInvitationsClient, CompanyInvitation, CompanyUserPermissionType } from 'companies-api';
 import { catchError, finalize, takeUntil } from 'rxjs/operators';
 import { throwError } from 'rxjs';
@@ -9,7 +9,8 @@ import { CompanyStore, PERMISSION_DESCRIPTIONS } from 'company-utils';
   templateUrl: './invitations-page.component.html'
 })
 export class InvitationsPageComponent implements OnInit, OnDestroy {
-  context = new CollectionContext('Company Invitations');
+  private original: CompanyInvitation[] = [];
+  context = new CollectionContext<CompanyInvitation>('Company Invitations');
 
   permissions = PERMISSION_DESCRIPTIONS;
 
@@ -24,22 +25,18 @@ export class InvitationsPageComponent implements OnInit, OnDestroy {
   }
 
   loadItems() {
-    this.context.isLoading = true;
+    if (this.context.items.length > 0) {
+      if (this.context.search) {
+        this.context.items = this.context.items.filter((x) => x.email.includes(this.context.search));
+      } else {
+        this.context.items = this.original;
+      }
+      return;
+    }
     this.companyInvitationsClient
       .getInvitations(this.store.company.value.companyId)
-      .pipe(
-        catchError((error) => {
-          this.context.error = error;
-          return throwError(error);
-        }),
-        finalize(() => (this.context.isLoading = false)),
-        takeUntil(this.context.cease)
-      )
-      .subscribe((items) => {
-        for (const item of items) {
-          this.context.items.push(item);
-        }
-      });
+      .pipe(useCollectionContext(this.context))
+      .subscribe((items) => (this.original = items));
   }
 
   onRemove(invitation: CompanyInvitation) {
@@ -54,6 +51,10 @@ export class InvitationsPageComponent implements OnInit, OnDestroy {
   }
 
   getPermissionTypes(invitation: CompanyInvitation) {
-    return invitation.permissions.split(',').map((x) => parseInt(x, 0));
+    if (invitation.permissions === '') {
+      return [];
+    }
+    const types = invitation.permissions.split(',').map((x) => parseInt(x, 0));
+    return types;
   }
 }

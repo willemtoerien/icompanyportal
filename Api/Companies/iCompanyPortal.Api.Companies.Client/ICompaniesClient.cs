@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using iCompanyPortal.Api.HttpHelpers;
+using System.Threading.Tasks;
 
 namespace iCompanyPortal.Api.Companies.Client
 {
@@ -6,7 +7,7 @@ namespace iCompanyPortal.Api.Companies.Client
     {
         Task<int> CreateAsync(SaveCompanyRequest request);
         Task DeleteAsync(int companyId);
-        Task<Company[]> GetCompaniesAsync(int pageSize, int page, string search = "");
+        Task<Company[]> GetCompaniesAsync(GetQuery getQuery);
         Task<Company[]> GetFavoritesAsync();
         Task<Company> GetCompanyAsync(int companyId);
         Task<bool> IsUniqueNameUniqueAsync(string uniqueName);

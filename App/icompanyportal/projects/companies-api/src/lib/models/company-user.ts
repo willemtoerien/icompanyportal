@@ -4,4 +4,5 @@ export interface CompanyUser {
   companyId?: number;
   userId?: number;
   companyUserPermissions?: CompanyUserPermission[];
+  user?: any;
 }

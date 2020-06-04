@@ -1,4 +1,5 @@
-﻿using System;
+﻿using iCompanyPortal.Api.HttpHelpers;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -21,9 +22,9 @@ namespace iCompanyPortal.Api.Companies.Client
             return await http.GetAsync<bool>($"/{WebUtility.UrlEncode(uniqueName)}/is-unique");
         }
 
-        public async Task<Company[]> GetCompaniesAsync(int pageSize, int page, string search = "")
+        public async Task<Company[]> GetCompaniesAsync(GetQuery getQuery)
         {
-            return await http.GetAsync<Company[]>($"/{pageSize}/{page}?search=${WebUtility.UrlEncode(search)}");
+            return await http.GetAsync<Company[]>($"/{getQuery.ToQueryParams()}");
         }
 
         public async Task<Company[]> GetFavoritesAsync()

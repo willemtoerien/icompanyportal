@@ -23,8 +23,12 @@ export class NotificationsClient {
     private authToken: NotificationsApiAuthToken
   ) {}
 
-  getNotifications() {
-    return this.http.get<Notification[]>(`${this.endpoint}`);
+  getNotifications(page: number, pageSize: number, search?: string) {
+    let getQuery = `?Page=${page}&PageSize=${pageSize}`;
+    if (search) {
+      getQuery += `&Search=${encodeURIComponent(search)}`;
+    }
+    return this.http.get<Notification[]>(`${this.endpoint}${getQuery}`);
   }
 
   getUnreadCount() {

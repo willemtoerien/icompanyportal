@@ -1,4 +1,5 @@
-﻿using iCompanyPortal.Api.Notifications.Client;
+﻿using iCompanyPortal.Api.HttpHelpers;
+using iCompanyPortal.Api.Notifications.Client;
 using iCompanyPortal.Api.Notifications.Data;
 using iCompanyPortal.Api.Notifications.Hubs;
 using iCompanyPortal.Api.Users.Client;
@@ -33,19 +34,20 @@ namespace iCompanyPortal.Api.Notifications.Controllers
 
         [HttpGet]
         [SwaggerResponse(200, typeof(Notification[]))]
-        public async Task<IActionResult> GetNotifications()
+        public async Task<IActionResult> GetNotifications([FromQuery] GetQuery getQuery)
         {
             var userId = this.GetUserId();
             var notifications = await db.Notifications
                 .Where(x => x.UserId == userId)
                 .OrderByDescending(x => x.CreatedAt)
+                .InvokeGetQuery(getQuery, x => x.Subject.Contains(getQuery.Search) || x.Body.Contains(getQuery.Search))
                 .ToArrayAsync();
-            return Ok(notifications);
+           return Ok(notifications);
         }
 
         [HttpGet("count")]
         [SwaggerResponse(200, typeof(int))]
-        public async Task<IActionResult> GetCount()
+        public async Task<IActionResult> GetUnreadCount()
         {
             var userId = this.GetUserId();
             return Ok(await db.Notifications.CountAsync(x => x.UserId == userId && !x.ReadAt.HasValue));

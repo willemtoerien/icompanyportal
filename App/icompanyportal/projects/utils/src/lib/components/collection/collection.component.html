@@ -1,4 +1,14 @@
-<div *ngIf="context">
+<div id="view-port" *ngIf="context">
+  <div *ngIf="searchable" class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="search-collection-addon">
+        <span class="mdi mdi-magnify"></span>
+      </span>
+    </div>
+    <input class="form-control" id="search-collection" type="search" placeholder="Search" aria-label="Search"
+      aria-describedby="search-collection-addon" (input)="onSearch($event.target.value)" />
+  </div>
+
   <div *ngIf="!context.isLoading && context.items && context.items.length === 0 && !context.error"
     class="text-center mt-5">
     <h4 class="text-info">No {{ context.title }}</h4>
@@ -6,15 +16,12 @@
   </div>
   <div *ngIf="context.error" class="text-center mt-5">
     <h4 class="text-danger">Server Error</h4>
-    <p>{{ context.error.message }}</p>
+    <p>An unexpected error has occurred when retrieving {{ context.title.toLowerCase() }}.</p>
   </div>
   <div *ngIf="context.items && context.items.length > 0">
     <div *ngFor="let item of context.items" class="mb-3">
       <ng-container *ngTemplateOutlet="itemTemplate; context: { item: item }"></ng-container>
     </div>
-  </div>
-  <div *ngIf="context.items && context.items.length > 0 && context.hasMore && !context.isLoading && !context.error">
-    <button class="btn btn-outline-primary" (click)="loadMore.emit()">Load more</button>
   </div>
   <div>
     <div *ngIf="context.isLoading" class="text-center">

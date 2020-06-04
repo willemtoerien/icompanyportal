@@ -1,6 +1,7 @@
 ﻿using iCompanyPortal.Api.Companies.Client;
 using iCompanyPortal.Api.Companies.Data;
 using iCompanyPortal.Api.Companies.Filters;
+using iCompanyPortal.Api.HttpHelpers;
 using iCompanyPortal.Api.Notifications.Client;
 using iCompanyPortal.Api.Users.Client;
 using Microsoft.AspNetCore.Mvc;
@@ -91,7 +92,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
                 .ToArrayAsync();
             foreach (var user in users)
             {
-                await notificationsClient.Notify(user.UserId, request);
+                await notificationsClient.NotifyAsync(user.UserId, request);
             }
             return NoContent();
         }

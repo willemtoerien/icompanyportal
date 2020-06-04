@@ -12,7 +12,7 @@ import { NotificationStore } from 'notification-utils';
 export class NotificationsPageComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
-  context = new CollectionContext<Notification>('Notifications');
+  context = new CollectionContext<Notification>('Notifications', 5);
 
   constructor(private client: NotificationsClient, private store: NotificationStore) {}
 
@@ -32,8 +32,10 @@ export class NotificationsPageComponent implements OnInit, OnDestroy {
   }
 
   loadItems() {
-    this.context.isLoading = true;
-    this.client.getNotifications().pipe(useCollectionContext(this.context)).subscribe();
+    this.client
+      .getNotifications(this.context.currentPage, this.context.pageSize, this.context.search)
+      .pipe(useCollectionContext(this.context))
+      .subscribe();
     this.client.markAllAsRead().subscribe(() => {
       this.store.unreadCount.next(0);
     });

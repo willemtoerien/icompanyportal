@@ -1,7 +1,8 @@
-<lib-collection libTitle="Company Users" [context]="context" [itemTemplate]="itemTemplate" (loadMore)="loadItems()">
+<lib-collection libTitle="Company Users" [searchable]="true" [hasCustomSearch]="true" [context]="context"
+  [itemTemplate]="itemTemplate" (loadMore)="loadItems()">
   <ng-template #itemTemplate let-item="item">
     <div class="card">
-      <div *ngIf="users[item.userId]" class="card-body">
+      <div class="card-body">
         <lib-card-menu>
           <button class="dropdown-item text-danger"
             [libModalToggler]="'remove-company-user-' + item.userId">Remove</button>
