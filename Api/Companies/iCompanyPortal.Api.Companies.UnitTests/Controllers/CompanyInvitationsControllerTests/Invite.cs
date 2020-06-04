@@ -21,6 +21,7 @@ namespace iCompanyPortal.Api.Companies.UnitTests.Controllers.CompanyInvitationsC
             db.SaveChanges();
             var controller = GetController();
             var request = new CompanyInvitationRequest().SetStringProperties();
+            request.Permissions = new [] { 0 };
             var result = await controller.Invite(1, "http://localhost/test", request);
             Assert.IsType<NoContentResult>(result);
             db = Db;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NJsonSchema.Generation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,8 @@ namespace System
                 .Where(x => x.PropertyType == typeof(string));
             foreach (var property in properties)
             {
-                property.SetValue(@object, property.Name);
+                var value = property.Name;
+                property.SetValue(@object, value);
             }
             return @object;
         }

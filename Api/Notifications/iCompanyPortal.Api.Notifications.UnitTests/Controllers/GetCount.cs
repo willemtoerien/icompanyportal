@@ -21,7 +21,7 @@ namespace iCompanyPortal.Api.Notifications.UnitTests.Controllers
             );
             db.SaveChanges();
             var controller = GetController(1);
-            var result = await controller.GetCount();
+            var result = await controller.GetUnreadCount();
             var okResult = Assert.IsType<OkObjectResult>(result);
             Assert.Equal(3, okResult.Value);
         }

@@ -235,6 +235,11 @@ namespace iCompanyPortal.Api.Companies.Controllers
             {
                 return Forbid();
             }
+            var hasPermission = await db.CompanyUserPermissions.Where(x => x.Type == CompanyUserPermissionType.EditSettings && x.IsSet && x.UserId == userId && x.CompanyId == invitation.CompanyId).AnyAsync();
+            if (!hasPermission)
+            {
+                return Forbid();
+            }
             db.Remove(invitation);
             await db.SaveChangesAsync();
             return Ok();

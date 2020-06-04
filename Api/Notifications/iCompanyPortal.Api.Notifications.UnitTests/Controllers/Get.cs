@@ -1,4 +1,5 @@
-﻿using iCompanyPortal.Api.Notifications.Client;
+﻿using iCompanyPortal.Api.HttpHelpers;
+using iCompanyPortal.Api.Notifications.Client;
 using iCompanyPortal.Api.Notifications.Data;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -18,7 +19,7 @@ namespace iCompanyPortal.Api.Notifications.UnitTests.Controllers
             Notification notification1, notification2, notification3;
             AddNotifications(db, out notification1, out notification2, out notification3);
             var controller = GetController(1);
-            var result = await controller.GetNotifications();
+            var result = await controller.GetNotifications(GetQuery.Default);
             var okResult = Assert.IsType<OkObjectResult>(result);
             var notifications = (Notification[])okResult.Value;
             Assert.Equal(notification1.NotificationId, notifications[0].NotificationId);

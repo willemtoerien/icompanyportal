@@ -22,5 +22,7 @@ namespace iCompanyPortal.Api.HttpHelpers
             }
             return result;
         }
+
+        public static GetQuery Default => new GetQuery { Page = 0, PageSize = 5 };
     }
 }

@@ -37,14 +37,11 @@ namespace iCompanyPortal.Api.UnitTestHelpers
             var filterMetadata = new List<IFilterMetadata>();
             var executingContext = new ActionExecutingContext(actionContext, filterMetadata, arguments, controller);
             var executedContext = new ActionExecutedContext(actionContext, filterMetadata, controller);
-            var wasNextCalled = false;
             var next = new ActionExecutionDelegate(() =>
             {
-                wasNextCalled = true;
                 return Task.FromResult(executedContext);
             });
             await Filter.OnActionExecutionAsync(executingContext, next);
-            Assert.True(wasNextCalled);
             return executingContext;
         }
     }

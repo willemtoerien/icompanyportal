@@ -69,6 +69,7 @@ namespace iCompanyPortal.Api.Companies.UnitTests.Controllers.CompanyInvitationsC
             Services.AddSingleton(usersClientMock.Object);
             var db = AddDbContext();
             var originalInvitation = new CompanyInvitation { Status = InvitationStatus.Pending }.SetStringProperties();
+            originalInvitation.Permissions = "0";
             db.Add(originalInvitation);
             db.SaveChanges();
             var controller = GetController();
