@@ -10,6 +10,9 @@ import { ContactPageComponent } from './pages/contact-page/contact-page.componen
 import { FormsExModule } from 'forms-ex';
 import { AppRedirectDirective } from './directives/app-redirect.directive';
 import { PricingPageComponent } from './pages/pricing-page/pricing-page.component';
+import { EMAILING_API_ENDPOINT } from 'emailing-api';
+import { environment } from 'src/environments/environment';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,12 +24,16 @@ import { PricingPageComponent } from './pages/pricing-page/pricing-page.componen
     AppRedirectDirective,
     PricingPageComponent
   ],
-  imports: [BrowserModule.withServerTransition({ appId: 'serverApp' }), AppRoutingModule, UtilsModule, FormsExModule],
+  imports: [BrowserModule.withServerTransition({ appId: 'serverApp' }), HttpClientModule, AppRoutingModule, UtilsModule, FormsExModule],
   bootstrap: [AppComponent],
   providers: [
     {
       provide: APP_TITLE,
       useValue: 'iCompanyPortal.com'
+    },
+    {
+      provide: EMAILING_API_ENDPOINT,
+      useValue: environment.apiEndpoints.emailing
     }
   ]
 })

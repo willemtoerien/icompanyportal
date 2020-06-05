@@ -8,7 +8,7 @@
           <a *libCheckPermissions="0" class="dropdown-item" routerLink="settings/edit">Edit</a>
           <a *libCheckPermissions="0" class="dropdown-item" routerLink="settings">Settings</a>
         </lib-card-menu>
-        <img [libCompanyLogo]="store.company.value" class="img-thumbnail mb-3 avatar-92">
+        <img [libCompanyLogo]="store.company.value" class="img-thumbnail mb-3 avatar-92 rounded-circle">
         <h4 class="card-title">{{ store.company.value.name }}</h4>
         <p class="card-subtitle">@{{ store.company.value.uniqueName }}</p>
       </div>

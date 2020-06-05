@@ -1,5 +1,6 @@
 <ng-template #brandTemplate>
-  <a class="brand" routerLink="/">iCompanyPortal.com</a>
+  <img src="/assets/icons/icon-72x72.png" height="30" class="mr-2"><span libApplicationTitle
+    class="align-self-center"></span>
 </ng-template>
 <ng-template #sidebarContentTemplate>
   <lib-sidebar>
@@ -13,7 +14,7 @@
       <a routerLink="/companies">All Companies</a>
     </div>
     <a *ngFor="let company of companies" class="sub-item" [routerLink]="['/companies', company.companyId]"
-      routerLinkActive="active"><img [libCompanyLogo]="company" class="avatar-32 mr-2">
+      routerLinkActive="active"><img [libCompanyLogo]="company" class="avatar-32 mr-2 rounded-circle">
       {{ company.name }}</a>
     <div class="text-center">
       <span *ngIf="!isLoading && companies.length === 0" class="small">You do not belong to any companies</span>

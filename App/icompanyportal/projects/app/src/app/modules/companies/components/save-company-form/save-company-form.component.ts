@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Company, CompaniesClient, SaveCompanyRequest } from 'companies-api';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormValidators, invokeForm, ImageInputData } from 'forms-ex';
 import { Observable } from 'rxjs';
 import { tap, flatMap } from 'rxjs/operators';
-import { CompanyStore } from 'company-utils';
+import { CompanyStore, CompanyResolver } from 'company-utils';
 
 @Component({
   selector: 'app-save-company-form',
@@ -80,25 +80,16 @@ export class SaveCompanyFormComponent implements OnInit {
     const action: Observable<any> = this.company
       ? this.companiesClient.save(this.company.companyId, request)
       : this.companiesClient.create(request);
-    action
-      .pipe(
-        invokeForm(this.form),
-        tap((id) => {
-          const company = this.company;
-          company.companyId = id ? id : this.company.companyId;
-          company.uniqueName = request.uniqueName;
-          company.name = request.name;
-          if (this.imageInputData) {
-            company.logo = this.imageInputData.data;
-            company.logoContentType = this.imageInputData.contentType;
-          }
-          this.company = company;
-          this.store.updated.emit();
-        })
-      )
-      .subscribe((id) => {
-        this.router.navigateByUrl(`/companies/${id ? id : this.company.companyId}`);
-      });
+    action.pipe(invokeForm(this.form)).subscribe((id) => {
+      if (this.company) {
+        const company = this.company;
+        company.name = request.name;
+        company.uniqueName = request.uniqueName;
+        this.company = company;
+      }
+      this.store.updated.emit();
+      this.router.navigateByUrl(`/companies/${id ? id : this.company.companyId}`);
+    });
   }
 
   private format(value: string) {
