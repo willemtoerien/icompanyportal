@@ -45,7 +45,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 config.Title = configuration.GetSection("Application")["Title"];
                 config.Version = configuration.GetSection("Application")["Version"];
                 config.GenerateEnumMappingDescription = true;
-                if (configuration.GetSection("Auth") != null)
+                if (configuration.GetSection("Auth").Exists())
                 {
                     config.DocumentProcessors.Add(new SecurityDefinitionAppender("JWT", new[] { "Bearer" }, new OpenApiSecurityScheme
                     {

@@ -32,9 +32,9 @@ namespace iCompanyPortal.Api.Companies
                 .AddUsers(Configuration)
                 .AddProjectCors(Configuration)
                 .AddProjectDbContext<CompaniesDbContext>(Configuration)
-                .AddTransient<EntityBuilder, CompanyEntityBuilder>()
-                .AddTransient<EntityBuilder, CompanyInvitationEntityBuilder>()
-                .AddTransient<EntityBuilder, CompanyUserEntityBuilder>()
+                .AddEntityBuilder<CompanyEntityBuilder>()
+                .AddEntityBuilder<CompanyInvitationEntityBuilder>()
+                .AddEntityBuilder<CompanyUserEntityBuilder>()
                 .AddEntityBuilder<CompanyUserPermissionEntityBuilder>()
                 .AddHostedService<PermanentCompanyDeleter>()
                 .AddEmailingClient(Configuration)
@@ -57,8 +57,6 @@ namespace iCompanyPortal.Api.Companies
             }
 
             app.UseProjectCors();
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 
