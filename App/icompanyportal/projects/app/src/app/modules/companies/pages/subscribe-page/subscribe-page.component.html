@@ -1,0 +1,18 @@
+<lib-breadcrumb
+  [items]="['Companies|../../../../', company.name + '|../../../', 'Settings|../../', 'Subscription|../', 'Subscribe']">
+</lib-breadcrumb>
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Subscribe</h4>
+    <p class="card-subtitle">Please select your subscription plan.</p>
+    <hr>
+    <lib-form [formGroup]="form" (submitted)="onSubmit()">
+      <lib-select name="type" label="Plan" [options]="types"></lib-select>
+      <lib-select name="length" label="Duration" [options]="lengths"></lib-select>
+      <lib-label label="Currency" value="USD"></lib-label>
+      <lib-label label="Amount" value="0" description="test test test"></lib-label>
+      <hr>
+      <lib-submit-button>Subscribe</lib-submit-button>
+    </lib-form>
+  </div>
+</div>

@@ -9,6 +9,7 @@ import { TextBoxComponent } from './components/text-box/text-box.component';
 import { FormComponent } from './components/form/form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ImageInputComponent } from './components/image-input/image-input.component';
+import { LabelComponent } from './components/label/label.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ImageInputComponent } from './components/image-input/image-input.compon
     SubmitButtonComponent,
     TextAreaComponent,
     TextBoxComponent,
-    ImageInputComponent
+    ImageInputComponent,
+    LabelComponent
   ],
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   exports: [
@@ -32,7 +34,8 @@ import { ImageInputComponent } from './components/image-input/image-input.compon
     SubmitButtonComponent,
     TextAreaComponent,
     TextBoxComponent,
-    ImageInputComponent
+    ImageInputComponent,
+    LabelComponent
   ]
 })
 export class FormsExModule {}

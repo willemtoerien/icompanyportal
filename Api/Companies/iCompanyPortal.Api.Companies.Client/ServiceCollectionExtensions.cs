@@ -11,19 +11,27 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddCompaniesClients(this IServiceCollection services, IConfiguration configuration)
         {
-            services
-                .AddHttpClient<ICompaniesClient, CompaniesClient>(http =>
-                {
-                    http.BaseAddress = new Uri(configuration.GetSection("Api")["Companies"]);
-                });
+            var companiesBaseAddress = configuration.GetSection("Api")["Companies"];
+            services.AddHttpClient<ICompaniesClient, CompaniesClient>(http =>
+            {
+                http.BaseAddress = new Uri(companiesBaseAddress);
+            });
             services.AddHttpClient<ICompanyInvitationsClient, CompanyInvitationsClient>(http =>
-                {
-                    http.BaseAddress = new Uri(configuration.GetSection("Api")["Companies"] + "/invitations");
-                });
+            {
+                http.BaseAddress = new Uri(companiesBaseAddress + "/invitations");
+            });
             services.AddHttpClient<ICompanyUsersClient, CompanyUsersClient>(http =>
-                {
-                    http.BaseAddress = new Uri(configuration.GetSection("Api")["Companies"] + "/users");
-                });
+            {
+                http.BaseAddress = new Uri(companiesBaseAddress + "/users");
+            });
+            services.AddHttpClient<ISubscriptionsClient, SubscriptionsClient>(http =>
+            {
+                http.BaseAddress = new Uri(companiesBaseAddress + "/subscriptions");
+            });
+            services.AddHttpClient<ICompanyUserPermissionsClient, CompanyUserPermissionsClient>(http =>
+            {
+                http.BaseAddress = new Uri(companiesBaseAddress = "/users/permissions");
+            });
             return services;
         }
     }

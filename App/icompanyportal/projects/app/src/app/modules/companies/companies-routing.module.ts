@@ -16,6 +16,8 @@ import { ExportPageComponent } from './pages/export-page/export-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { ForbiddenPageComponent } from './pages/forbidden-page/forbidden-page.component';
 import { CompanyUserPermissionType } from 'companies-api';
+import { SubscriptionPageComponent } from './pages/subscription-page/subscription-page.component';
+import { SubscribePageComponent } from './pages/subscribe-page/subscribe-page.component';
 
 const routes: Routes = [
   {
@@ -71,6 +73,14 @@ const routes: Routes = [
           {
             path: 'export',
             component: ExportPageComponent
+          },
+          {
+            path: 'subscription',
+            component: SubscriptionPageComponent
+          },
+          {
+            path: 'subscription/subscribe',
+            component: SubscribePageComponent
           },
           {
             path: 'users',

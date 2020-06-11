@@ -24,5 +24,7 @@ namespace iCompanyPortal.Api.Companies.Client
         public ICollection<CompanyInvitation> CompanyInvitations { get; set; } = new HashSet<CompanyInvitation>();
 
         public ICollection<CompanyUser> CompanyUsers { get; set; } = new HashSet<CompanyUser>();
+
+        public Subscription Subscription { get; set; }
     }
 }

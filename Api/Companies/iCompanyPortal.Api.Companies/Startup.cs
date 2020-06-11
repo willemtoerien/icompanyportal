@@ -36,6 +36,8 @@ namespace iCompanyPortal.Api.Companies
                 .AddEntityBuilder<CompanyInvitationEntityBuilder>()
                 .AddEntityBuilder<CompanyUserEntityBuilder>()
                 .AddEntityBuilder<CompanyUserPermissionEntityBuilder>()
+                .AddEntityBuilder<SubscriptionPlanEntityBuilder>()
+                .AddEntityBuilder<SubscriptionEntityBuilder>()
                 .AddHostedService<PermanentCompanyDeleter>()
                 .AddEmailingClient(Configuration)
                 .AddUsersClient(Configuration)

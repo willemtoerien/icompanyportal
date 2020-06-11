@@ -1,4 +1,5 @@
 import { CompanyStatus } from './company-status';
+import { Subscription } from './subscription';
 
 export interface Company {
   companyId?: number;
@@ -7,4 +8,6 @@ export interface Company {
   status?: CompanyStatus;
   logo?: string;
   logoContentType?: string;
+
+  subscription?: Subscription;
 }

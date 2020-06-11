@@ -4,6 +4,7 @@ using iCompanyPortal.Api.Companies.Filters;
 using iCompanyPortal.Api.HttpHelpers;
 using iCompanyPortal.Api.Notifications.Client;
 using iCompanyPortal.Api.Users.Client;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NSwag.Annotations;
@@ -49,36 +50,6 @@ namespace iCompanyPortal.Api.Companies.Controllers
                 .Include(x => x.CompanyUserPermissions)
                 .SingleOrDefaultAsync(x => x.CompanyId == companyId && x.UserId == userId);
             return Ok(companyUser);
-        }
-
-        [HttpPut("{companyId}/{userId}/{permissionType}/{isSet}")]
-        [CompanyExists]
-        [SwaggerResponse(204, typeof(void))]
-        [CheckPermission(CompanyUserPermissionType.EditSettings)]
-        public async Task<IActionResult> SetPermission(int companyId, int userId, CompanyUserPermissionType permissionType, bool isSet)
-        {
-            var permission = await db.CompanyUserPermissions
-                .SingleOrDefaultAsync(x => x.CompanyId == companyId && x.UserId == userId && x.Type == permissionType);
-            if (!isSet && (permission == null || !permission.IsSet))
-            {
-                return NoContent();
-            }
-
-            if (permission == null)
-            {
-                permission = db.Add(new CompanyUserPermission
-                {
-                    CompanyId = companyId,
-                    Type = permissionType,
-                    UserId = userId
-                }).Entity;
-            }
-
-            permission.IsSet = isSet;
-
-            await db.SaveChangesAsync();
-
-            return NoContent();
         }
 
         [HttpPost("{companyId}/notify")]

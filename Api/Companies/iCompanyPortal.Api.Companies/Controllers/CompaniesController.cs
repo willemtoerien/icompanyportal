@@ -37,7 +37,9 @@ namespace iCompanyPortal.Api.Companies.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> IsUniqueNameUnique(string uniqueName)
         {
-            return Ok(!await db.Companies.AnyAsync(x => x.UniqueName == uniqueName));
+            return Ok(!await db.Companies
+                .Include(x => x.Subscription)
+                .AnyAsync(x => x.UniqueName == uniqueName));
         }
 
         [HttpGet]
@@ -47,6 +49,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
             var userId = this.GetUserId();
             var companies = await db.CompanyUsers
                 .Include(x => x.Company)
+                .ThenInclude(x => x.Subscription)
                 .Where(x => x.UserId == userId && x.Company.Status == CompanyStatus.Active)
                 .Select(x => x.Company)
                 .OrderBy(x => x.Name)
@@ -62,7 +65,9 @@ namespace iCompanyPortal.Api.Companies.Controllers
         public async Task<IActionResult> GetCompany(int companyId)
         {
             var userId = this.GetUserId();
-            var company = await db.Companies.SingleOrDefaultAsync(x => x.CompanyId == companyId);
+            var company = await db.Companies
+                .Include(x => x.Subscription)
+                .SingleOrDefaultAsync(x => x.CompanyId == companyId);
             return Ok(company);
         }
 

@@ -18,6 +18,10 @@ namespace iCompanyPortal.Api.Companies.Data
 
         public DbSet<CompanyUserPermission> CompanyUserPermissions { get; set; }
 
+        public DbSet<SubscriptionPlan> SubscriptionPlans { get; set; }
+
+        public DbSet<Subscription> Subscriptions { get; set; }
+
         public CompaniesDbContext(DbContextOptions options, IEnumerable<EntityBuilder> builders) : base(options, builders)
         {
         }

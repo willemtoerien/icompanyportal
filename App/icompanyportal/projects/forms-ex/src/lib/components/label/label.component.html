@@ -1,0 +1,9 @@
+<div class="form-group row">
+  <label *ngIf="!labelAsPlaceholder" class="col-lg-3 col-form-label text-lg-right">
+    {{ label }}
+  </label>
+  <div class="pt-2" [class.col-lg-9]="!labelAsPlaceholder" [class.col-lg-12]="labelAsPlaceholder">
+    <span class="mt-3">{{ value }}</span>
+    <small *ngIf="description" class="form-text text-muted">{{ description }}</small>
+  </div>
+</div>
