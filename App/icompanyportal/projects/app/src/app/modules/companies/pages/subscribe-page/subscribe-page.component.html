@@ -1,6 +1,13 @@
 <lib-breadcrumb
   [items]="['Companies|../../../../', company.name + '|../../../', 'Settings|../../', 'Subscription|../', 'Subscribe']">
 </lib-breadcrumb>
+<div *ngIf="company.subscription && company.subscription.status == 1" class="card border-warning mb-3">
+  <div class="card-body">
+    <h4 class="card-title text-warning">Warning</h4>
+    <p class="card-subtitle">You have a current active subscription. If you change your subscription, your current
+      subscription will be cancelled for the new subscription.</p>
+  </div>
+</div>
 <div class="card">
   <div class="card-body">
     <h4 class="card-title">Subscribe</h4>

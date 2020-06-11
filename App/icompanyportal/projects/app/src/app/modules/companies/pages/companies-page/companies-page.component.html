@@ -6,16 +6,13 @@
       <div class="card-body">
         <lib-card-menu>
           <button class="dropdown-item" (click)="toggleFavorite(item.companyId)">Toggle Favorite</button>
-          <hr>
-          <a class="dropdown-item" [routerLink]="[item.companyId, 'settings', 'edit']">Edit</a>
-          <a class="dropdown-item" [routerLink]="[item.companyId, 'settings']">Settings</a>
         </lib-card-menu>
-        <div class="d-md-flex">
+        <div class="d-md-flex text-center text-md-left">
           <img [libCompanyLogo]="item" class="img-thumbnail mb-3 mr-3 mb-md-0 avatar-92 rounded-circle">
           <div class="mr-auto align-self-center">
             <h4 class="card-title"><a [routerLink]="[item.companyId]">{{ item.name }}</a></h4>
             <p class="card-subtitle text-info mb-2">@{{ item.uniqueName }}</p>
-            <p class="card-text badge mb-0" [ngClass]="'badge-' + getContext(item)">
+            <p *ngIf="item.subscription" class="card-text badge mb-0" [ngClass]="'badge-' + getContext(item)">
               {{ item.subscription.type | planTypeName }} {{ item.subscription.status | subscriptionStatusName }}
             </p>
           </div>

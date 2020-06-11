@@ -2,7 +2,7 @@
   [ngClass]="isLight ? 'project-navbar-light' : 'project-navbar-dark'">
   <div class="d-flex">
     <div class="mr-auto align-self-center">
-      <button class="btn btn-outline-light border-0 mr-2 d-inline-block d-xl-none" data-toggle="modal"
+      <button class="btn btn-outline-light border-0 d-inline-block d-xl-none" data-toggle="modal"
         data-target="#sidebar-modal"><span class="mdi mdi-menu"></span></button>
       <a class="brand" routerLink="/">
         <ng-container *ngTemplateOutlet="brandTemplate"></ng-container>
@@ -19,7 +19,7 @@
           [ngClass]="isLight ? 'project-navbar-light' : 'project-navbar-dark'" style="height: 63px; z-index: 10">
           <div class="d-flex">
             <div class="mr-auto align-self-center">
-              <button class="btn btn-light border-0 mr-2" data-dismiss="modal" aria-label="Close"><span
+              <button class="btn btn-light border-0" data-dismiss="modal" aria-label="Close"><span
                   class="mdi mdi-menu"></span></button>
               <a class="brand" routerLink="/">
                 <ng-container *ngTemplateOutlet="brandTemplate"></ng-container>

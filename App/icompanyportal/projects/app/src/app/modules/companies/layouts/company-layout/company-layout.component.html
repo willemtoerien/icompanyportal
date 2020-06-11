@@ -11,7 +11,7 @@
         <img [libCompanyLogo]="store.company.value" class="img-thumbnail mb-3 avatar-92 rounded-circle">
         <h4 class="card-title">{{ store.company.value.name }}</h4>
         <p class="card-subtitle text-info mb-2">@{{ store.company.value.uniqueName }}</p>
-        <p class="card-text badge mb-0" [ngClass]="'badge-' + context">
+        <p *ngIf="company.subscription" class="card-text badge mb-0" [ngClass]="'badge-' + context">
           {{ company.subscription.type | planTypeName }} {{ company.subscription.status | subscriptionStatusName }}</p>
       </div>
     </div>
