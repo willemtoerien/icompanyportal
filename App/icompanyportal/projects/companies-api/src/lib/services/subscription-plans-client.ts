@@ -4,6 +4,7 @@ import { COMPANIES_API_ENDPOINT } from './companies-api-endpoint';
 import { Subscription } from '../models/subscription';
 import { SubscriptionRequest } from '../models/subscription-request';
 import { SubscriptionLength } from '../models/subscription-length';
+import { SubscriptionPlanType } from '../models/subscription-plan-type';
 
 @Injectable({
   providedIn: 'root'
@@ -13,5 +14,9 @@ export class SubscriptionPlansClient {
 
   get(currencyCode: string) {
     return this.http.get<Subscription>(`${this.endpoint}/subscription-plans/${currencyCode}`);
+  }
+
+  getAmount(currencyCode: string, type: SubscriptionPlanType, length: SubscriptionLength) {
+    return this.http.get<number>(`${this.endpoint}/subscription-plans/${currencyCode}/${type}/${length}`);
   }
 }

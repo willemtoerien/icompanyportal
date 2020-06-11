@@ -22,14 +22,27 @@ namespace iCompanyPortal.Api.Companies.Controllers
             this.db = db;
         }
 
-        [HttpGet("{currencyCode}/{length}")]
+        [HttpGet("{currencyCode}")]
         [SwaggerResponse(200, typeof(SubscriptionPlan[]))]
-        public async Task<IActionResult> Get(string currencyCode, SubscriptionLength length)
+        public async Task<IActionResult> Get(string currencyCode)
         {
             var plans = await db.SubscriptionPlans
-                .Where(x => x.CurrencyCode == currencyCode && x.Length == length)
+                .Where(x => x.CurrencyCode == currencyCode)
                 .ToArrayAsync();
             return Ok(plans);
+        }
+
+        [HttpGet("{currencyCode}/{type}/{length}")]
+        public async Task<IActionResult> GetAmount(string currencyCode, SubscriptionPlanType type, SubscriptionLength length)
+        {
+            var plan = await db.SubscriptionPlans
+                .SingleOrDefaultAsync(x => x.CurrencyCode == currencyCode && x.Type == type && x.Length == length);
+            if (plan == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(plan.Amount);
         }
     }
 }

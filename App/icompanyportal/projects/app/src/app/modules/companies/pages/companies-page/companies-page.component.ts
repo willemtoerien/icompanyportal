@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CollectionContext, useCollectionContext } from 'utils';
-import { CompaniesClient, CompanyUsersClient } from 'companies-api';
+import { CompaniesClient, CompanyUsersClient, Company, SubscriptionStatus } from 'companies-api';
 import { catchError, finalize, tap, takeUntil } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { CompanyStore } from 'company-utils';
@@ -30,5 +30,16 @@ export class CompaniesPageComponent implements OnInit, OnDestroy {
 
   toggleFavorite(companyId: number) {
     this.companiesClient.setFavorite(companyId).subscribe(() => this.companyStore.updated.emit());
+  }
+
+  getContext(company: Company): string {
+    switch (company.subscription.status) {
+      case SubscriptionStatus.active:
+        return 'primary';
+      case SubscriptionStatus.cancelled:
+        return 'warning';
+      case SubscriptionStatus.expired:
+        return 'danger';
+    }
   }
 }

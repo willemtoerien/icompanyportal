@@ -2,18 +2,39 @@
 </lib-breadcrumb>
 <div class="card">
   <div class="card-body">
-    <h4 class="card-title">
-      Current Subscription
-    </h4>
-    <hr>
     <div *ngIf="!company.subscription">
-      <p class="card-text">You do not have a subscription yet.</p>
+      <h4 class="card-title">
+        Subscription
+      </h4>
+      <p class="card-text mb-0">You do not have a subscription yet.</p>
+      <hr>
       <a routerLink="subscribe" class="btn btn-success card-link">Subscribe</a>
     </div>
-    <div *ngIf="company.subscription">
-      <p class="card-text text-info">{{ company.subscription.type | planTypeName }}</p>
-      <a href="#" class="btn btn-success card-link">Change</a>
-      <a href="#" class="btn btn-danger card-link">Cancel</a>
+    <div *ngIf="company.subscription && company.subscription.status == 1">
+      <h4 class="card-title">
+        {{ company.subscription.type | planTypeName }} Subscription
+      </h4>
+      <p class="card-text mb-0">{{ company.subscription.currencyCode }}
+        {{ company.subscription.subscriptionPlan.amount }} {{ company.subscription.length | planLengthName }}
+      </p>
+      <p class="card-text badge mb-0" [ngClass]="'badge-' + context">
+        {{ company.subscription.status | subscriptionStatusName }}</p>
+      <hr>
+      <a routerLink="subscribe" class="btn btn-success card-link" [class.disabled]="isCancelling">Change</a>
+      <button class="btn btn-danger card-link" (click)="onCancel()" [disabled]="isCancelling">Cancel<span
+          *ngIf="isCancelling" class="ml-2 mdi mdi-loading mdi-spin"></span></button>
+    </div>
+    <div *ngIf="company.subscription && company.subscription.status != 1">
+      <h4 class="card-title">
+        {{ company.subscription.type | planTypeName }} Subscription
+      </h4>
+      <p class="card-text mb-0">{{ company.subscription.currencyCode }}
+        {{ company.subscription.subscriptionPlan.amount }} {{ company.subscription.length | planLengthName }}
+      </p>
+      <p class="card-text badge mb-0" [ngClass]="'badge-' + context">
+        {{ company.subscription.status | subscriptionStatusName }}</p>
+      <hr>
+      <a routerLink="subscribe" class="btn btn-success card-link">Renew</a>
     </div>
   </div>
 </div>

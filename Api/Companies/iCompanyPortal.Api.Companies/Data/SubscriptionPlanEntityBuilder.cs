@@ -47,9 +47,10 @@ namespace iCompanyPortal.Api.Companies.Data
             }
             for (int i = 0; i < 4; i++)
             {
+                var amount = amounts[i] * 12;
                 yield return new SubscriptionPlan
                 {
-                    Amount = amounts[i] - (amounts[i] * 0.1M),
+                    Amount = amount - (amount * 0.1M),
                     CurrencyCode = currencyCode,
                     Length = SubscriptionLength.Annually,
                     Type = (SubscriptionPlanType)i

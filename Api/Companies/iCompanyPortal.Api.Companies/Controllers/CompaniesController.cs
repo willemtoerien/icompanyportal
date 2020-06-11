@@ -67,6 +67,7 @@ namespace iCompanyPortal.Api.Companies.Controllers
             var userId = this.GetUserId();
             var company = await db.Companies
                 .Include(x => x.Subscription)
+                .ThenInclude(x => x.SubscriptionPlan)
                 .SingleOrDefaultAsync(x => x.CompanyId == companyId);
             return Ok(company);
         }

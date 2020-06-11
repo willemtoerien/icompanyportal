@@ -92,6 +92,8 @@ namespace iCompanyPortal.Api.Companies.Controllers
 
             subscription.Status = SubscriptionStatus.Cancelled;
 
+            await db.SaveChangesAsync();
+
             return NoContent();
         }
     }
